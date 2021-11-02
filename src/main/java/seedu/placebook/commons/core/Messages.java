@@ -14,4 +14,5 @@ public class Messages {
     public static final String MESSAGE_APPOINTMENTS_LISTED_OVERVIEW = "%1$d appointments listed!";
     public static final String MESSAGE_APPOINTMENTS_DUPLICATE_PERSON_ADDED = "Duplicated Person not allowed!";
     public static final String MESSAGE_APPOINTMENTS_DUPLICATE_APPOINTMENT_ADDED = "Clashing appointment Timings";
+    public static final String MESSAGE_END_TIME_BEFORE_START_TIME = "The end time should be after the start time";
 }

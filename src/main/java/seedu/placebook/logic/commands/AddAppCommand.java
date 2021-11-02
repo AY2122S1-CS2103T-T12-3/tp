@@ -7,6 +7,7 @@ import static seedu.placebook.logic.parser.CliSyntax.PREFIX_ENDDATETIME;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_STARTDATETIME;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import seedu.placebook.commons.core.Messages;
@@ -19,6 +20,7 @@ import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.person.exceptions.DuplicatePersonException;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.TimePeriod;
+import seedu.placebook.model.schedule.exceptions.EndTimeBeforeStartTimeException;
 
 /**
  * Creates an appointment with an existing person in PlaceBook
@@ -45,25 +47,30 @@ public class AddAppCommand extends Command {
 
     private final List<Index> indexes;
     private final Address location;
-    private final TimePeriod timePeriod;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
     private final String description;
 
     /**
-     * Creates an AddAppCommand
-     * @param indexes The indexes of the person to be met during the appointment
-     * @param location The location of the appointment
-     * @param timePeriod the Time period of the appointment
-     * @param description The description of the appointment
+     * Creates an AddAppCommand.
+     * @param indexes The indexes of the person to be met during the appointment.
+     * @param location The location of the appointment.
+     * @param startDateTime the start date time of the appointment.
+     * @param endDateTime the end date time of the appointment.
+     * @param description The description of the appointment.
      */
-    public AddAppCommand(List<Index> indexes, Address location, TimePeriod timePeriod, String description) {
+    public AddAppCommand(List<Index> indexes, Address location, LocalDateTime startDateTime,
+                         LocalDateTime endDateTime, String description) {
         requireNonNull(indexes);
         requireNonNull(location);
-        requireNonNull(timePeriod);
+        requireNonNull(startDateTime);
+        requireNonNull(endDateTime);
         requireNonNull(description);
 
         this.indexes = indexes;
         this.location = location;
-        this.timePeriod = timePeriod;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.description = description;
     }
 
@@ -71,7 +78,6 @@ public class AddAppCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Appointment> lastShownAppList = model.getFilteredAppointmentList();
         UniquePersonList clients = new UniquePersonList();
 
         for (Index index : indexes) {
@@ -85,18 +91,20 @@ public class AddAppCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_APPOINTMENTS_DUPLICATE_PERSON_ADDED);
             }
         }
-        for (Appointment app : lastShownAppList) {
-            if (app.getTimePeriod().hasConflictWith(this.timePeriod)) {
-                throw new CommandException(Messages.MESSAGE_APPOINTMENTS_DUPLICATE_APPOINTMENT_ADDED);
-            }
+
+        TimePeriod timePeriod;
+        Appointment appointmentToAdd;
+        try {
+            timePeriod = new TimePeriod(this.startDateTime, endDateTime);
+            appointmentToAdd = new Appointment(clients, location, timePeriod, description);
+        } catch (EndTimeBeforeStartTimeException e) {
+            throw new CommandException(Messages.MESSAGE_END_TIME_BEFORE_START_TIME);
         }
-        Appointment appointmentToAdd = new Appointment(clients, location, timePeriod, description);
         if (!model.getClashingAppointments(appointmentToAdd).isEmpty()) {
             String clashingAppointments = model.getClashingAppointmentsAsString(appointmentToAdd);
             throw new CommandException(Messages.MESSAGE_APPOINTMENTS_DUPLICATE_APPOINTMENT_ADDED
                     + '\n' + clashingAppointments);
         }
-
         model.addAppointment(appointmentToAdd);
         model.updateState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointmentToAdd));
@@ -117,7 +125,8 @@ public class AddAppCommand extends Command {
         AddAppCommand aa = (AddAppCommand) other;
         return this.indexes.equals(aa.indexes)
                 && this.location.equals(aa.location)
-                && this.timePeriod.equals(aa.timePeriod)
+                && this.startDateTime.equals(aa.startDateTime)
+                && this.endDateTime.equals(aa.endDateTime)
                 && this.description.equals(aa.description);
     }
 }

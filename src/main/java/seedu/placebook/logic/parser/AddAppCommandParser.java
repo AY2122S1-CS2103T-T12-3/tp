@@ -15,7 +15,6 @@ import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.AddAppCommand;
 import seedu.placebook.logic.parser.exceptions.ParseException;
 import seedu.placebook.model.person.Address;
-import seedu.placebook.model.schedule.TimePeriod;
 
 public class AddAppCommandParser implements Parser<AddAppCommand> {
 
@@ -36,7 +35,7 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
         LocalDateTime endDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_ENDDATETIME).get());
         String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
-        return new AddAppCommand(indexes, address, new TimePeriod(startDateTime, endDateTime), description);
+        return new AddAppCommand(indexes, address, startDateTime, endDateTime, description);
     }
 
     /**
