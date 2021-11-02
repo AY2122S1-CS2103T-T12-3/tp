@@ -13,6 +13,7 @@ import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.exceptions.PersonNotFoundException;
 import seedu.placebook.model.schedule.exceptions.AppointmentNotFoundException;
+import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.model.schedule.exceptions.DuplicateAppointmentException;
 
 /**
@@ -64,14 +65,34 @@ public class Schedule implements Iterable<Appointment>, ReadOnlySchedule {
      * Adds an Appointment to the list.
      * Appointment Must not already be in the list
      */
-    public void addAppointment(Appointment toAdd) {
+    public void addAppointment(Appointment toAdd) throws DuplicateAppointmentException, ClashingAppointmentsException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAppointmentException();
         }
+
+        List<Appointment> clashingAppointments = getClashingAppointments(toAdd);
+        if (!clashingAppointments.isEmpty()) {
+            throw new ClashingAppointmentsException(clashingAppointments);
+        }
+
         appointmentList.add(toAdd);
         appointmentList.sort(Comparator.comparing(Appointment::getDescription));
         appointmentList.sort(Comparator.comparing(Appointment::getTimePeriod));
+    }
+
+    /**
+     * Returns a list of appointments in the appointmentList that have time conflicts with
+     * the given appointment.
+     * @param appointmentToCheck The given appointment.
+     * @return A list of appointments that have time conflicts with the given appointment.
+     */
+    private List<Appointment> getClashingAppointments(Appointment appointmentToCheck) {
+        return this.appointmentList
+                .stream()
+                .parallel()
+                .filter(appointment -> appointment.isConflictingWith(appointmentToCheck))
+                .collect(Collectors.toList());
     }
 
     public void sortAppointmentByDescription() {

@@ -19,6 +19,7 @@ import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
+import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
@@ -112,11 +113,13 @@ public class AddAppCommandTest {
 
     @Test
     public void execute_duplicateAppointmentTime_returnInvalid() {
+        // use ModelManager instead of Stub for integration test
+        ModelManager modelTester = new ModelManager();
+
         ArrayList<Index> indexOne = new ArrayList<>();
         indexOne.add(Index.fromZeroBased(0));
         ArrayList<Index> indexTwo = new ArrayList<>();
         indexTwo.add(Index.fromZeroBased(1));
-        ModelStubAcceptingAppointmentAdded modelTester = new ModelStubAcceptingAppointmentAdded();
         modelTester.addPerson(new PersonBuilder().withName("ALICE").build());
         modelTester.addPerson(new PersonBuilder().withName("BOB").build());
         Command initialCommand = new AddAppCommand(
@@ -143,11 +146,13 @@ public class AddAppCommandTest {
 
     @Test
     public void execute_conflictingAppointmentTime_returnInvalid() {
+        // use ModelManager instead of Stub for integration test
+        ModelManager modelTester = new ModelManager();
+
         ArrayList<Index> indexOne = new ArrayList<>();
         indexOne.add(Index.fromZeroBased(0));
         ArrayList<Index> indexTwo = new ArrayList<>();
         indexTwo.add(Index.fromZeroBased(1));
-        ModelStubAcceptingAppointmentAdded modelTester = new ModelStubAcceptingAppointmentAdded();
         modelTester.addPerson(new PersonBuilder().withName("ALICE").build());
         modelTester.addPerson(new PersonBuilder().withName("BOB").build());
         Command initialCommand = new AddAppCommand(

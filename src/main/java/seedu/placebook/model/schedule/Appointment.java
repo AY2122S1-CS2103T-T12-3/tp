@@ -119,6 +119,16 @@ public class Appointment {
     }
 
     /**
+     * Checks if this Appointment is conflicting with the given Appointment.
+     *
+     * @param appointment the appointment to check against.
+     * @return true if there is clash in time.
+     */
+    public boolean isConflictingWith(Appointment appointment) {
+        return this.timePeriod.hasConflictWith(appointment.getTimePeriod());
+    }
+
+    /**
      * Returns true if both Appointments have the same fields.
      */
     @Override

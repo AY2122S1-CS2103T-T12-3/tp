@@ -1,14 +1,45 @@
 package seedu.placebook.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.testutil.Assert.assertThrows;
+import static seedu.placebook.testutil.TypicalAppointment.getTypicalAppointments;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalPersons;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import seedu.placebook.model.person.Person;
+import seedu.placebook.model.schedule.Appointment;
+
 public class StringUtilTest {
+    private static final Function<String, String> IDENTITY = x -> x;
+    private static final Function<Appointment, String> GET_TIME_PERIOD = app -> app.getTimePeriod().toString();
+    private static final Function<Person, String> GET_NAME = p -> p.getName().fullName;
+
+    private static final List<String> STRING_LIST = new ArrayList<>();
+    private static final List<Appointment> APPOINTMENT_LIST = new ArrayList<>();
+    private static final List<Person> PERSON_LIST = new ArrayList<>();
+
+    @BeforeAll
+    public static void setUp() {
+        STRING_LIST.add("a");
+        STRING_LIST.add("abc");
+        STRING_LIST.add("123");
+        STRING_LIST.add("XYZ abc");
+        STRING_LIST.add("abc,xyz");
+
+        APPOINTMENT_LIST.addAll(getTypicalAppointments());
+
+        PERSON_LIST.addAll(getTypicalPersons());
+    }
 
     //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
 
@@ -140,4 +171,73 @@ public class StringUtilTest {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 
+    //---------------- Tests for listToString --------------------------------------
+
+    /*
+     * Equivalence Partitions:
+     * list: null, non-null
+     * T: String, Appointment, Person
+     * function: identity, appointment.getTimePeriod, Person.getName
+     * delimiter: null, "", " ", ",", "\n"
+     */
+
+    @Test
+    public void listToString_simpleInputs_success() {
+        assertEquals("", StringUtil.listToString(new ArrayList<>(), IDENTITY, ""));
+    }
+
+    @Test
+    public void listToString_nullGiven_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.listToString(null, IDENTITY, ""));
+        assertThrows(NullPointerException.class, () -> StringUtil.listToString(STRING_LIST, null, ""));
+        assertThrows(NullPointerException.class, () -> StringUtil.listToString(STRING_LIST, IDENTITY, null));
+    }
+
+    @Test
+    public void listToString_inputStringList_success() {
+        assertEquals("aabc123XYZ abcabc,xyz", StringUtil.listToString(STRING_LIST, IDENTITY, ""));
+        assertEquals(String.join("", STRING_LIST), StringUtil.listToString(STRING_LIST, IDENTITY, ""));
+        assertEquals(String.join(",", STRING_LIST), StringUtil.listToString(STRING_LIST, IDENTITY, ","));
+        assertEquals(String.join(" ", STRING_LIST), StringUtil.listToString(STRING_LIST, IDENTITY, " "));
+        assertEquals(String.join("\n", STRING_LIST), StringUtil.listToString(STRING_LIST, IDENTITY, "\n"));
+    }
+
+    @Test
+    public void listToString_inputAppointmentList_success() {
+        assertEquals(
+                "Start Time: 25-12-2021 1000 End Time: 25-12-2021 1100"
+                + "Start Time: 25-12-2022 1000 End Time: 25-12-2022 1100",
+                StringUtil.listToString(APPOINTMENT_LIST, GET_TIME_PERIOD, ""));
+        assertEquals(
+                APPOINTMENT_LIST.stream().map(GET_TIME_PERIOD).collect(Collectors.joining("")),
+                StringUtil.listToString(APPOINTMENT_LIST, GET_TIME_PERIOD, ""));
+        assertEquals(
+                APPOINTMENT_LIST.stream().map(GET_TIME_PERIOD).collect(Collectors.joining(",")),
+                StringUtil.listToString(APPOINTMENT_LIST, GET_TIME_PERIOD, ","));
+        assertEquals(
+                APPOINTMENT_LIST.stream().map(GET_TIME_PERIOD).collect(Collectors.joining(" ")),
+                StringUtil.listToString(APPOINTMENT_LIST, GET_TIME_PERIOD, " "));
+        assertEquals(
+                APPOINTMENT_LIST.stream().map(GET_TIME_PERIOD).collect(Collectors.joining("\n")),
+                StringUtil.listToString(APPOINTMENT_LIST, GET_TIME_PERIOD, "\n"));
+    }
+
+    @Test
+    public void listToString_inputPersonList_success() {
+        assertEquals(
+                "Alice PaulineBenson MeierCarl KurzDaniel MeierElle MeyerFiona KunzGeorge Best",
+                StringUtil.listToString(PERSON_LIST, GET_NAME, ""));
+        assertEquals(
+                PERSON_LIST.stream().map(GET_NAME).collect(Collectors.joining("")),
+                StringUtil.listToString(PERSON_LIST, GET_NAME, ""));
+        assertEquals(
+                PERSON_LIST.stream().map(GET_NAME).collect(Collectors.joining(",")),
+                StringUtil.listToString(PERSON_LIST, GET_NAME, ","));
+        assertEquals(
+                PERSON_LIST.stream().map(GET_NAME).collect(Collectors.joining(" ")),
+                StringUtil.listToString(PERSON_LIST, GET_NAME, " "));
+        assertEquals(
+                PERSON_LIST.stream().map(GET_NAME).collect(Collectors.joining("\n")),
+                StringUtil.listToString(PERSON_LIST, GET_NAME, "\n"));
+    }
 }

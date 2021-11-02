@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.placebook.commons.util.StringUtil;
 import seedu.placebook.model.person.exceptions.DuplicatePersonException;
 import seedu.placebook.model.person.exceptions.PersonNotFoundException;
 
@@ -113,8 +114,7 @@ public class UniquePersonList implements Iterable<Person> {
 
     @Override
     public String toString() {
-        return internalList.stream().reduce(
-            "", (names, person) -> names + person.getName().fullName + ", ", String::concat);
+        return StringUtil.listToString(internalList, person -> person.getName().fullName, ", ");
     }
 
     @Override

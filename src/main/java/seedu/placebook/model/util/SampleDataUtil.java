@@ -61,24 +61,29 @@ public class SampleDataUtil {
      * @return list of appointment
      */
     private static Appointment[] getSampleAppointment() {
+        LocalDateTime now = LocalDateTime.now();
         TimePeriod urgent =
-                new TimePeriod(LocalDateTime.now().plusHours(2), LocalDateTime.now().plusHours(4));
-        TimePeriod medium =
-                new TimePeriod(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2));
-        TimePeriod low =
-                new TimePeriod(LocalDateTime.now().plusDays(9), LocalDateTime.now().plusDays(9).plusHours(2));
+                new TimePeriod(now.plusHours(2), now.plusHours(4));
+        TimePeriod medium1 =
+                new TimePeriod(now.plusDays(3), now.plusDays(3).plusHours(2));
+        TimePeriod medium2 =
+                new TimePeriod(now.plusDays(3).plusHours(3), now.plusDays(3).plusHours(4));
+        TimePeriod low1 =
+                new TimePeriod(now.plusDays(9), now.plusDays(9).plusHours(2));
+        TimePeriod low2 =
+                new TimePeriod(now.plusDays(9).plusHours(3), now.plusDays(9).plusHours(4));
 
         return new Appointment[] {
             new Appointment(getFromSamplePersons(0, 1, 2),
                     new Address("Vivo City"), urgent, "Team meeting"),
             new Appointment(getFromSamplePersons(5),
-                    new Address("ABC Office"), medium, "Team meeting"),
+                    new Address("ABC Office"), medium1, "Developer team meeting"),
             new Appointment(getFromSamplePersons(4),
-                    new Address("Zoom"), medium, "Sales Update"),
+                    new Address("Zoom"), medium2, "Sales Update"),
             new Appointment(getFromSamplePersons(3, 4),
-                    new Address("XYZ Company"), low, "Project meeting"),
+                    new Address("XYZ Company"), low1, "Project meeting"),
             new Appointment(getFromSamplePersons(2, 4, 5),
-                    new Address("XYZ School"), low, "Talk"),
+                    new Address("XYZ School"), low2, "Talk"),
         };
     }
 

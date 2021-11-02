@@ -31,6 +31,7 @@ import seedu.placebook.testutil.AddressBookBuilder;
 import seedu.placebook.testutil.AppointmentBuilder;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.testutil.Seed;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -52,8 +53,8 @@ public class EditCommandTest {
         testAddressbook.addPerson(client1);
         testAddressbook.addPerson(client2);
 
-        Appointment appointment1 = new AppointmentBuilder().addClient(client1).build();
-        Appointment appointment2 = new AppointmentBuilder().addClient(client1).addClient(client2).build();
+        Appointment appointment1 = new AppointmentBuilder(Seed.ONE).addClient(client1).build();
+        Appointment appointment2 = new AppointmentBuilder(Seed.TWO).addClient(client1).addClient(client2).build();
 
         testSchedule = new Schedule();
         testSchedule.addAppointment(appointment1);
