@@ -82,7 +82,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyContacts getSampleContacts    () {
+    public static ReadOnlyContacts getSampleContacts () {
         Contacts sampleAb = new Contacts();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
