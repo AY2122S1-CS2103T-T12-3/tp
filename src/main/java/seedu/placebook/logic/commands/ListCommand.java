@@ -6,7 +6,7 @@ import static seedu.placebook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.placebook.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in Placebook to the user.
  */
 public class ListCommand extends Command {
 

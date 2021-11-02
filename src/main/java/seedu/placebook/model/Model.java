@@ -41,22 +41,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' contacts file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactsFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' contacts file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setContactsFilePath(Path contactsFilePath);
 
     /**
-     * Replaces PlaceBook data with the data in {@code addressBook}.
+     * Replaces PlaceBook data with the data in {@code contacts}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setContacts(ReadOnlyContacts contacts);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Contacts */
+    ReadOnlyContacts getContacts();
 
     /** Returns the Schedule */
     ReadOnlySchedule getSchedule();
@@ -80,7 +80,7 @@ public interface Model {
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in contacts.
      * The person identity of {@code editedPerson} must not be the same as another existing person in PlaceBook.
      */
     void setPerson(Person target, Person editedPerson);
@@ -166,7 +166,7 @@ public interface Model {
 
     /**
      * Replaces the given appointment {@code target} with {@code editedAppointment}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in contacts.
      * The appointment identity of {@code editedAppointment}
      * must not be the same as another existing appointment in PlaceBook.
      */

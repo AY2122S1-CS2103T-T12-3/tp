@@ -7,7 +7,7 @@ import seedu.placebook.commons.core.GuiSettings;
 import seedu.placebook.logic.commands.CommandResult;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.logic.parser.exceptions.ParseException;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 
@@ -25,11 +25,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the contact.
      *
-     * @see seedu.placebook.model.Model#getAddressBook()
+     * @see seedu.placebook.model.Model#getContacts()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyContacts getContacts();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -38,9 +38,9 @@ public interface Logic {
     ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' contacts file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactsFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

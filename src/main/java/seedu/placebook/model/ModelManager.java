@@ -26,7 +26,7 @@ import seedu.placebook.model.schedule.Schedule;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private AddressBook addressBook;
+    private Contacts addressBook;
     private final UserPrefs userPrefs;
     private Schedule schedule;
     private FilteredList<Person> filteredPersons;
@@ -36,13 +36,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs and schedule.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlySchedule schedule) {
+    public ModelManager(ReadOnlyContacts addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlySchedule schedule) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new Contacts(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -55,14 +55,14 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, userPrefs, schedule and history states.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+    public ModelManager(ReadOnlyContacts addressBook, ReadOnlyUserPrefs userPrefs,
                         ReadOnlySchedule schedule, HistoryStates historyStates) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new Contacts(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -71,7 +71,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new Schedule());
+        this(new Contacts(), new UserPrefs(), new Schedule());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -99,25 +99,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getContactsFilePath() {
+        return userPrefs.getContactsFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setContactsFilePath(Path contactsFilePath) {
+        requireNonNull(contactsFilePath);
+        userPrefs.setContactsFilePath(contactsFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setContacts(ReadOnlyContacts contacts) {
+        this.addressBook.resetData(contacts);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyContacts getContacts() {
         return addressBook;
     }
 
@@ -355,7 +355,7 @@ public class ModelManager implements Model {
             this.historyStates.undo();
             State previousState = this.historyStates.getCurrentState();
             this.schedule = previousState.getSchedule();
-            this.addressBook = previousState.getAddressBook();
+            this.addressBook = previousState.getContacts();
             filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
             filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
             System.out.println(this.addressBook.getPersonList().size() + " " + this.schedule.hashCode());
