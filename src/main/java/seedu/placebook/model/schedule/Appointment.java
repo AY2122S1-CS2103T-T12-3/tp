@@ -76,6 +76,15 @@ public class Appointment {
     }
 
     /**
+     * Checks if this Appointment is conflicting with the given Appointment.
+     * @param appointment the appointment to check against.
+     * @return true if there is clash in time, false otherwise.
+     */
+    public boolean isConflictingWith(Appointment appointment) {
+        return this.timePeriod.hasConflictWith(appointment.getTimePeriod());
+    }
+
+    /**
      * Checks if this appointment is related to the client.
      * @param person the client to check with.
      * @return true if the client is related and false otherwise.
@@ -116,16 +125,6 @@ public class Appointment {
      */
     public void setClient(Person personToEdit, Person editedPerson) {
         clients.setPerson(personToEdit, editedPerson);
-    }
-
-    /**
-     * Checks if this Appointment is conflicting with the given Appointment.
-     *
-     * @param appointment the appointment to check against.
-     * @return true if there is clash in time.
-     */
-    public boolean isConflictingWith(Appointment appointment) {
-        return this.timePeriod.hasConflictWith(appointment.getTimePeriod());
     }
 
     /**

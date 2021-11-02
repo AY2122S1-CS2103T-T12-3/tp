@@ -124,6 +124,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setSchedule(ReadOnlySchedule schedule) {
+        this.schedule.resetData(schedule);
+    }
+
+    @Override
     public ReadOnlySchedule getSchedule() {
         return schedule;
     }

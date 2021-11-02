@@ -128,6 +128,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setSchedule(ReadOnlySchedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlySchedule getSchedule() {
             throw new AssertionError("This method should not be called.");
         }

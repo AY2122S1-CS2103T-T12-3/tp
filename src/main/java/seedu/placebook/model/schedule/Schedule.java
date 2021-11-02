@@ -134,6 +134,22 @@ public class Schedule implements Iterable<Appointment>, ReadOnlySchedule {
         return appointmentList.contains(toCheck);
     }
 
+    /**
+     * Checks if the appointmentList contains a conflict {@code Appointment} with the {@code Appointment} to be checked.
+     * @param toCheck The appointment to be checked for conflict.
+     * @return true if there is a conflicting appointment, false if there is not.
+     */
+    public boolean hasConflictingAppointment(Appointment toCheck) {
+        requireNonNull(toCheck);
+        for (Appointment app : appointmentList) {
+            if (app.isConflictingWith(toCheck)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public Iterator<Appointment> iterator() {
         return appointmentList.iterator();

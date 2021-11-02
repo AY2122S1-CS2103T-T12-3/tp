@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.placebook.commons.exceptions.IllegalValueException;
 import seedu.placebook.commons.util.JsonUtil;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.testutil.TypicalAppointment;
 
 public class JsonSerializableScheduleTest {
@@ -45,7 +44,7 @@ public class JsonSerializableScheduleTest {
     public void toModelType_clashingAppointment_throwsClashingAppointmentsException() throws Exception {
         JsonSerializableSchedule dataFromFile = JsonUtil.readJsonFile(CLASHING_APPOINTMENT_FILE,
                 JsonSerializableSchedule.class).get();
-        assertThrows(ClashingAppointmentsException.class, ClashingAppointmentsException.MESSAGE_CLASHING_APPOINTMENTS,
+        assertThrows(IllegalValueException.class, JsonSerializableSchedule.MESSAGE_CONFLICTING_APPOINTMENT,
                 dataFromFile::toModelType);
     }
 

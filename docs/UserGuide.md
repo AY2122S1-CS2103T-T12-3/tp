@@ -206,12 +206,6 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the PlaceBook.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
-
-Clears all contacts from PlaceBook.
-
-Format: `clear`
-
 ## **Appointment Features**
 This section contains information on features related to adding appointments to the appointment list.
 
@@ -322,6 +316,12 @@ Format: `listapp` Optional: `listapp Time` or `listapp Description`
 
 ## **Other Features**
 
+### Clearing all entries : `clear`
+
+Clears all contacts and appointments from PlaceBook.
+
+Format: `clear`
+
 ### Command history navigation
 
 Using the keyboard `UP` and `DOWN` arrow buttons, you can easily navigate through the command that you previously entered.
@@ -362,10 +362,17 @@ PlaceBook data will be saved in the hard disk automatically after any command th
 
 ### Editing the data file
 
-PlaceBook data will be saved as a JSON file `[JAR file location]/data/placebook.json`. Advanced users are welcome to update data directly by editing that data file.
+Advanced users are welcome to update data directly by editing that data file.
+PlaceBook Person and Appointment data will be saved in two separate JSON files, locations in the table below.
+
+Data | File Location
+-----|--------------
+Person | `[JAR file location]/data/contacts.json`
+Appointment | `[JAR file location]/data/schedule.json`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, PlaceBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, PlaceBook will discard all data and start with an empty data file at the next run.<br>
+Invalid changes include creating duplicate entries in any of the JSON files, or creating Appointments with time conflicts in the `schedule.json` file
 </div>
 
 ### Archiving data files `[coming in v2.0]`

@@ -58,6 +58,11 @@ public interface Model {
     /** Returns the Contacts */
     ReadOnlyContacts getContacts();
 
+    /**
+     * Replaces PlaceBook schedule data with the data in {@code schedule}.
+     */
+    void setSchedule(ReadOnlySchedule schedule);
+
     /** Returns the Schedule */
     ReadOnlySchedule getSchedule();
 
