@@ -58,14 +58,14 @@ public class Appointment {
      * Creates a string representation of the start timing.
      */
     public String getStartDateTimeString() {
-        return this.timePeriod.getStartDateTimeString();
+        return this.timePeriod.getStartDateTimeAsString();
     }
 
     /**
      * Creates a string representation of the end timing.
      */
     public String getEndDateTimeString() {
-        return this.timePeriod.getEndDateTimeString();
+        return this.timePeriod.getEndDateTimeAsString();
     }
 
     /**

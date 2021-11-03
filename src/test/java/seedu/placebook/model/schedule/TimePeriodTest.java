@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,11 @@ public class TimePeriodTest {
     @Test
     public void timePeriod_endDateTimeIsBeforeStartDateTime_throwsException() {
         assertThrows(EndTimeBeforeStartTimeException.class, () -> new TimePeriod(TEST_MOMENT2, TEST_MOMENT1));
+    }
+
+    @Test
+    public void timePeriod_endDateTimeIsNotAfterStartDateTime_throwsException() {
+        assertThrows(EndTimeBeforeStartTimeException.class, () -> new TimePeriod(TEST_MOMENT2, TEST_MOMENT2));
     }
 
     @Test
@@ -89,5 +95,68 @@ public class TimePeriodTest {
         TimePeriod tp2 = new TimePeriod(TEST_MOMENT3, TEST_MOMENT4);
         assertFalse(tp1.hasConflictWith(tp2));
         assertFalse(tp2.hasConflictWith(tp1));
+    }
+
+    @Test
+    public void equals_sameObject_returnTrue() {
+        TimePeriod timePeriod = new TimePeriod(TEST_MOMENT1, TEST_MOMENT2);
+        assertTrue(timePeriod.equals(timePeriod));
+    }
+
+    @Test
+    public void equals_null_returnFalse() {
+        TimePeriod timePeriod = new TimePeriod(TEST_MOMENT1, TEST_MOMENT2);
+        assertFalse(timePeriod.equals(null));
+    }
+
+    @Test
+    public void equals_sameStartDateTimeAndEndDateTime_returnTrue() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT2, TEST_MOMENT3);
+        TimePeriod tp2 = new TimePeriod(TEST_MOMENT2, TEST_MOMENT3);
+        assertTrue(tp1.equals(tp2));
+    }
+
+    @Test
+    public void equals_differentStartDateTime_returnFalse() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        TimePeriod tp2 = new TimePeriod(TEST_MOMENT2, TEST_MOMENT3);
+        assertFalse(tp1.equals(tp2));
+    }
+
+    @Test
+    public void equals_differentEndDateTime_returnFalse() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        TimePeriod tp2 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT2);
+        assertFalse(tp1.equals(tp2));
+    }
+
+    @Test
+    public void getStartDateAndTimeAsString_getCorrectString() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        String correctString = TEST_MOMENT1.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        assertTrue(tp1.getStartDateTimeAsString().equals(correctString));
+    }
+
+    @Test
+    public void getEndDateAndTimeAsString_getCorrectString() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        String correctString = TEST_MOMENT3.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        assertTrue(tp1.getEndDateTimeAsString().equals(correctString));
+    }
+
+    @Test
+    public void compareTo_tp1HasStartDateTimeEarlierThanThatOfTp2_returnNegativeValue() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        TimePeriod tp2 = new TimePeriod(TEST_MOMENT2, TEST_MOMENT3);
+        assertTrue(tp1.compareTo(tp2) < 0);
+        assertTrue(tp2.compareTo(tp1) > 0);
+    }
+
+    @Test
+    public void compareTo_tp1AndTp2HaveSameStartDateTimeAndTp1HasEndDateTimeEarlierThanThatOfTp2_returnNegativeValue() {
+        TimePeriod tp1 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT3);
+        TimePeriod tp2 = new TimePeriod(TEST_MOMENT1, TEST_MOMENT4);
+        assertTrue(tp1.compareTo(tp2) < 0);
+        assertTrue(tp2.compareTo(tp1) > 0);
     }
 }
