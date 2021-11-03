@@ -20,7 +20,7 @@ import seedu.placebook.commons.core.Messages;
 import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
@@ -45,7 +45,7 @@ public class EditCommandTest {
     private final UniquePersonList editTestPersonList = new UniquePersonList();
 
     private Model model;
-    private AddressBook testAddressbook;
+    private Contacts testAddressbook;
     private Schedule testSchedule;
 
     @BeforeEach
@@ -103,7 +103,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
@@ -117,7 +117,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
@@ -134,7 +134,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
@@ -154,7 +154,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person personInList = model.getContacts().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -179,7 +179,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

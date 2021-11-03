@@ -8,7 +8,7 @@ import seedu.placebook.model.person.NameContainsKeywordsPredicate;
 import seedu.placebook.ui.Ui;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in Placebook whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

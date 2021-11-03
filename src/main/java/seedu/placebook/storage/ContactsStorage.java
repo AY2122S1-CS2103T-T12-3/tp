@@ -5,42 +5,42 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.placebook.commons.exceptions.DataConversionException;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.ReadOnlyContacts;
-import seedu.placebook.model.ReadOnlySchedule;
 
 /**
- * Represents a storage for {@link seedu.placebook.model.schedule.Schedule}.
+ * Represents a storage for {@link Contacts}.
  */
-public interface ScheduleStorage {
+public interface ContactsStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getScheduleFilePath();
+    Path getContactsFilePath();
 
     /**
-     * Returns contact data as a {@link ReadOnlyContacts}.
+     * Returns Contacts data as a {@link ReadOnlyContacts}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlySchedule> readSchedule() throws DataConversionException, IOException;
+    Optional<ReadOnlyContacts> readContacts() throws DataConversionException, IOException;
 
     /**
-     * @see #getScheduleFilePath()
+     * @see #getContactsFilePath()
      */
-    Optional<ReadOnlySchedule> readSchedule(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyContacts> readContacts(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyContacts} to the storage.
-     * @param schedule cannot be null.
+     * @param contacts cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveSchedule(ReadOnlySchedule schedule) throws IOException;
+    void saveContacts(ReadOnlyContacts contacts) throws IOException;
 
     /**
-     * @see #saveSchedule(ReadOnlySchedule)
+     * @see #saveContacts(ReadOnlyContacts)
      */
-    void saveSchedule(ReadOnlySchedule schedule, Path filePath) throws IOException;
+    void saveContacts(ReadOnlyContacts contacts, Path filePath) throws IOException;
 
 }

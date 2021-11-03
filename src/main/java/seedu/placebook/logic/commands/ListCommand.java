@@ -7,7 +7,7 @@ import seedu.placebook.model.Model;
 import seedu.placebook.ui.Ui;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the contacts to the user.
  */
 public class ListCommand extends Command {
 

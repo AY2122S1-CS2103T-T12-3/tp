@@ -8,7 +8,7 @@ import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
 import seedu.placebook.ui.Ui;
 
 /**
- * Finds and lists all appointments in address book whose description contains any of the argument keywords.
+ * Finds and lists all appointments in Placebook whose description contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindAppCommand extends Command {

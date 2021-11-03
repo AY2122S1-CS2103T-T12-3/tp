@@ -7,29 +7,29 @@ import java.util.logging.Logger;
 
 import seedu.placebook.commons.core.LogsCenter;
 import seedu.placebook.commons.exceptions.DataConversionException;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Placebook data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ContactsStorage contactsStorage;
     private UserPrefsStorage userPrefsStorage;
     private ScheduleStorage scheduleStorage;
 
     /**
-     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}
+     * Creates a {@code StorageManager} with the given {@code ContactsStorage}, {@code UserPrefStorage} and {@code ScheduleStorage}
      * and {@code ScheduleStorage}.
      */
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-            ScheduleStorage scheduleStorage) {
+    public StorageManager(ContactsStorage contactsStorage, UserPrefsStorage userPrefsStorage,
+                          ScheduleStorage scheduleStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.contactsStorage = contactsStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.scheduleStorage = scheduleStorage;
     }
@@ -52,33 +52,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Contacts methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getContactsFilePath() {
+        return contactsStorage.getContactsFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyContacts> readContacts() throws DataConversionException, IOException {
+        return readContacts(contactsStorage.getContactsFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyContacts> readContacts(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return contactsStorage.readContacts(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveContacts(ReadOnlyContacts contacts) throws IOException {
+        saveContacts(contacts, contactsStorage.getContactsFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveContacts(ReadOnlyContacts contacts, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        contactsStorage.saveContacts(contacts, filePath);
     }
 
     // ================ Schedule methods ==============================

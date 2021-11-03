@@ -12,7 +12,7 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.ui.Ui;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from contacts.
  */
 public class DeleteCommand extends Command {
 
