@@ -85,7 +85,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyContacts> contactsOptional;
         Optional<ReadOnlySchedule> scheduleOptional;
-        ReadOnlyContacts initialData;
+        ReadOnlyContacts initialContacts;
         ReadOnlySchedule initialSchedule;
         boolean usingSampleSchedule = false;
 
@@ -115,18 +115,18 @@ public class MainApp extends Application {
                 logger.info("Contacts data found, wiping sample Schedule");
                 initialSchedule = new Schedule();
             }
-            initialData = contactsOptional.orElseGet(SampleDataUtil::getSampleContacts);
+            initialContacts = contactsOptional.orElseGet(SampleDataUtil::getSampleContacts);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Contacts");
-            initialData = new Contacts();
+            initialContacts = new Contacts();
             initialSchedule = new Schedule();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Contacts");
-            initialData = new Contacts();
+            initialContacts = new Contacts();
             initialSchedule = new Schedule();
         }
 
-        return new ModelManager(initialData, userPrefs, initialSchedule);
+        return new ModelManager(initialContacts, userPrefs, initialSchedule);
     }
 
     private void initLogging(Config config) {
