@@ -90,23 +90,10 @@ public class MainApp extends Application {
         boolean usingSampleSchedule = false;
 
         try {
-            contactsOptional = storage.readContacts();
-            if (!contactsOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with sample contacts");
-            }
-            initialData = contactsOptional.orElseGet(SampleDataUtil::getSampleContacts);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with empty contacts");
-            initialData = new Contacts();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with empty contacts");
-            initialData = new Contacts();
-        }
-
-        try {
             scheduleOptional = storage.readSchedule();
             if (!scheduleOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Schedule");
+                usingSampleSchedule = true;
             }
             initialSchedule = scheduleOptional.orElseGet(SampleDataUtil::getSampleSchedule);
         } catch (DataConversionException e) {
@@ -114,6 +101,28 @@ public class MainApp extends Application {
             initialSchedule = new Schedule();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Schedule");
+            initialSchedule = new Schedule();
+        }
+
+        try {
+            contactsOptional = storage.readContacts();
+            if (!contactsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample contacts");
+                initialSchedule = SampleDataUtil.getSampleSchedule();
+            } else if (usingSampleSchedule) {
+                // Sample Schedule data would most likely not match non-sample addressBook
+                // In this case, we will wipe schedule data
+                logger.info("AddressBook data found, wiping sample Schedule");
+                initialSchedule = new Schedule();
+            }
+            initialData = contactsOptional.orElseGet(SampleDataUtil::getSampleContacts);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with empty contacts");
+            initialData = new Contacts();
+            initialSchedule = new Schedule();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with empty contacts");
+            initialData = new Contacts();
             initialSchedule = new Schedule();
         }
 
