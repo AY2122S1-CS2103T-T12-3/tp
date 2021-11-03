@@ -1,7 +1,7 @@
 package seedu.placebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -146,6 +146,23 @@ public class AddAppCommandTest {
     }
 
     @Test
+    public void execute_endTimeBeforeStartTime_returnInvalid() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        Command commandResult = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                "Halloween Sales");
+
+        assertThrows(CommandException.class, ()
+                -> commandResult.execute(modelStub, uiStub));
+    }
+
+    @Test
     public void execute_duplicateAppointmentTime_returnInvalid() {
         // use ModelManager instead of Stub for integration test
         ModelManager modelTester = new ModelManager();
@@ -179,6 +196,37 @@ public class AddAppCommandTest {
     }
 
     @Test
+    public void execute_duplicateAppointment_returnInvalid() {
+        // use ModelManager instead of Stub for integration test
+        ModelManager modelTester = new ModelManager();
+
+        ArrayList<Index> index = new ArrayList<>();
+        index.add(Index.fromZeroBased(0));
+        modelTester.addPerson(new PersonBuilder().withName("ALICE").build());
+        modelTester.addPerson(new PersonBuilder().withName("BOB").build());
+        Command initialCommand = new AddAppCommand(
+                index,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
+                "Halloween Sales");
+        Command commandResult = new AddAppCommand(
+                index,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
+                "Halloween Sales");
+        try {
+            initialCommand.execute(modelTester, uiStub);
+        } catch (CommandException e) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        assertThrows(CommandException.class, ()
+                -> commandResult.execute(modelTester, uiStub));
+    }
+
+    @Test
     public void execute_conflictingAppointmentTime_returnInvalid() {
         // use ModelManager instead of Stub for integration test
         ModelManager modelTester = new ModelManager();
@@ -209,6 +257,64 @@ public class AddAppCommandTest {
 
         assertThrows(CommandException.class, ()
             -> commandResult.execute(modelTester, uiStub));
+    }
+
+    @Test
+    public void equals_SameAddAppCommand_returnTrue() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        assertEquals(initialCommand, compareCommand);
+    }
+
+    @Test
+    public void equals_NullAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = null;
+        assertFalse(() -> initialCommand.equals(compareCommand));
+    }
+
+    @Test
+    public void equals_DifferentDescriptionAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Purchase");
+        assertFalse(() -> initialCommand.equals(compareCommand));
     }
 
     private class ModelStub implements Model {
