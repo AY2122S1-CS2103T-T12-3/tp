@@ -7,6 +7,7 @@ import static seedu.placebook.logic.parser.CliSyntax.PREFIX_ENDDATETIME;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_STARTDATETIME;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import seedu.placebook.commons.core.Messages;
@@ -21,6 +22,8 @@ import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.model.schedule.exceptions.DuplicateAppointmentException;
+import seedu.placebook.model.schedule.exceptions.EndTimeBeforeStartTimeException;
+import seedu.placebook.ui.Ui;
 
 /**
  * Creates an appointment with an existing person in PlaceBook
@@ -47,30 +50,35 @@ public class AddAppCommand extends Command {
 
     private final List<Index> indexes;
     private final Address location;
-    private final TimePeriod timePeriod;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
     private final String description;
 
     /**
-     * Creates an AddAppCommand
-     * @param indexes The indexes of the person to be met during the appointment
-     * @param location The location of the appointment
-     * @param timePeriod the Time period of the appointment
-     * @param description The description of the appointment
+     * Creates an AddAppCommand.
+     * @param indexes The indexes of the person to be met during the appointment.
+     * @param location The location of the appointment.
+     * @param startDateTime The start date and time of the appointment.
+     * @param endDateTime The end date and time of the appointment.
+     * @param description The description of the appointment.
      */
-    public AddAppCommand(List<Index> indexes, Address location, TimePeriod timePeriod, String description) {
+    public AddAppCommand(List<Index> indexes, Address location, LocalDateTime startDateTime,
+                         LocalDateTime endDateTime, String description) {
         requireNonNull(indexes);
         requireNonNull(location);
-        requireNonNull(timePeriod);
+        requireNonNull(startDateTime);
+        requireNonNull(endDateTime);
         requireNonNull(description);
 
         this.indexes = indexes;
         this.location = location;
-        this.timePeriod = timePeriod;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.description = description;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Ui ui) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Appointment> lastShownAppList = model.getFilteredAppointmentList();
@@ -87,15 +95,19 @@ public class AddAppCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_APPOINTMENTS_DUPLICATE_PERSON_ADDED);
             }
         }
-        Appointment appointmentToAdd = new Appointment(clients, location, timePeriod, description);
+        Appointment appointmentToAdd;
 
         try {
+            TimePeriod timePeriod = new TimePeriod(this.startDateTime, endDateTime);
+            appointmentToAdd = new Appointment(clients, location, timePeriod, description);
             model.addAppointment(appointmentToAdd);
         } catch (ClashingAppointmentsException e) {
             String clashingAppointments = e.getClashingAppointmentAsString();
             throw new CommandException(Messages.MESSAGE_APPOINTMENTS_CLASHING_APPOINTMENT_ADDED + clashingAppointments);
         } catch (DuplicateAppointmentException e) {
             throw new CommandException(Messages.MESSAGE_APPOINTMENTS_DUPLICATE_APPOINTMENT_ADDED);
+        } catch (EndTimeBeforeStartTimeException e) {
+            throw new CommandException(Messages.MESSAGE_APPOINTMENTS_END_TIME_BEFORE_START_TIME);
         }
 
         model.updateState();
@@ -117,7 +129,8 @@ public class AddAppCommand extends Command {
         AddAppCommand aa = (AddAppCommand) other;
         return this.indexes.equals(aa.indexes)
                 && this.location.equals(aa.location)
-                && this.timePeriod.equals(aa.timePeriod)
+                && this.startDateTime.equals(aa.startDateTime)
+                && this.endDateTime.equals(aa.endDateTime)
                 && this.description.equals(aa.description);
     }
 }

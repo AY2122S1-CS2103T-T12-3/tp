@@ -86,6 +86,6 @@ public class StringUtil {
         for (T t : list) {
             stringBuilder.append(function.apply(t)).append(delimiter);
         }
-        return stringBuilder.substring(0, stringBuilder.length() - delimiter.length());
+        return stringBuilder.substring(0, Math.max(stringBuilder.length() - delimiter.length(), 0));
     }
 }

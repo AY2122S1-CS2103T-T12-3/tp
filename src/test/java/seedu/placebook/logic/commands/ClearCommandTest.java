@@ -7,19 +7,23 @@ import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.placebook.model.Contacts;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
 import seedu.placebook.model.schedule.Schedule;
+import seedu.placebook.ui.Ui;
 
 public class ClearCommandTest {
+    // default positive confirmation ui. This will not affect clearCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
 
     @Test
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, uiStub, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -29,7 +33,7 @@ public class ClearCommandTest {
         expectedModel.setContacts(new Contacts());
         expectedModel.setSchedule(new Schedule());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, uiStub, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

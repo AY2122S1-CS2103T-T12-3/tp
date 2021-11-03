@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.placebook.commons.core.GuiSettings;
 import seedu.placebook.commons.core.index.Index;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
@@ -26,16 +27,18 @@ import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
-import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.testutil.AppointmentBuilder;
 import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.ui.Ui;
 
 public class AddAppCommandTest {
+    // default positive confirmation ui. This will not affect AddAppCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
-            -> new AddAppCommand(null, null, null, null));
+            -> new AddAppCommand(null, null, null, null, null));
     }
 
     @Test
@@ -48,9 +51,9 @@ public class AddAppCommandTest {
         CommandResult commandResult = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 12, 25, 21, 30),
-                        LocalDateTime.of(2021, 12, 25, 22, 30)),
-                "Halloween Sales").execute(modelStub);
+                LocalDateTime.of(2021, 12, 25, 21, 30),
+                LocalDateTime.of(2021, 12, 25, 22, 30),
+                "Halloween Sales").execute(modelStub, uiStub);
 
         assertEquals(String.format(AddAppCommand.MESSAGE_SUCCESS, validAppointment), commandResult.getFeedbackToUser());
     }
@@ -68,9 +71,9 @@ public class AddAppCommandTest {
         CommandResult commandResult = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 12, 25, 21, 30),
-                        LocalDateTime.of(2021, 12, 25, 22, 30)),
-                "Halloween Sales").execute(modelStub);
+                LocalDateTime.of(2021, 12, 25, 21, 30),
+                LocalDateTime.of(2021, 12, 25, 22, 30),
+                "Halloween Sales").execute(modelStub, uiStub);
 
         assertEquals(String.format(AddAppCommand.MESSAGE_SUCCESS, validAppointment), commandResult.getFeedbackToUser());
     }
@@ -84,12 +87,12 @@ public class AddAppCommandTest {
         Command commandResult = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 10, 0),
-                        LocalDateTime.of(2021, 1, 2, 10, 0)),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
                 "Halloween Sales");
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelStub));
+            -> commandResult.execute(modelStub, uiStub));
     }
 
     @Test
@@ -103,12 +106,12 @@ public class AddAppCommandTest {
         Command commandResult = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 10, 0),
-                        LocalDateTime.of(2021, 1, 2, 10, 0)),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
                 "Halloween Sales");
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelStub));
+            -> commandResult.execute(modelStub, uiStub));
     }
 
     @Test
@@ -125,23 +128,23 @@ public class AddAppCommandTest {
         Command initialCommand = new AddAppCommand(
                 indexOne,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 10, 0),
-                        LocalDateTime.of(2021, 1, 2, 10, 0)),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
                 "Halloween Sales");
         Command commandResult = new AddAppCommand(
                 indexTwo,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 10, 0),
-                        LocalDateTime.of(2021, 1, 2, 10, 0)),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 2, 10, 0),
                 "Halloween Sales");
         try {
-            initialCommand.execute(modelTester);
+            initialCommand.execute(modelTester, uiStub);
         } catch (CommandException e) {
             throw new AssertionError("This method should not be called.");
         }
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelTester));
+            -> commandResult.execute(modelTester, uiStub));
     }
 
     @Test
@@ -158,23 +161,23 @@ public class AddAppCommandTest {
         Command initialCommand = new AddAppCommand(
                 indexOne,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 10, 0),
-                        LocalDateTime.of(2021, 1, 1, 12, 0)),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
                 "Halloween Sales");
         Command commandResult = new AddAppCommand(
                 indexTwo,
                 new Address("vivocity"),
-                new TimePeriod(LocalDateTime.of(2021, 1, 1, 11, 0),
-                        LocalDateTime.of(2021, 1, 1, 13, 0)),
+                LocalDateTime.of(2021, 1, 1, 11, 0),
+                LocalDateTime.of(2021, 1, 1, 13, 0),
                 "Halloween Sales");
         try {
-            initialCommand.execute(modelTester);
+            initialCommand.execute(modelTester, uiStub);
         } catch (CommandException e) {
             throw new AssertionError("This method should not be called.");
         }
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelTester));
+            -> commandResult.execute(modelTester, uiStub));
     }
 
     private class ModelStub implements Model {

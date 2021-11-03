@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.placebook.commons.core.Messages;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
+import seedu.placebook.ui.Ui;
 
 /**
  * Finds and lists all appointments in address book whose description contains any of the argument keywords.
@@ -27,7 +28,7 @@ public class FindAppCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
         model.updateState();

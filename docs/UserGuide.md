@@ -54,7 +54,7 @@ Syntax | Definition
 `n/, p/, etc...` | Words or letters followed by a slash refer to parameter tags. <br> e.g. `n/` refers to the name parameter.
 `UPPER_CASE` | Words in `UPPER_CASE` are the parameters to be supplied by the user. <br> e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 `[]` | Words in square brackets are optional. <br>  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-`...` | Items with `…`​ after them can be used multiple times including zero times.<br> e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+`...` | Items with `…`​ after them can be used multiple times including zero times.<br> e.g. `[t/TAG]…​` does not need to be present and can be omitted (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 
 ### Data format
@@ -87,10 +87,10 @@ Parameter | Data format
 
 ## Features
 
-## **Contact Features**
+### **Contact Features**
 This section contains information on features related to adding contacts to the contact list.
 
-### Adding a person: `add`
+#### Adding a person: `add`
 
 Adds a person to the PlaceBook.
 
@@ -113,13 +113,13 @@ Error Messages:
     * There may be some special characters in the tag input, e.g.!@#*
     * There should be no spaces in tags, e.g. close friend, is invalid.
 
-### Listing all persons : `list`
+#### Listing all persons : `list`
 
 Shows a list of all persons in the PlaceBook.
 
 Format: `list`
 
-### Editing a person : `edit`
+#### Editing a person : `edit`
 
 Edits an existing person in the PlaceBook.
 
@@ -148,7 +148,7 @@ Error Messages:
 * The person index provided is invalid.
     * The index inputted may be out of the range of the displayed list indexes.
 
-### Locating persons by name: `find`
+#### Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -166,11 +166,11 @@ Examples:
   
 ![result for 'find alex'](images/findAlexResult.png)
 
-### Locating persons by tags: `findTags`
+#### Locating persons by tags: `findTags`
 
 Finds persons whose tags contain any of the given keywords.
 
-Format: `findTags KEYWORD [MORE_KEYWORDS]`
+Format: `findTags KEYWORD [MORE_KEYWORDS]…​`
 
 * The search is case-insensitive. e.g `fRieNds` will match `friends`
 * Only the tags are searched.
@@ -187,7 +187,7 @@ one or both of the `friends` and `colleagues` tags
 
 ![result for 'findTags friends colleagues'](images/findTagsFriendsColleaguesResult.png)
 
-### Deleting a person : `delete`
+#### Deleting a person : `delete`
 
 Deletes the specified person from the PlaceBook.
 
@@ -206,56 +206,45 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the PlaceBook.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-## **Appointment Features**
+### **Appointment Features**
 This section contains information on features related to adding appointments to the appointment list.
 
-### Adding an appointment: `addApp`
+#### Adding an appointment: `addApp`
 
 Adds an appointment for the specified person or persons identified using a list of index(es) with 
 the datetime field(dd-MM-yyyy HHmm), with time being in the 24-hour format e.g. 1530, 
 and description to the appointment list.
 
-Format: `addApp id/INDEX[INDEX,INDEX,INDEX...] a/ADDRESS start/DATETIME ti/DATETIME ds/DESCRIPTION`
+Format: `addApp id/INDEX[INDEX,INDEX,INDEX…​] a/ADDRESS start/DATETIME end/DATETIME ds/DESCRIPTION`
 
 Examples:
 * `addApp id/1,5 a/Starbucks @ Raffles City start/14-12-2021 1400 end/14-12-2021 1500 ds/discuss marketing strategies`
 creates an appointment with Alex Yeoh and Irfan Ibrahim on 14-12-2021 at 1400 hrs to discuss marketing strategies
+![result for 'addApp'](images/addAppResult.png)
 
 Error messages:
 * The person index provided is invalid.
     * The index inputted may be out of the range of the displayed list indexes.
-*  DateTime format should be "dd-MM-yyyy HHmm"
+* DateTime format should be "dd-MM-yyyy HHmm"
     * A common error would be not putting a 0 before numbers less than 10, e.g. 3rd March 2022 9.05 am should be represented as 03-03-2022 0905.
     * Ensure there is a space between the date section and the time section.
 * Clashing appointment Timings
     * The appointment you are trying to add clashes with an existing appointment.
 
-![result for 'addApp'](images/addAppResult.png)
+#### Editing an appointment: `editApp`
 
-### Editing an appointment: `editApp`
+Edits an appointment in PlaceBook.
 
-Edits an existing appointment, rewriting all the data in the appointment.
-
-Format: `editApp ai/INDEX a/ADDRESS start/DATETIME ti/DATETIME ds/DESCRIPTION`
+Format: `editApp INDEX [a/ADDRESS] [start/DATETIME] [end/DATETIME] [ds/DESCRIPTION]`
 
 * Edits the appointment at the specified `INDEX`.
-* The details of the appointment will be changed accordingly.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 * The persons in the appointment will remain the same.
 
 Examples:
-* `editApp 6 a/Utown start/28-12-2021 1400 end/28-12-2021 1500 ds/discuss marketing strategies`
-  edits the details of a prior created group appointment, changing it to meet at UTown on 28-12-2021 at 1400 hrs
-
-Error messages:
-* The person index provided is invalid.
-    * The index inputted may be out of the range of the displayed list indexes.
-* The appointment index provided is invalid.
-    * The index inputted may be out of the range of the displayed list indexes.
-*  DateTime format should be "dd-MM-yyyy HHmm"
-    * A common error would be not putting a 0 before numbers less than 10, e.g. 3rd March 2022 9.05 am should be represented as 03-03-2022 0905.
-    * Ensure there is a space between the date section and the time section.
-* Clashing appointment Timings
-    * The appointment you are trying to add clashes with an existing appointment.
+* `editApp 6 a/Utown` edits the details of a prior created group appointment, changing it to meet at UTown, while the other fields remain
+the same
 
 Before:
 ![result for 'editApp' before change](images/editAppResultBefore.png)
@@ -263,7 +252,18 @@ Before:
 After:
 ![result for 'editApp' after change](images/editAppResultAfter.png)
 
-### Deleting an appointment: `delApp`
+Error messages:
+* The appointment index provided is invalid.
+    * The index inputted may be out of the range of the displayed list indexes.
+* DateTime format should be "dd-MM-yyyy HHmm"
+    * A common error would be not putting a 0 before numbers less than 10, e.g. 3rd March 2022 9.05 am should be represented as 03-03-2022 0905.
+    * Ensure there is a space between the date section and the time section.
+* Clashing appointment Timings
+    * The appointment timing you are trying to edit clashes with an existing appointment.
+* End time before Start time
+    * The appointment timing you are trying to edit has an End time which is earlier than the Start time.
+
+#### Deleting an appointment: `delApp`
 
 * Deletes an appointment at the specified `INDEX`
 * A popup will appear asking for confirmation before actually deleting the appointment.
@@ -289,7 +289,7 @@ Confirmation:
 After:
 ![result for 'delApp' after change](images/delAppResultAfter.png)
 
-### Locating appointments by description: `findApp`
+#### Locating appointments by description: `findApp`
 
 Finds appointments whose descriptions contain any of the given keywords.
 
@@ -306,7 +306,7 @@ Examples:
 * `findApp zoom` returns `Zoom` and `Zoom meeting`
 * `findApp meeting talk` returns `sales talk`, `urgent meeting`<br>
 
-### Listing all appointments : `listapp` 
+#### Listing all appointments : `listapp` 
 
 Show all the appointments in the appointment list currently.
 List is sorted by Date, Time and Description baseline. Can optionally add a condition
@@ -314,15 +314,15 @@ to sort List by, if an invalid condition is input, it will sort by baseline cond
 
 Format: `listapp` Optional: `listapp Time` or `listapp Description`
 
-## **Other Features**
+### **Other Features**
 
-### Clearing all entries : `clear`
+#### Clearing all entries : `clear`
 
 Clears all contacts and appointments from PlaceBook.
 
 Format: `clear`
 
-### Command history navigation
+#### Command history navigation
 
 Using the keyboard `UP` and `DOWN` arrow buttons, you can easily navigate through the command that you previously entered.
 This can be very helpful when you are doing repetitive task such as adding multiple person or appointment.
@@ -332,7 +332,7 @@ Please note that the command history will not be saved in the data file.
 So you will not be able to get your command history if you exit PlaceBook and open it again.
 </div>
 
-### Viewing help : `help`
+#### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
@@ -340,27 +340,28 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Changing Dark and Light Theme
+#### Changing Dark and Light Theme
 
 You may notice the 'sun' or 'moon' button located at the top right of PlaceBook.
 Simply click that to toggle PlaceBook between Dark and Light Theme.
 PlaceBook aims to support your work in different lighting environments and boost your productivity.
 
- light theme
+ Light Theme
  ![light theme](images/lightTheme.png)
- dark theme
+ Dark Theme
  ![dark theme](images/darkTheme.png)
-### Exiting the program : `exit`
+
+#### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+#### Saving the data
 
 PlaceBook data will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+#### Editing the data file
 
 Advanced users are welcome to update data directly by editing that data file.
 PlaceBook Person and Appointment data will be saved in two separate JSON files, locations in the table below.
@@ -375,7 +376,13 @@ If your changes to the data file makes its format invalid, PlaceBook will discar
 Invalid changes include creating duplicate entries in any of the JSON files, or creating Appointments with time conflicts in the `schedule.json` file
 </div>
 
-### Archiving data files `[coming in v2.0]`
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+In the case that PlaceBook cannot find any data files, PlaceBook will attempt to create Sample data for the user.<br>
+If the schedule.json file is missing but the contacts.json file is correctly read, there will not be any Sample schedule made.<br>
+In all other cases (i.e. both files missing, or only contacts.json missing), both Sample contacts and Sample schedule will be created.
+</div>
+
+#### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
@@ -398,7 +405,9 @@ the data of your previous PlaceBook home folder.
 others, and then get them to download another PlaceBook jar file, then replace the data file with the one you sent.
 
 **Q**: Is there a way we can see all our appointments in a calendar grid view?<br>
-**A**: We do not currently have a calendar view function, but we are looking into implementing it in the future.
+**A**: We do not currently have a calendar view function, but we are looking into implementing it in the future. 
+However, we remain adamant that Listview is better than Calenderview because it allows all appointments to be seen 
+clearly at one centralized place.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -412,7 +421,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **DelApp** | `delApp INDEX` <br> e.g., `delApp 1`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**EditApp** | `editApp ai/INDEX a/ADDRESS start/DATETIME ti/DATETIME ds/DESCRIPTION` <br> e.g., `editApp ai/1 a/UTown start/27-12-2021 1400 end/27-12-2021 1500 ds/discuss UG and DG stuff`
+**EditApp** | `editApp INDEX [a/ADDRESS] [start/DATETIME] [end/DATETIME] [ds/DESCRIPTION]` <br> e.g., `editApp 1 a/UTown start/10-11-2021 1400 ds/discuss UG and DG stuff`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **FindTags** | `findTags KEYWORD [MORE_KEYWORDS]` <br> e.g., `findTags friends`
 **FindApp** | `findApp KEYWORD [MORE KEYWORDS`<br> e.g., `findApp Zoom Meeting`

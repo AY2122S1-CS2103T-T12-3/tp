@@ -9,7 +9,7 @@ import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.Person;
-import seedu.placebook.ui.UiManager;
+import seedu.placebook.ui.Ui;
 
 /**
  * Deletes a person identified using it's displayed index from Placebook.
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Ui ui) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -47,9 +47,8 @@ public class DeleteCommand extends Command {
         String relatedAppointment = MESSAGE_DELETE_PERSON_WARNING
                 + model.getAppointmentsThatOnlyHaveThisClientAsString(personToDelete);
 
-        if (UiManager.showDeleteDialogAndWait(relatedAppointment)) {
+        if (ui.showDeleteDialogAndWait(relatedAppointment)) {
             model.deletePerson(personToDelete);
-            model.removePersonFromAppointments(personToDelete);
             model.updateState();
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
         } else {

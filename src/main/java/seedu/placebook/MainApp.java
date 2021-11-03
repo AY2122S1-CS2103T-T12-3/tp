@@ -71,6 +71,10 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        // this is to provide logic the power of window creation
+        // while maintaining testability for confirmation windows.
+        logic.setUi(ui);
     }
 
     /**
@@ -83,9 +87,9 @@ public class MainApp extends Application {
         Optional<ReadOnlySchedule> scheduleOptional;
         ReadOnlyContacts initialData;
         ReadOnlySchedule initialSchedule;
+        boolean usingSampleSchedule = false;
 
         try {
-
             contactsOptional = storage.readContacts();
             if (!contactsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample contacts");
@@ -109,7 +113,7 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty Schedule");
             initialSchedule = new Schedule();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Schedule");
             initialSchedule = new Schedule();
         }
 

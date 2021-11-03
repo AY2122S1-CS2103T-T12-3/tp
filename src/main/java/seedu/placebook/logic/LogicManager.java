@@ -17,6 +17,7 @@ import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.storage.Storage;
+import seedu.placebook.ui.Ui;
 
 /**
  * The main LogicManager of the app.
@@ -29,6 +30,8 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final PlacebookParser placebookParser;
 
+    private Ui ui;
+
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
@@ -38,13 +41,27 @@ public class LogicManager implements Logic {
         placebookParser = new PlacebookParser();
     }
 
+    /**
+     * Sets the ui for logic to create new windows.
+     */
+    @Override
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        if (ui == null) {
+            logger.info("Ui is not given to logic for window creation!");
+            throw new CommandException("Fatal Error: Ui not given. Please restart PlaceBook again!");
+        }
+
         CommandResult commandResult;
         Command command = placebookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, ui);
+
 
         try {
             storage.saveContacts(model.getContacts());

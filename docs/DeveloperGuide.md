@@ -124,7 +124,7 @@ The `Model` component,
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* stores appointment data in `Appointment` objects (which contain `UniquePersonList` for clients, `Address` for location, `LocalDate` for date, `LocalTime` for time, `String` for description)
+* stores appointment data in `Appointment` objects (which contain `UniquePersonList` for clients, `Address` for location, `TimePeriod` for time period during which the appointment occurs, `String` for description)
 * stores the schedule data i.e., all `Appointment` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -156,13 +156,15 @@ Classes used by multiple components are in the `seedu.placebook.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### timePeriod Class
+### TimePeriod Class
 
 #### Implementation
 
-The feature is a variable contained within the Appointment class. `timePeriod` tracks the start and end time
-of the Appointment and contains functions to check if two appointments have clashing timePeriods and thus
-cannot both happen. `timePeriod` is also used to calculate the urgency of the appointment, assigning the
+The feature is a variable contained within the `Appointment` class. `TimePeriod` tracks the start and end time
+of the Appointment and contains functions to check if two appointments have clashing TimePeriods and thus
+cannot both happen. Each `Appointment` class has a `TimePeriod` class, which represents the time period during 
+which this appointment occurs. The `TimePeriod` class provides a function to check whether a time period overlaps
+with another time period. `TimePeriod` is also used to calculate the urgency of the appointment, assigning the
 appointment either `High`, `Medium` or `Low` urgency.
 
 ### AddApp feature
