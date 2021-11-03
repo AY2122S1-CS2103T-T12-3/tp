@@ -20,7 +20,7 @@ import seedu.placebook.model.Contacts;
 import seedu.placebook.model.ReadOnlyContacts;
 
 public class JsonContactsStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonPlaceBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -47,22 +47,22 @@ public class JsonContactsStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readContacts("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readContacts("notJsonFormatPlaceBook.json"));
     }
 
     @Test
     public void readContacts_invalidPersonContacts_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readContacts("invalidPersonContacts.json"));
+        assertThrows(DataConversionException.class, () -> readContacts("invalidPersonPlaceBook.json"));
     }
 
     @Test
     public void readContacts_invalidAndValidPersonContacts_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readContacts("invalidAndValidPersonContacts.json"));
+        assertThrows(DataConversionException.class, () -> readContacts("invalidAndValidPersonPlaceBook.json"));
     }
 
     @Test
     public void readAndSaveContacts_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempContacts.json");
         Contacts original = getTypicalContacts();
         JsonContactsStorage jsonContactsStorage = new JsonContactsStorage(filePath);
 
