@@ -28,7 +28,7 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.testutil.AddressBookBuilder;
+import seedu.placebook.testutil.ContactsBuilder;
 import seedu.placebook.testutil.AppointmentBuilder;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
@@ -53,7 +53,7 @@ public class EditCommandTest {
         Person client1 = new PersonBuilder().withName("Client1").build();
         Person client2 = new PersonBuilder().withName("Client2").build();
 
-        testAddressbook = new AddressBookBuilder().build();
+        testAddressbook = new ContactsBuilder().build();
         testAddressbook.addPerson(client1);
         testAddressbook.addPerson(client2);
 

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.placebook.commons.core.GuiSettings;
 import seedu.placebook.model.person.NameContainsKeywordsPredicate;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.testutil.AddressBookBuilder;
+import seedu.placebook.testutil.ContactsBuilder;
 
 public class ModelManagerTest {
 
@@ -97,7 +97,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Contacts addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        Contacts addressBook = new ContactsBuilder().withPerson(ALICE).withPerson(BENSON).build();
         Schedule schedule = getTypicalSchedule();
         Contacts differentAddressBook = new Contacts();
         Schedule differentSchedule = new Schedule();
