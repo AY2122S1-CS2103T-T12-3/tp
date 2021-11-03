@@ -7,7 +7,7 @@ import static seedu.placebook.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.placebook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.placebook.testutil.Assert.assertThrows;
 import static seedu.placebook.testutil.TypicalPersons.ALICE;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,7 +39,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        Contacts newData = getTypicalAddressBook();
+        Contacts newData = getTypicalContacts();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }

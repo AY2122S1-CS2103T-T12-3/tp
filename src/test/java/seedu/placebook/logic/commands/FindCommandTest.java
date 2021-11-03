@@ -9,7 +9,7 @@ import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalPersons.CARL;
 import static seedu.placebook.testutil.TypicalPersons.ELLE;
 import static seedu.placebook.testutil.TypicalPersons.FIONA;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,8 +30,8 @@ public class FindCommandTest {
     // default positive confirmation ui. This will not affect FindCommand
     private final Ui uiStub = UiStubFactory.getUiStub(true);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+    private Model model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
+    private Model expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
 
     @Test
     public void equals() {

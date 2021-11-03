@@ -2,7 +2,7 @@ package seedu.placebook.logic.commands;
 
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +28,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+        Model model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
+        Model expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
         expectedModel.setContacts(new Contacts());
         expectedModel.setSchedule(new Schedule());
 

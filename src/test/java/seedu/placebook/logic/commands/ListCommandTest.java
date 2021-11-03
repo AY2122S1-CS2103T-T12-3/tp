@@ -4,7 +4,7 @@ import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.placebook.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+        model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
         expectedModel = new ModelManager(model.getContacts(), new UserPrefs(), model.getSchedule());
     }
 

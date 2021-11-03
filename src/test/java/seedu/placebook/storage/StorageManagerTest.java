@@ -3,7 +3,7 @@ package seedu.placebook.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import java.nio.file.Path;
 
@@ -58,7 +58,7 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        Contacts original = getTypicalAddressBook();
+        Contacts original = getTypicalContacts();
         storageManager.saveContacts(original);
         ReadOnlyContacts retrieved = storageManager.readContacts().get();
         assertEquals(original, new Contacts(retrieved));
