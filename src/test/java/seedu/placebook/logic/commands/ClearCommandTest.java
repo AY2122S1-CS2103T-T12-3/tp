@@ -10,6 +10,7 @@ import seedu.placebook.model.AddressBook;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
+import seedu.placebook.model.schedule.Schedule;
 
 public class ClearCommandTest {
 
@@ -26,6 +27,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
         expectedModel.setAddressBook(new AddressBook());
+        expectedModel.setSchedule(new Schedule());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

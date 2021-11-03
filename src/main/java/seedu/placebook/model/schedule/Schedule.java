@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.exceptions.AppointmentNotFoundException;
+import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.model.schedule.exceptions.DuplicateAppointmentException;
 
 /**
@@ -63,14 +64,34 @@ public class Schedule implements Iterable<Appointment>, ReadOnlySchedule {
      * Adds an Appointment to the list.
      * Appointment Must not already be in the list
      */
-    public void addAppointment(Appointment toAdd) {
+    public void addAppointment(Appointment toAdd) throws DuplicateAppointmentException, ClashingAppointmentsException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateAppointmentException();
         }
+
+        List<Appointment> clashingAppointments = getClashingAppointments(toAdd);
+        if (!clashingAppointments.isEmpty()) {
+            throw new ClashingAppointmentsException(clashingAppointments);
+        }
+
         appointmentList.add(toAdd);
         appointmentList.sort(Comparator.comparing(Appointment::getDescription));
         appointmentList.sort(Comparator.comparing(Appointment::getTimePeriod));
+    }
+
+    /**
+     * Returns a list of appointments in the appointmentList that have time conflicts with
+     * the given appointment.
+     * @param appointmentToCheck The given appointment.
+     * @return A list of appointments that have time conflicts with the given appointment.
+     */
+    private List<Appointment> getClashingAppointments(Appointment appointmentToCheck) {
+        return this.appointmentList
+                .stream()
+                .parallel()
+                .filter(appointment -> appointment.isConflictingWith(appointmentToCheck))
+                .collect(Collectors.toList());
     }
 
     public void sortAppointmentByDescription() {
@@ -110,6 +131,22 @@ public class Schedule implements Iterable<Appointment>, ReadOnlySchedule {
     public boolean contains(Appointment toCheck) {
         requireNonNull(toCheck);
         return appointmentList.contains(toCheck);
+    }
+
+    /**
+     * Checks if the appointmentList contains a conflict {@code Appointment} with the {@code Appointment} to be checked.
+     * @param toCheck The appointment to be checked for conflict.
+     * @return true if there is a conflicting appointment, false if there is not.
+     */
+    public boolean hasConflictingAppointment(Appointment toCheck) {
+        requireNonNull(toCheck);
+        for (Appointment app : appointmentList) {
+            if (app.isConflictingWith(toCheck)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
