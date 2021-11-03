@@ -8,11 +8,13 @@ import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.ui.Ui;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -20,10 +22,14 @@ import seedu.placebook.testutil.PersonBuilder;
 public class AddCommandIntegrationTest {
 
     private Model model;
+    private Ui ui;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+
+        // default positive confirmation ui. This will not affect AddCommand
+        ui = UiStubFactory.getUiStub(true);
     }
 
     @Test
@@ -33,14 +39,14 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getSchedule());
         expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
+        assertCommandSuccess(new AddCommand(validPerson), model, ui,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(personInList), model, ui, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

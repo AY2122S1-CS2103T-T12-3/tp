@@ -21,6 +21,7 @@ import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.model.schedule.exceptions.EndTimeBeforeStartTimeException;
+import seedu.placebook.ui.Ui;
 
 public class EditAppCommand extends Command {
 
@@ -61,7 +62,7 @@ public class EditAppCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, EndTimeBeforeStartTimeException {
+    public CommandResult execute(Model model, Ui ui) throws CommandException, EndTimeBeforeStartTimeException {
         requireNonNull(model);
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 

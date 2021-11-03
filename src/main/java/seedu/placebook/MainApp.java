@@ -71,6 +71,10 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        // this is to provide logic the power of window creation
+        // while maintaining testability for confirmation windows.
+        logic.setUi(ui);
     }
 
     /**

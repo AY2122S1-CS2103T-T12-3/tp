@@ -16,12 +16,17 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
 import seedu.placebook.model.person.PersonHasTagsPredicate;
+import seedu.placebook.ui.Ui;
 
 public class FindTagsCommandTest {
+    // default positive confirmation ui. This will not affect FindTagsCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
 
@@ -58,7 +63,7 @@ public class FindTagsCommandTest {
         PersonHasTagsPredicate predicate = preparePredicate(" ");
         FindTagsCommand command = new FindTagsCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
@@ -68,7 +73,7 @@ public class FindTagsCommandTest {
         PersonHasTagsPredicate predicate = preparePredicate("friends");
         FindTagsCommand command = new FindTagsCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
     }
 

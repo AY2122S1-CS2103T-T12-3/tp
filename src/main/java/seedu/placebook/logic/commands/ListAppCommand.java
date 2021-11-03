@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.placebook.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
 import seedu.placebook.model.Model;
+import seedu.placebook.ui.Ui;
 
 /**
  * List all appointments in PlaceBook to the user.
@@ -20,7 +21,7 @@ public class ListAppCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         model.sortFilteredAppointmentList(sortBy);

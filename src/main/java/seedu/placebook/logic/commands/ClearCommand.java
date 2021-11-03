@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.placebook.model.AddressBook;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.schedule.Schedule;
+import seedu.placebook.ui.Ui;
 
 /**
  * Clears the address book.
@@ -16,7 +17,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         model.setSchedule(new Schedule());

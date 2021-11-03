@@ -62,7 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, ThemeManager themeManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        themeManager = new ThemeManager();
+        this.themeManager = themeManager;
     }
 
     public Stage getPrimaryStage() {

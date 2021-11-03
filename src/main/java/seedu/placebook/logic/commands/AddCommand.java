@@ -10,6 +10,7 @@ import static seedu.placebook.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.Person;
+import seedu.placebook.ui.Ui;
 
 /**
  * Adds a person to the address book.
@@ -47,7 +48,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Ui ui) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {

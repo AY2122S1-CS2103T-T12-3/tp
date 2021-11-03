@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.placebook.commons.core.Messages;
 import seedu.placebook.commons.core.index.Index;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.placebook.model.AddressBook;
 import seedu.placebook.model.Model;
@@ -32,13 +33,16 @@ import seedu.placebook.testutil.AppointmentBuilder;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
 import seedu.placebook.testutil.Seed;
+import seedu.placebook.ui.Ui;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
+    // default positive confirmation ui. This will not affect EditCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
 
-    private UniquePersonList editTestPersonList = new UniquePersonList();
+    private final UniquePersonList editTestPersonList = new UniquePersonList();
 
     private Model model;
     private AddressBook testAddressbook;
@@ -80,7 +84,7 @@ public class EditCommandTest {
         expectedModel.updateEditedClientInAppointments(personToEdit, editedPerson);
 
         System.out.println(model.equals(expectedModel));
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
 
     @Test
@@ -102,7 +106,7 @@ public class EditCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(lastPerson, editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
 
     @Test
@@ -115,7 +119,7 @@ public class EditCommandTest {
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
 
     @Test
@@ -133,7 +137,7 @@ public class EditCommandTest {
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
 
     @Test
@@ -142,7 +146,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, uiStub, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -154,7 +158,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, uiStub, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -163,7 +167,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, uiStub, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -180,7 +184,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, uiStub, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

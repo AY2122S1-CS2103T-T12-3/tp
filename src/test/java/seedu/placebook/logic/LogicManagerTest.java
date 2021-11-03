@@ -50,6 +50,7 @@ public class LogicManagerTest {
         JsonScheduleStorage scheduleStorage = new JsonScheduleStorage(temporaryFolder.resolve("schedule.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
         logic = new LogicManager(model, storage);
+        logic.setUi(UiStubFactory.getUiStub(true));
     }
 
     @Test
@@ -81,6 +82,7 @@ public class LogicManagerTest {
                 new JsonScheduleStorage(temporaryFolder.resolve("ioExceptionSchedule.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
         logic = new LogicManager(model, storage);
+        logic.setUi(UiStubFactory.getUiStub(true));
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY

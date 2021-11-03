@@ -10,11 +10,14 @@ import seedu.placebook.logic.parser.exceptions.ParseException;
 import seedu.placebook.model.ReadOnlyAddressBook;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
+import seedu.placebook.ui.Ui;
 
 /**
  * API of the Logic component
  */
 public interface Logic {
+    void setUi(Ui ui);
+
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
