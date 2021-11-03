@@ -24,9 +24,9 @@ class ListAppCommandTest {
 
     @BeforeEach
     public void setUp() {
-        Contacts Contacts = TypicalPersons.getTypicalContacts();
+        Contacts contacts = TypicalPersons.getTypicalContacts();
         Schedule schedule = TypicalAppointment.getTypicalSchedule();
-        model = new ModelManager(Contacts, new UserPrefs(), schedule);
+        model = new ModelManager(contacts, new UserPrefs(), schedule);
         expectedModel = new ModelManager(model.getContacts(), new UserPrefs(), model.getSchedule());
     }
 
