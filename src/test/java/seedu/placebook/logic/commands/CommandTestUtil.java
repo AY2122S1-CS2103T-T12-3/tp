@@ -31,9 +31,11 @@ import seedu.placebook.ui.Ui;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
-    public static final String VALID_INDEXES = "id/1, 2, 3";
     public static final String VALID_INDEX = "id/1";
+    public static final String VALID_APP_ADDRESS = "a/vivocity";
+    public static final String VALID_START_TIME = "start/" + "01-01-2022 " + "1000";
+    public static final String VALID_END_TIME = "end/" + "01-01-2022 " + "1200";
+    public static final String VALID_DESC = "ds/Halloween Sales";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
