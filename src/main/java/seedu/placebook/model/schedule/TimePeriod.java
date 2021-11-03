@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import seedu.placebook.model.schedule.exceptions.EndTimeBeforeStartTimeException;
 
@@ -75,6 +76,14 @@ public class TimePeriod implements Comparable<TimePeriod> {
                 || (this.startDateTime.equals(tp.startDateTime) && this.endDateTime.equals(tp.endDateTime));
     }
 
+    /**
+     * Set the {@Code TimePeriod}'s start date and time to the given date and time,
+     * exception will be thrown if the given start date and time is after the end date
+     * and time of the {@Code TimePeriod}.
+     * @param newStartDateTime The given start date and time.
+     * @throws EndTimeBeforeStartTimeException Exception will be thrown
+     * if the given start date and time is after the end date and time of the {@Code TimePeriod}.
+     */
     public void setStartDateTime(LocalDateTime newStartDateTime) throws EndTimeBeforeStartTimeException {
         if (this.endDateTime.isAfter(newStartDateTime)) {
             this.startDateTime = newStartDateTime;
@@ -83,6 +92,14 @@ public class TimePeriod implements Comparable<TimePeriod> {
         }
     }
 
+    /**
+     * Set the {@Code TimePeriod}'s end date and time to the given date and time,
+     * exception will be thrown if the given end date and time is before the start date
+     * and time of the {@Code TimePeriod}.
+     * @param newEndDateTime The given end date and time.
+     * @throws EndTimeBeforeStartTimeException Exception will be thrown
+     * if the given end date and time is before the start date and time of the {@Code TimePeriod}.
+     */
     public void setEndDateTime(LocalDateTime newEndDateTime) throws EndTimeBeforeStartTimeException {
         if (this.startDateTime.isBefore(newEndDateTime)) {
             this.endDateTime = newEndDateTime;
@@ -110,14 +127,14 @@ public class TimePeriod implements Comparable<TimePeriod> {
     /**
      * Creates a string representation of the startDateTime using the formatter.
      */
-    public String getStartDateTimeString() {
+    public String getStartDateTimeAsString() {
         return this.startDateTime.format(formatter);
     }
 
     /**
      * Creates a string representation of the endDateTime using the formatter.
      */
-    public String getEndDateTimeString() {
+    public String getEndDateTimeAsString() {
         return this.endDateTime.format(formatter);
     }
 
@@ -154,5 +171,10 @@ public class TimePeriod implements Comparable<TimePeriod> {
         TimePeriod otherTimePeriod = (TimePeriod) other;
         return otherTimePeriod.startDateTime.equals(startDateTime)
                 && otherTimePeriod.endDateTime.equals(endDateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.startDateTime, this.endDateTime);
     }
 }

@@ -19,12 +19,13 @@ import java.util.List;
 
 import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.NameContainsKeywordsPredicate;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
+import seedu.placebook.ui.Ui;
 
 /**
  * Contains helper methods for testing commands.
@@ -89,10 +90,10 @@ public class CommandTestUtil {
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+    public static void assertCommandSuccess(Command command, Model actualModel, Ui uiStub,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, uiStub);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
@@ -101,13 +102,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, Ui, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+    public static void assertCommandSuccess(Command command, Model actualModel, Ui uiStub, String expectedMessage,
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, actualModel, uiStub, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -116,14 +117,14 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command command, Model actualModel, Ui uiStub, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Contacts expectedAddressBook = new Contacts(actualModel.getContacts());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, uiStub));
+        assertEquals(expectedAddressBook, actualModel.getContacts());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 

@@ -10,13 +10,14 @@ import seedu.placebook.commons.core.LogsCenter;
 import seedu.placebook.logic.commands.Command;
 import seedu.placebook.logic.commands.CommandResult;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.logic.parser.AddressBookParser;
+import seedu.placebook.logic.parser.PlacebookParser;
 import seedu.placebook.logic.parser.exceptions.ParseException;
 import seedu.placebook.model.Model;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.storage.Storage;
+import seedu.placebook.ui.Ui;
 
 /**
  * The main LogicManager of the app.
@@ -27,7 +28,8 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private Ui ui;
+    private final PlacebookParser placebookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -35,19 +37,32 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        placebookParser = new PlacebookParser();
+    }
+
+    /**
+     * Sets the ui for logic to create new windows.
+     */
+    @Override
+    public void setUi(Ui ui) {
+        this.ui = ui;
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        if (ui == null) {
+            logger.info("Ui is not given to logic for window creation!");
+            throw new CommandException("Fatal Error: Ui not given. Please restart PlaceBook again!");
+        }
+
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Command command = placebookParser.parseCommand(commandText);
+        commandResult = command.execute(model, ui);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveContacts(model.getContacts());
             storage.saveSchedule(model.getSchedule());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -57,8 +72,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyContacts getContacts() {
+        return model.getContacts();
     }
 
     @Override
@@ -72,8 +87,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getContactsFilePath() {
+        return model.getContactsFilePath();
     }
 
     @Override

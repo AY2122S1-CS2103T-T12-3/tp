@@ -23,6 +23,7 @@ import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.model.schedule.exceptions.DuplicateAppointmentException;
 import seedu.placebook.model.schedule.exceptions.EndTimeBeforeStartTimeException;
+import seedu.placebook.ui.Ui;
 
 /**
  * Creates an appointment with an existing person in PlaceBook
@@ -77,7 +78,7 @@ public class AddAppCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Ui ui) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Appointment> lastShownAppList = model.getFilteredAppointmentList();

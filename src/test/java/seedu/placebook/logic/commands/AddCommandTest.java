@@ -16,18 +16,22 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.placebook.commons.core.GuiSettings;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.ui.Ui;
 
 
 public class AddCommandTest {
+    // default positive confirmation ui. This will not affect AddCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -39,7 +43,7 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, uiStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -51,7 +55,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub, uiStub));
     }
 
     @Test
@@ -103,12 +108,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactsFilePath(Path contactsFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +123,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setContact(ReadOnlyContacts contacts) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContacts getContacts() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -266,8 +271,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyContacts getContacts() {
+            return new Contacts();
         }
     }
 

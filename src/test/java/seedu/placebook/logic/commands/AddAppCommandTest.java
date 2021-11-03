@@ -17,11 +17,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.placebook.commons.core.GuiSettings;
 import seedu.placebook.commons.core.index.Index;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.person.Address;
@@ -29,8 +30,11 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.testutil.AppointmentBuilder;
 import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.ui.Ui;
 
 public class AddAppCommandTest {
+    // default positive confirmation ui. This will not affect AddAppCommand
+    private final Ui uiStub = UiStubFactory.getUiStub(true);
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
@@ -80,7 +84,7 @@ public class AddAppCommandTest {
                 new Address("vivocity"),
                 LocalDateTime.of(2021, 12, 25, 21, 30),
                 LocalDateTime.of(2021, 12, 25, 22, 30),
-                "Halloween Sales").execute(modelStub);
+                "Halloween Sales").execute(modelStub, uiStub);
 
         assertEquals(String.format(AddAppCommand.MESSAGE_SUCCESS, validAppointment), commandResult.getFeedbackToUser());
     }
@@ -100,7 +104,7 @@ public class AddAppCommandTest {
                 new Address("vivocity"),
                 LocalDateTime.of(2021, 12, 25, 21, 30),
                 LocalDateTime.of(2021, 12, 25, 22, 30),
-                "Halloween Sales").execute(modelStub);
+                "Halloween Sales").execute(modelStub, uiStub);
 
         assertEquals(String.format(AddAppCommand.MESSAGE_SUCCESS, validAppointment), commandResult.getFeedbackToUser());
     }
@@ -119,7 +123,7 @@ public class AddAppCommandTest {
                 "Halloween Sales");
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelStub));
+            -> commandResult.execute(modelStub, uiStub));
     }
 
     @Test
@@ -138,7 +142,7 @@ public class AddAppCommandTest {
                 "Halloween Sales");
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelStub));
+            -> commandResult.execute(modelStub, uiStub));
     }
 
     @Test
@@ -165,13 +169,13 @@ public class AddAppCommandTest {
                 LocalDateTime.of(2021, 1, 2, 10, 0),
                 "Halloween Sales");
         try {
-            initialCommand.execute(modelTester);
+            initialCommand.execute(modelTester, uiStub);
         } catch (CommandException e) {
             throw new AssertionError("This method should not be called.");
         }
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelTester));
+            -> commandResult.execute(modelTester, uiStub));
     }
 
     @Test
@@ -198,13 +202,13 @@ public class AddAppCommandTest {
                 LocalDateTime.of(2021, 1, 1, 13, 0),
                 "Halloween Sales");
         try {
-            initialCommand.execute(modelTester);
+            initialCommand.execute(modelTester, uiStub);
         } catch (CommandException e) {
             throw new AssertionError("This method should not be called.");
         }
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelTester));
+            -> commandResult.execute(modelTester, uiStub));
     }
 
     private class ModelStub implements Model {
@@ -229,12 +233,12 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactsFilePath(Path contactsFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -244,12 +248,12 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setContact(ReadOnlyContacts contacts) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContacts getContacts() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -391,8 +395,8 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyContacts getContacts() {
+            return new Contacts();
         }
     }
 }
