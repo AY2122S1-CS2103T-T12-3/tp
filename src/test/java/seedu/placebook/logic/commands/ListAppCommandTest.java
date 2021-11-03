@@ -5,8 +5,8 @@ import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSucces
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.placebook.model.Contacts;
 import seedu.placebook.logic.UiStubFactory;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;

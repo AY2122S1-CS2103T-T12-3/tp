@@ -6,8 +6,8 @@ import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.placebook.model.Contacts;
 import seedu.placebook.logic.UiStubFactory;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
