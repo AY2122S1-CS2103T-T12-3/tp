@@ -23,12 +23,12 @@ import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
 import seedu.placebook.model.schedule.exceptions.DuplicateAppointmentException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the Placebook data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private AddressBook addressBook;
+    private Contacts contacts;
     private final UserPrefs userPrefs;
     private Schedule schedule;
     private FilteredList<Person> filteredPersons;
@@ -36,44 +36,46 @@ public class ModelManager implements Model {
     private final HistoryStates historyStates;
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs and schedule.
+     * Initializes a ModelManager with the given contacts, userPrefs and schedule.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlySchedule schedule) {
+    public ModelManager(ReadOnlyContacts contacts, ReadOnlyUserPrefs userPrefs, ReadOnlySchedule schedule) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(contacts, userPrefs, schedule);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with contacts: " + contacts
+                + ", user prefs " + userPrefs + " and schedule " + schedule);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.contacts.getPersonList());
         filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
         this.historyStates = new HistoryStates();
-        State originState = new State(this.addressBook, this.schedule);
+        State originState = new State(this.contacts, this.schedule);
         this.historyStates.addNewState(originState);
     }
 
     /**
-     * Initializes a ModelManager with the given addressBook, userPrefs, schedule and history states.
+     * Initializes a ModelManager with the given contacts, userPrefs, schedule and history states.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+    public ModelManager(ReadOnlyContacts contacts, ReadOnlyUserPrefs userPrefs,
                         ReadOnlySchedule schedule, HistoryStates historyStates) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(contacts, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with contacts: " + contacts
+                + ", user prefs " + userPrefs + " and schedule " + schedule);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.contacts.getPersonList());
         filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
         this.historyStates = historyStates;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new Schedule());
+        this(new Contacts(), new UserPrefs(), new Schedule());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -101,26 +103,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getContactsFilePath() {
+        return userPrefs.getContactsFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setContactsFilePath(Path contactsFilePath) {
+        requireNonNull(contactsFilePath);
+        userPrefs.setContactsFilePath(contactsFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Contacts ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setContact(ReadOnlyContacts contacts) {
+        this.contacts.resetData(contacts);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyContacts getContacts() {
+        return contacts;
     }
 
     @Override
@@ -137,17 +139,18 @@ public class ModelManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
 
-        return addressBook.hasPerson(person);
+        return contacts.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        contacts.removePerson(target);
+        this.removePersonFromAppointments(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        contacts.addPerson(person);
 
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -156,7 +159,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        contacts.setPerson(target, editedPerson);
     }
 
     @Override
@@ -255,7 +258,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedPlacebook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -273,7 +276,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedPlacebook}
      */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
@@ -309,7 +312,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return contacts.equals(other.contacts)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredAppointments.equals(other.filteredAppointments);
@@ -362,10 +365,10 @@ public class ModelManager implements Model {
             this.historyStates.undo();
             State previousState = this.historyStates.getCurrentState();
             this.schedule = previousState.getSchedule();
-            this.addressBook = previousState.getAddressBook();
-            filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+            this.contacts = previousState.getContacts();
+            filteredPersons = new FilteredList<>(this.contacts.getPersonList());
             filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
-            System.out.println(this.addressBook.getPersonList().size() + " " + this.schedule.hashCode());
+            System.out.println(this.contacts.getPersonList().size() + " " + this.schedule.hashCode());
         }
     }
 
@@ -373,7 +376,7 @@ public class ModelManager implements Model {
      * Add the current state into the history states.
      */
     public void updateState() {
-        State stateToUpdate = new State(this.addressBook, this.schedule);
+        State stateToUpdate = new State(this.contacts, this.schedule);
         this.historyStates.addNewState(stateToUpdate);
     }
 }

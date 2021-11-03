@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.placebook.commons.core.Messages;
 import seedu.placebook.commons.core.index.Index;
+import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
 import seedu.placebook.model.person.Person;
+import seedu.placebook.ui.Ui;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -25,18 +27,21 @@ import seedu.placebook.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+    private final Ui positive = UiStubFactory.getUiStub(true);
+    private final Ui negative = UiStubFactory.getUiStub(false);
 
+    @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getSchedule());
+        ModelManager expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
         expectedModel.deletePerson(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, positive, expectedMessage, expectedModel);
     }
 
     @Test
@@ -44,9 +49,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, positive, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -55,11 +61,11 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getSchedule());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, positive, expectedMessage, expectedModel);
     }
 
     @Test
@@ -68,11 +74,11 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, positive, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test

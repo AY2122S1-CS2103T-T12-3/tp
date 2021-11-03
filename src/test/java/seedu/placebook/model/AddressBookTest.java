@@ -25,7 +25,7 @@ import seedu.placebook.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final Contacts addressBook = new Contacts();
 
     @Test
     public void constructor() {
@@ -39,7 +39,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        Contacts newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -50,7 +50,7 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        ContactsStub newData = new ContactsStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -87,11 +87,11 @@ public class AddressBookTest {
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ContactsStub implements ReadOnlyContacts {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        ContactsStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
 

@@ -376,6 +376,12 @@ If your changes to the data file makes its format invalid, PlaceBook will discar
 Invalid changes include creating duplicate entries in any of the JSON files, or creating Appointments with time conflicts in the `schedule.json` file
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+In the case that PlaceBook cannot find any data files, PlaceBook will attempt to create Sample data for the user.<br>
+If the schedule.json file is missing but the contacts.json file is correctly read, there will not be any Sample schedule made.<br>
+In all other cases (i.e. both files missing, or only contacts.json missing), both Sample contacts and Sample schedule will be created.
+</div>
+
 #### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._

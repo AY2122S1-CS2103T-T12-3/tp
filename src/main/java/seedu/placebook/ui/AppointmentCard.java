@@ -66,10 +66,11 @@ public class AppointmentCard extends UiPart<Region> {
         endDate.setText(appointment.getEndDateTimeString());
 
         UniquePersonList clients = appointment.getClients();
-        PersonListPanel clientsDetail = new PersonListPanel(clients.asUnmodifiableObservableList());
-        String clientNames = clients.toString();
+        Label clientNames = new Label(clients.toString());
+        clientNames.textProperty().bindBidirectional(clients.getPersonNames());
+        clientsPane.setGraphic(clientNames);
 
-        clientsPane.setText(clientNames);
+        PersonListPanel clientsDetail = new PersonListPanel(clients.asUnmodifiableObservableList());
         clientsPane.setContent(clientsDetail.getRoot());
 
         this.setUrgencyDisplay();

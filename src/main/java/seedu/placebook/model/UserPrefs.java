@@ -14,7 +14,7 @@ import seedu.placebook.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "contacts.json");
+    private Path contactsFilePath = Paths.get("data" , "contacts.json");
     private Path scheduleFilePath = Paths.get("data" , "schedule.json");
 
     /**
@@ -36,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setContactsFilePath(newUserPrefs.getContactsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -48,13 +48,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getContactsFilePath() {
+        return contactsFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setContactsFilePath(Path contactsFilePath) {
+        requireNonNull(contactsFilePath);
+        this.contactsFilePath = contactsFilePath;
     }
 
     public Path getScheduleFilePath() {
@@ -78,20 +78,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
+                && contactsFilePath.equals(o.contactsFilePath)
                 && scheduleFilePath.equals(o.scheduleFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, scheduleFilePath);
+        return Objects.hash(guiSettings, contactsFilePath, scheduleFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal Person data file location : " + addressBookFilePath);
+        sb.append("\nLocal Person data file location : " + contactsFilePath);
         sb.append("\nLocal Schedule data file location: " + scheduleFilePath);
         return sb.toString();
     }

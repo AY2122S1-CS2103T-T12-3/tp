@@ -26,6 +26,7 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private ThemeManager themeManager;
 
     /**
      * Creates a {@code UiManager} with the given {@code Logic}.
@@ -39,11 +40,13 @@ public class UiManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
 
+        this.themeManager = new ThemeManager();
+
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, themeManager);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -65,10 +68,10 @@ public class UiManager implements Ui {
      * Shows an alert dialog on {@code owner} with the given parameters.
      * This method only returns after the user has closed the alert dialog.
      */
-    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
+    private void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add(themeManager.getCurrentStylesheet());
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -91,9 +94,10 @@ public class UiManager implements Ui {
     /**
      * Shows a confirmation dialog to confirm the deletion of an object.
      */
-    public static boolean showDeleteDialogAndWait(String contentText) {
+    @Override
+    public boolean showDeleteDialogAndWait(String contentText) {
         final Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add(themeManager.getCurrentStylesheet());
         // TODO: to be adjust later, can try alert.setDialogPane();
         alert.setHeight(500);
         alert.setTitle("Confirmation Dialog");

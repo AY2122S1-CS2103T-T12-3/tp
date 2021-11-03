@@ -5,9 +5,10 @@ import static java.util.Objects.requireNonNull;
 import seedu.placebook.commons.core.Messages;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.PersonHasTagsPredicate;
+import seedu.placebook.ui.Ui;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in Placebook whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindTagsCommand extends Command {
@@ -26,7 +27,7 @@ public class FindTagsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         model.updateState();

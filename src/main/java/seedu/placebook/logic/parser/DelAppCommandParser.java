@@ -6,8 +6,17 @@ import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.DelAppCommand;
 import seedu.placebook.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new DelAppCommand object
+ */
 public class DelAppCommandParser implements Parser<DelAppCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DelAppCommand
+     * and returns a DelAppCommand object for execution.
+     * @return DelAppCommand
+     * @throws ParseException if the user input does not conform to the expected format
+     */
     @Override
     public DelAppCommand parse(String args) throws ParseException {
 
