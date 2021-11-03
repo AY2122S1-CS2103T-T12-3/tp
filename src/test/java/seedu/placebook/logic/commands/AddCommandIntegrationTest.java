@@ -3,7 +3,7 @@ package seedu.placebook.logic.commands;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+        model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
 
         // default positive confirmation ui. This will not affect AddCommand
         ui = UiStubFactory.getUiStub(true);

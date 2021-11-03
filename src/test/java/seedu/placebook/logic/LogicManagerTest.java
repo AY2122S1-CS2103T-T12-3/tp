@@ -44,11 +44,11 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonContactsStorage addressBookStorage =
+        JsonContactsStorage contactsStorage =
                 new JsonContactsStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonScheduleStorage scheduleStorage = new JsonScheduleStorage(temporaryFolder.resolve("schedule.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
+        StorageManager storage = new StorageManager(contactsStorage, userPrefsStorage, scheduleStorage);
         logic = new LogicManager(model, storage);
         logic.setUi(UiStubFactory.getUiStub(true));
     }
@@ -74,13 +74,13 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonContactsStorage addressBookStorage =
+        JsonContactsStorage contactsStorage =
                 new JsonContactsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonScheduleStorage scheduleStorage =
                 new JsonScheduleStorage(temporaryFolder.resolve("ioExceptionSchedule.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
+        StorageManager storage = new StorageManager(contactsStorage, userPrefsStorage, scheduleStorage);
         logic = new LogicManager(model, storage);
         logic.setUi(UiStubFactory.getUiStub(true));
 

@@ -9,7 +9,7 @@ import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalPersons.ALICE;
 import static seedu.placebook.testutil.TypicalPersons.BENSON;
 import static seedu.placebook.testutil.TypicalPersons.DANIEL;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +27,8 @@ public class FindTagsCommandTest {
     // default positive confirmation ui. This will not affect FindTagsCommand
     private final Ui uiStub = UiStubFactory.getUiStub(true);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+    private Model model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
+    private Model expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
 
     @Test
     public void equals() {
