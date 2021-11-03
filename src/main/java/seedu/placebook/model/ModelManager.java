@@ -42,7 +42,8 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(contacts, userPrefs, schedule);
 
-        logger.fine("Initializing with contacts: " + contacts + ", user prefs " + userPrefs + " and schedule " + schedule);
+        logger.fine("Initializing with contacts: " + contacts
+                + ", user prefs " + userPrefs + " and schedule " + schedule);
 
         this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -62,7 +63,8 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(contacts, userPrefs);
 
-        logger.fine("Initializing with contacts: " + contacts + ", user prefs " + userPrefs + " and schedule " + schedule);
+        logger.fine("Initializing with contacts: " + contacts
+                + ", user prefs " + userPrefs + " and schedule " + schedule);
 
         this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
