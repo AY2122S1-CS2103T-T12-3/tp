@@ -60,9 +60,9 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code Contacts} with all the typical persons.
      */
-    public static Contacts getTypicalAddressBook() {
+    public static Contacts getTypicalContacts() {
         Contacts ab = new Contacts();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

@@ -28,8 +28,8 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.testutil.AddressBookBuilder;
 import seedu.placebook.testutil.AppointmentBuilder;
+import seedu.placebook.testutil.ContactsBuilder;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
 import seedu.placebook.testutil.Seed;
@@ -45,7 +45,7 @@ public class EditCommandTest {
     private final UniquePersonList editTestPersonList = new UniquePersonList();
 
     private Model model;
-    private Contacts testAddressbook;
+    private Contacts testContacts;
     private Schedule testSchedule;
 
     @BeforeEach
@@ -53,9 +53,9 @@ public class EditCommandTest {
         Person client1 = new PersonBuilder().withName("Client1").build();
         Person client2 = new PersonBuilder().withName("Client2").build();
 
-        testAddressbook = new AddressBookBuilder().build();
-        testAddressbook.addPerson(client1);
-        testAddressbook.addPerson(client2);
+        testContacts = new ContactsBuilder().build();
+        testContacts.addPerson(client1);
+        testContacts.addPerson(client2);
 
         Appointment appointment1 = new AppointmentBuilder(Seed.ONE).addClient(client1).build();
         Appointment appointment2 = new AppointmentBuilder(Seed.TWO).addClient(client1).addClient(client2).build();
@@ -63,7 +63,7 @@ public class EditCommandTest {
         testSchedule = new Schedule();
         testSchedule.addAppointment(appointment1);
         testSchedule.addAppointment(appointment2);
-        model = new ModelManager(testAddressbook, new UserPrefs(), testSchedule);
+        model = new ModelManager(testContacts, new UserPrefs(), testSchedule);
         System.out.println(model.getFilteredAppointmentList().get(0));
         System.out.println(model.getFilteredAppointmentList().get(1));
     }
@@ -77,7 +77,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(testAddressbook, new UserPrefs(), testSchedule);
+                new ModelManager(testContacts, new UserPrefs(), testSchedule);
 
         Person personToEdit = model.getFilteredPersonList().get(0);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);

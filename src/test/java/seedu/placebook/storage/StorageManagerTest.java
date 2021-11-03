@@ -3,7 +3,7 @@ package seedu.placebook.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import java.nio.file.Path;
 
@@ -27,10 +27,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonContactsStorage addressBookStorage = new JsonContactsStorage(getTempFilePath("ab"));
+        JsonContactsStorage contactsStorage = new JsonContactsStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonScheduleStorage scheduleStorage = new JsonScheduleStorage(getTempFilePath("sched"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
+        storageManager = new StorageManager(contactsStorage, userPrefsStorage, scheduleStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -52,20 +52,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void contactsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonContactsStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonContactsStorageTest} class.
          */
-        Contacts original = getTypicalAddressBook();
+        Contacts original = getTypicalContacts();
         storageManager.saveContacts(original);
         ReadOnlyContacts retrieved = storageManager.readContacts().get();
         assertEquals(original, new Contacts(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getContactsFilePath() {
         assertNotNull(storageManager.getContactsFilePath());
     }
 
