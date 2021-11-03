@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,36 @@ public class AddAppCommandTest {
     public void constructor_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
             -> new AddAppCommand(null, null, null, null, null));
+    }
+
+    @Test
+    public void constructor_invalidAppointment_invalidTime_throwsDateTimeException() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(2));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        assertThrows(DateTimeException.class,
+        () -> new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 13, 20, 10, 0),
+                LocalDateTime.of(2022, 1, 21, 10, 0),
+                "Halloween Sales"));
+    }
+
+    @Test
+    public void constructor_invalidAppointment_emptyAddress_throwsIllegalArgumentException() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(2));
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
+        assertThrows(IllegalArgumentException.class,
+                () -> new AddAppCommand(
+                        indexes,
+                        new Address(""),
+                        LocalDateTime.of(2021, 1, 20, 10, 0),
+                        LocalDateTime.of(2021, 1, 21, 10, 0),
+                        "Halloween Sales"));
     }
 
     @Test
@@ -75,7 +106,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void execute_invalidAppointment_returnInvalid() {
+    public void execute_invalidAppointment_invalidPerson_returnInvalid() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(2));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
