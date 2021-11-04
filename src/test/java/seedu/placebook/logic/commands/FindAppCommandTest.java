@@ -94,7 +94,7 @@ public class FindAppCommandTest {
     @Test
     public void execute_multipleKeywords_multipleAppointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 2);
-        DescriptionContainsKeywordsPredicate predicate = preparePredicate("sales meeting");
+        DescriptionContainsKeywordsPredicate predicate = preparePredicate("talk sales");
         FindAppCommand command = new FindAppCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
