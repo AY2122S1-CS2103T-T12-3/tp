@@ -89,8 +89,8 @@ public class AddAppCommandParserTest {
         // invalid id
         assertParseFailure(parser,
                 " id/at a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/Halloween Sales",
-                "Index is not a non-zero unsigned integer.\n" +
-                        "Please note that index should be less than 2^31.");
+                "Index is not a non-zero unsigned integer.\n"
+                        + "Please note that index should be less than 2^31.");
 
         // invalid start, invalid values
         assertParseFailure(parser,
