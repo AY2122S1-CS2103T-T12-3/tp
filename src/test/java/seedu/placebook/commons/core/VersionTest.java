@@ -1,6 +1,8 @@
 package seedu.placebook.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
@@ -103,6 +105,11 @@ public class VersionTest {
         one = new Version(2, 15, 0, false);
         another = new Version(2, 15, 5, true);
         assertTrue(one.compareTo(another) < 0);
+
+        // Tests early access same version
+        one = new Version(2, 15, 0, false);
+        another = new Version(2, 15, 0, true);
+        assertTrue(one.compareTo(another) > 0);
     }
 
     @Test
@@ -116,16 +123,36 @@ public class VersionTest {
 
     @Test
     public void versionComparable_validVersion_equalIsCorrect() {
+        // assert equal will call equals method
         Version one;
         Version another;
 
         one = new Version(0, 0, 0, false);
         another = new Version(0, 0, 0, false);
-        assertTrue(one.equals(another));
+        assertEquals(another, one);
 
         one = new Version(100, 191, 275, true);
         another = new Version(100, 191, 275, true);
-        assertTrue(one.equals(another));
+        assertEquals(another, one);
+
+        one = new Version(99, 191, 275, true);
+        another = new Version(100, 191, 275, true);
+        assertNotEquals(another, one);
+
+        one = new Version(100, 190, 275, true);
+        another = new Version(100, 191, 275, true);
+        assertNotEquals(another, one);
+
+        one = new Version(100, 191, 276, true);
+        another = new Version(100, 191, 275, true);
+        assertNotEquals(another, one);
+
+        one = new Version(100, 191, 275, false);
+        another = new Version(100, 191, 275, true);
+        assertNotEquals(another, one);
+
+        assertNotEquals(null, one);
+        assertFalse(one.equals(1));
     }
 
     private void verifyVersionParsedCorrectly(String versionString,
