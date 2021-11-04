@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.Paths;
 import java.util.logging.Level;
+
+import org.junit.jupiter.api.Test;
 
 public class ConfigTest {
 
