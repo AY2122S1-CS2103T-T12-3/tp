@@ -1,8 +1,7 @@
 package seedu.placebook.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -44,12 +43,13 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void constructor_invalidAppointmentInvalidTime_throwsDateTimeException() {
+    public void constructor_invalidAppointment_invalidTime_throwsDateTimeException() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(2));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
-        assertThrows(DateTimeException.class, () -> new AddAppCommand(
+        assertThrows(DateTimeException.class,
+        () -> new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
                 LocalDateTime.of(2021, 13, 20, 10, 0),
@@ -58,12 +58,13 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void constructor_invalidAppointmentEmptyAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidAppointment_emptyAddress_throwsIllegalArgumentException() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(2));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
-        assertThrows(IllegalArgumentException.class, () -> new AddAppCommand(
+        assertThrows(IllegalArgumentException.class,
+                () -> new AddAppCommand(
                         indexes,
                         new Address(""),
                         LocalDateTime.of(2021, 1, 20, 10, 0),
@@ -109,7 +110,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void execute_invalidAppointmentInvalidPerson_returnInvalid() {
+    public void execute_invalidAppointment_invalidPerson_returnInvalid() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(2));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
@@ -158,7 +159,7 @@ public class AddAppCommandTest {
                 "Halloween Sales");
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelStub, uiStub));
+                -> commandResult.execute(modelStub, uiStub));
     }
 
     @Test
@@ -222,7 +223,7 @@ public class AddAppCommandTest {
         }
 
         assertThrows(CommandException.class, ()
-            -> commandResult.execute(modelTester, uiStub));
+                -> commandResult.execute(modelTester, uiStub));
     }
 
     @Test
@@ -259,7 +260,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void equals_sameAddAppCommand_returnTrue() {
+    public void equals_SameAddAppCommand_returnTrue() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
@@ -280,7 +281,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void equals_nullAddAppCommand_returnFalse() {
+    public void equals_NullAddAppCommand_returnFalse() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
@@ -296,7 +297,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void equals_differentDescriptionAddAppCommand_returnFalse() {
+    public void equals_DifferentDescriptionAddAppCommand_returnFalse() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();

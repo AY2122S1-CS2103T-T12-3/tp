@@ -1,39 +1,31 @@
 package seedu.placebook.logic.parser;
 
-import static seedu.placebook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.placebook.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.placebook.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.placebook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.placebook.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.placebook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import org.junit.jupiter.api.Test;
+import seedu.placebook.commons.core.index.Index;
+import seedu.placebook.logic.commands.AddAppCommand;
+import seedu.placebook.logic.commands.AddCommand;
+import seedu.placebook.model.person.*;
+import seedu.placebook.model.schedule.Appointment;
+import seedu.placebook.model.tag.Tag;
+import seedu.placebook.testutil.AppointmentBuilder;
+import seedu.placebook.testutil.PersonBuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Test;
+import static seedu.placebook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.placebook.logic.commands.CommandTestUtil.*;
+import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.placebook.testutil.TypicalPersons.AMY;
+import static seedu.placebook.testutil.TypicalPersons.BOB;
 
-import seedu.placebook.commons.core.index.Index;
-import seedu.placebook.logic.commands.AddAppCommand;
-import seedu.placebook.logic.commands.AddCommand;
-import seedu.placebook.model.person.Address;
-import seedu.placebook.model.person.Email;
-import seedu.placebook.model.person.Name;
-import seedu.placebook.model.person.Phone;
-import seedu.placebook.model.tag.Tag;
 
+//TODO
 public class AddAppCommandParserTest {
-    private ArrayList<Index> indexes = new ArrayList<>();
     private AddAppCommandParser parser = new AddAppCommandParser();
+    ArrayList<Index> indexes = new ArrayList<>();
+
 
     @Test
     public void parse_allFieldsPresent_success() {
