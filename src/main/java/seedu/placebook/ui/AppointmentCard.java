@@ -70,9 +70,8 @@ public class AppointmentCard extends UiPart<Region> {
 
         UniquePersonList clients = appointment.getClients();
         clientNames.textProperty().bindBidirectional(clients.getPersonNames());
-        appointmentCardPane.widthProperty().addListener(
-                (observable, oldValue, newValue) ->
-                clientNames.setWrappingWidth((Double)newValue * 3 / 4)
+        appointmentCardPane.widthProperty().addListener((observable, oldValue, newValue) ->
+                clientNames.setWrappingWidth((Double) newValue * 3 / 4)
         );
 
         PersonListPanel clientsDetail = new PersonListPanel(clients.asUnmodifiableObservableList());
