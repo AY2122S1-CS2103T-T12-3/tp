@@ -9,6 +9,8 @@ PlaceBook (PB) is a desktop app for managing contacts and appointments, optimize
 
 Given below are my contributions to the project.
 
+### Summary of Contributions
+
 * **New Feature**: Added Light Theme/ Dark Theme toggle function
   * What it does: allows the user to change the theme fo the application.
   * Justification: This feature improves the user experience as it allows users to work with greater eye comfort in various
