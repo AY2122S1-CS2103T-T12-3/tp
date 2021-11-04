@@ -19,17 +19,29 @@ public class AddAppCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         indexes.add(Index.fromZeroBased(0));
-        // whitespace only preamble
+        // Index with one value
         assertParseSuccess(parser,
                 " id/1 a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/Halloween Sales",
                 new AddAppCommand(indexes, new Address("vivocity"),
                         LocalDateTime.of(2021, 1, 1, 10, 0),
                         LocalDateTime.of(2021, 1, 1, 12, 0),
                         "Halloween Sales"));
+
+        ArrayList<Index> index = new ArrayList<>();
+        index.add(Index.fromZeroBased(0));
+        index.add(Index.fromZeroBased(1));
+        index.add(Index.fromZeroBased(2));
+        // Index with multiple values
+        assertParseSuccess(parser,
+                " id/1,2,3 a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/Halloween Sales",
+                new AddAppCommand(index, new Address("vivocity"),
+                        LocalDateTime.of(2021, 1, 1, 10, 0),
+                        LocalDateTime.of(2021, 1, 1, 12, 0),
+                        "Halloween Sales"));
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
+    public void parse_descFieldsMissing_success() {
         indexes.add(Index.fromZeroBased(0));
 
         // blank desc
