@@ -44,7 +44,7 @@ public class AddAppCommandParserTest {
     public void parse_descFieldsMissing_success() {
         indexes.add(Index.fromZeroBased(0));
 
-        // blank desc
+        // Blank desc
         assertParseSuccess(parser,
                 " id/1 a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
                 new AddAppCommand(indexes, new Address("vivocity"),
