@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 
@@ -47,6 +48,8 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private TitledPane clientsPane;
     @FXML
+    private Text clientNames;
+    @FXML
     private Label address;
     @FXML
     private Label startDate;
@@ -66,9 +69,10 @@ public class AppointmentCard extends UiPart<Region> {
         endDate.setText(appointment.getEndDateTimeString());
 
         UniquePersonList clients = appointment.getClients();
-        Label clientNames = new Label(clients.toString());
         clientNames.textProperty().bindBidirectional(clients.getPersonNames());
-        clientsPane.setGraphic(clientNames);
+        appointmentCardPane.widthProperty().addListener((observable, oldValue, newValue) ->
+                clientNames.setWrappingWidth((Double) newValue * 3 / 4)
+        );
 
         PersonListPanel clientsDetail = new PersonListPanel(clients.asUnmodifiableObservableList());
         clientsPane.setContent(clientsDetail.getRoot());
