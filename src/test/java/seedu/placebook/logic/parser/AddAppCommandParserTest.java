@@ -55,9 +55,11 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
+        indexes.add(Index.fromZeroBased(0));
+
         // missing index
         assertParseFailure(parser,
-                " id/ a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
+                " id/  a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
                 "Index is not a non-zero unsigned integer.");
 
         // missing address
@@ -80,9 +82,11 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        indexes.add(Index.fromZeroBased(0));
+
         // invalid id
         assertParseFailure(parser,
-                " id/at a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
+                " id/at  a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
                 "Index is not a non-zero unsigned integer.");
 
         // invalid start, invalid values
