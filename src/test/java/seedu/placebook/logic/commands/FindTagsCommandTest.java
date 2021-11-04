@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalPersons.ALICE;
@@ -68,9 +69,39 @@ public class FindTagsCommandTest {
     }
 
     @Test
+    public void execute_oneKeyword_noPersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        PersonHasTagsPredicate predicate = preparePredicate("enemies");
+        FindTagsCommand command = new FindTagsCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_oneKeyword_onePersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        PersonHasTagsPredicate predicate = preparePredicate("owesmoney");
+        FindTagsCommand command = new FindTagsCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON), model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonHasTagsPredicate predicate = preparePredicate("friends");
+        FindTagsCommand command = new FindTagsCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multiplePersonsFound2() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        PersonHasTagsPredicate predicate = preparePredicate("friends owesmoney");
         FindTagsCommand command = new FindTagsCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, uiStub, expectedMessage, expectedModel);

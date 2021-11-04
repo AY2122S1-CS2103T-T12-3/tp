@@ -31,7 +31,7 @@ public class Contacts implements ReadOnlyContacts {
     public Contacts() {}
 
     /**
-     * Creates a contacts using the Persons in the {@code toBeCopied}
+     * Creates a Contacts using the Persons in the {@code toBeCopied}
      */
     public Contacts(ReadOnlyContacts toBeCopied) {
         this();
