@@ -31,7 +31,7 @@
 
             <TitledPane fx:id="clientsPane" styleClass="titled_pane" expanded="false" maxHeight="400">
                 <graphic>
-                    <Text fx:id="clientNames" text="\$client names" />
+                    <Text fx:id="clientNames" styleClass="client_names" text="\$client names" />
                 </graphic>
             </TitledPane>
 
