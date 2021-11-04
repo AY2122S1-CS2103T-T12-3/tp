@@ -98,7 +98,7 @@ public class UiManager implements Ui {
     public boolean showDeleteDialogAndWait(String contentText) {
         final Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add(themeManager.getCurrentStylesheet());
-        // TODO: to be adjust later, can try alert.setDialogPane();
+
         alert.setHeight(500);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Are you sure you want to delete?");

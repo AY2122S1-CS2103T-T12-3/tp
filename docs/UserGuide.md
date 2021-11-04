@@ -306,13 +306,13 @@ Examples:
 * `findApp zoom` returns `Zoom` and `Zoom meeting`
 * `findApp meeting talk` returns `sales talk`, `urgent meeting`<br>
 
-#### Listing all appointments : `listapp` 
+#### Listing all appointments : `listApp` 
 
 Show all the appointments in the appointment list currently.
 List is sorted by Date, Time and Description baseline. Can optionally add a condition
 to sort List by, if an invalid condition is input, it will sort by baseline conditions
 
-Format: `listapp` Optional: `listapp Time` or `listapp Description`
+Format: `listApp` Optional: `listApp Time` or `listApp Description`
 
 ### **Other Features**
 
