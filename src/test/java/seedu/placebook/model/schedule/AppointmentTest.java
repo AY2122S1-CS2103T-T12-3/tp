@@ -16,9 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.placebook.model.person.Address;
+import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.person.exceptions.DuplicatePersonException;
 import seedu.placebook.model.person.exceptions.PersonNotFoundException;
+import seedu.placebook.testutil.PersonBuilder;
 
 public class AppointmentTest {
     private static final LocalDateTime TEST_MOMENT1 =
@@ -298,5 +300,58 @@ public class AppointmentTest {
         assertTrue(appointment.hasClient(ALICE));
         assertTrue(appointment.hasClient(BENSON));
         assertFalse(appointment.hasClient(BOB));
+    }
+
+    @Test
+    public void setClient_validInput_success() {
+        Appointment appointment = new Appointment(testClientList1, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        appointment.setClient(ALICE, BOB);
+        UniquePersonList clientList = appointment.getClients();
+        assertFalse(clientList.contains(ALICE));
+        assertTrue(clientList.contains(BOB));
+        assertTrue(clientList.contains(BENSON));
+    }
+
+    @Test
+    public void setClient_duplicateClientSameReference_exceptionThrown() {
+        Appointment appointment = new Appointment(testClientList1, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertThrows(DuplicatePersonException.class, () -> appointment.setClient(ALICE, BENSON));
+    }
+
+    @Test
+    public void setClient_duplicateClientSameAttributesDifferentReference_exceptionThrown() {
+        Person editedPerson = new PersonBuilder(BENSON).build();
+        Appointment appointment = new Appointment(testClientList1, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertThrows(DuplicatePersonException.class, () -> appointment.setClient(ALICE, editedPerson));
+    }
+
+    @Test
+    public void setClient_targetPersonNotInClientList_exceptionThrown() {
+        Appointment appointment = new Appointment(testClientList1, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertThrows(PersonNotFoundException.class, () -> appointment.setClient(BOB, BOB));
+    }
+
+    @Test
+    public void isTheOnlyClient_onlyClient_returnsTrue() {
+        UniquePersonList clientList = new UniquePersonList();
+        clientList.add(ALICE);
+        Appointment appointment = new Appointment(clientList, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertTrue(appointment.isTheOnlyClient(ALICE));
+    }
+
+    @Test
+    public void isTheOnlyClient_clientListContainsTargetAndOtherClients_returnsFalse() {
+        Appointment appointment = new Appointment(testClientList1, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertFalse(appointment.isTheOnlyClient(ALICE));
+        assertFalse(appointment.isTheOnlyClient(BENSON));
+    }
+
+    @Test
+    public void isTheOnlyClient_targetNotInClientList_returnsFalse() {
+        UniquePersonList clientList = new UniquePersonList();
+        clientList.add(ALICE);
+        Appointment appointment = new Appointment(clientList, TEST_ADDRESS1, TEST_TIME_PERIOD1, TEST_DESCRIPTION1);
+        assertFalse(appointment.isTheOnlyClient(BENSON));
+        assertFalse(appointment.isTheOnlyClient(BOB));
     }
 }
