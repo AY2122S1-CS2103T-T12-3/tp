@@ -21,9 +21,9 @@
       "address" : "Blk 47 Tampines Street 20, #17-35",
       "tagged" : [ "classmates" ]
     } ],
-    "location" : "Zoom",
+    "location" : " ",
     "timePeriod" : {
-      "startDateTime" : "Invalid Start Date",
+      "startDateTime" : "06-11-2021 2206",
       "endDateTime" : "06-11-2021 2306"
     },
     "description" : "Sales Update"

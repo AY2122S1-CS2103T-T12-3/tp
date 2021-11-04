@@ -7,9 +7,9 @@
       "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
       "tagged" : [ "neighbours" ]
     } ],
-    "location" : "Vivo City",
+    "location" : " ",
     "timePeriod" : {
-      "startDateTime" : "Invalid Start Date",
+      "startDateTime" : "04-11-2021 2100",
       "endDateTime" : "04-11-2021 2200"
     },
     "description" : "Team meeting"
