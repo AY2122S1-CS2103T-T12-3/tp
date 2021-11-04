@@ -59,5 +59,11 @@ public class DelAppCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DelAppCommand // instanceof handles nulls
+                && index.equals(((DelAppCommand) other).index)); // state check
+    }
 
 }
