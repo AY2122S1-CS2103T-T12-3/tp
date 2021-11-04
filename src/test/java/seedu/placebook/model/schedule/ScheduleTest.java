@@ -89,7 +89,7 @@ public class ScheduleTest {
         schedule.addAppointment(ALICE_APPOINTMENT);
         schedule.addAppointment(CARL_APPOINTMENT);
         assertThrows(NullPointerException.class, ()
-                -> schedule.setAppointment(ALICE_CARL_APPOINTMENT, null));
+            -> schedule.setAppointment(ALICE_CARL_APPOINTMENT, null));
     }
 
     @Test
