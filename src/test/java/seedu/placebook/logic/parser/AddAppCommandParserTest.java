@@ -13,12 +13,13 @@ import seedu.placebook.logic.commands.AddAppCommand;
 import seedu.placebook.model.person.Address;
 
 public class AddAppCommandParserTest {
-    private ArrayList<Index> indexes = new ArrayList<>();
     private AddAppCommandParser parser = new AddAppCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
+        ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
+
         // Index with one value
         assertParseSuccess(parser,
                 " id/1 a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/Halloween Sales",
@@ -42,6 +43,7 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_descFieldsMissing_success() {
+        ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
 
         // Blank desc
@@ -55,6 +57,7 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
+        ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
 
         // missing index
@@ -82,6 +85,7 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
 
         // invalid id
