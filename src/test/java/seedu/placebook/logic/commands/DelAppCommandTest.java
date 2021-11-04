@@ -29,7 +29,9 @@ public class DelAppCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment appointmentToDelete =
+                model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+
         DelAppCommand delAppCommand = new DelAppCommand(INDEX_FIRST_APPOINTMENT);
 
         String expectedMessage = String.format(DelAppCommand.MESSAGE_SUCCESS, appointmentToDelete);
@@ -52,7 +54,9 @@ public class DelAppCommandTest {
     public void execute_validIndexFilteredList_success() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
-        Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment appointmentToDelete =
+                model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        
         DelAppCommand delAppCommand = new DelAppCommand(INDEX_FIRST_APPOINTMENT);
 
         String expectedMessage = String.format(DelAppCommand.MESSAGE_SUCCESS, appointmentToDelete);
