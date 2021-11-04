@@ -18,10 +18,10 @@ import seedu.placebook.commons.core.GuiSettings;
 import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.person.Address;
@@ -202,12 +202,12 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactsFilePath(Path contactsFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,12 +217,12 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setContact(ReadOnlyContacts contacts) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyContacts getContacts() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -364,8 +364,8 @@ public class AddAppCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyContacts getContacts() {
+            return new Contacts();
         }
     }
 }

@@ -15,17 +15,17 @@ import seedu.placebook.commons.util.ConfigUtil;
 import seedu.placebook.commons.util.StringUtil;
 import seedu.placebook.logic.Logic;
 import seedu.placebook.logic.LogicManager;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.ReadOnlyUserPrefs;
 import seedu.placebook.model.UserPrefs;
 import seedu.placebook.model.schedule.Schedule;
 import seedu.placebook.model.util.SampleDataUtil;
-import seedu.placebook.storage.AddressBookStorage;
-import seedu.placebook.storage.JsonAddressBookStorage;
+import seedu.placebook.storage.ContactsStorage;
+import seedu.placebook.storage.JsonContactsStorage;
 import seedu.placebook.storage.JsonScheduleStorage;
 import seedu.placebook.storage.JsonUserPrefsStorage;
 import seedu.placebook.storage.ScheduleStorage;
@@ -60,9 +60,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        ContactsStorage contactsStorage = new JsonContactsStorage(userPrefs.getContactsFilePath());
         ScheduleStorage scheduleStorage = new JsonScheduleStorage(userPrefs.getScheduleFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, scheduleStorage);
+        storage = new StorageManager(contactsStorage, userPrefsStorage, scheduleStorage);
 
         initLogging(config);
 
@@ -78,14 +78,14 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s Placebook and {@code userPrefs}. <br>
+     * The data from the sample Placebook will be used instead if {@code storage}'s Placebook is not found,
+     * or an empty Placebook will be used instead if errors occur when reading {@code storage}'s Placebook.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyContacts> contactsOptional;
         Optional<ReadOnlySchedule> scheduleOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyContacts initialContacts;
         ReadOnlySchedule initialSchedule;
         boolean usingSampleSchedule = false;
 
@@ -105,28 +105,28 @@ public class MainApp extends Application {
         }
 
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            contactsOptional = storage.readContacts();
+            if (!contactsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Contacts");
                 initialSchedule = SampleDataUtil.getSampleSchedule();
             } else if (usingSampleSchedule) {
-                // Sample Schedule data would most likely not match non-sample addressBook
+                // Sample Schedule data would most likely not match non-sample Schedule
                 // In this case, we will wipe schedule data
-                logger.info("AddressBook data found, wiping sample Schedule");
+                logger.info("Contacts data found, wiping sample Schedule");
                 initialSchedule = new Schedule();
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialContacts = contactsOptional.orElseGet(SampleDataUtil::getSampleContacts);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Contacts");
+            initialContacts = new Contacts();
             initialSchedule = new Schedule();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Contacts");
+            initialContacts = new Contacts();
             initialSchedule = new Schedule();
         }
 
-        return new ModelManager(initialData, userPrefs, initialSchedule);
+        return new ModelManager(initialContacts, userPrefs, initialSchedule);
     }
 
     private void initLogging(Config config) {
@@ -187,7 +187,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Placebook");
             initializedPrefs = new UserPrefs();
         }
 

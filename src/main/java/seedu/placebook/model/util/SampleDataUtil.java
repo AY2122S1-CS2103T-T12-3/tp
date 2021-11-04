@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.placebook.model.AddressBook;
-import seedu.placebook.model.ReadOnlyAddressBook;
+import seedu.placebook.model.Contacts;
+import seedu.placebook.model.ReadOnlyContacts;
 import seedu.placebook.model.ReadOnlySchedule;
 import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Email;
@@ -20,7 +20,7 @@ import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code contacts} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -87,8 +87,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyContacts getSampleContacts() {
+        Contacts sampleAb = new Contacts();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }

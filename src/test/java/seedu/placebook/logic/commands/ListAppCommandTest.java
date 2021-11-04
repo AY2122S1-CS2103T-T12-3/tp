@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.placebook.logic.UiStubFactory;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
@@ -24,10 +24,10 @@ class ListAppCommandTest {
 
     @BeforeEach
     public void setUp() {
-        AddressBook addressBook = TypicalPersons.getTypicalAddressBook();
+        Contacts contacts = TypicalPersons.getTypicalContacts();
         Schedule schedule = TypicalAppointment.getTypicalSchedule();
-        model = new ModelManager(addressBook, new UserPrefs(), schedule);
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getSchedule());
+        model = new ModelManager(contacts, new UserPrefs(), schedule);
+        expectedModel = new ModelManager(model.getContacts(), new UserPrefs(), model.getSchedule());
     }
 
     @Test

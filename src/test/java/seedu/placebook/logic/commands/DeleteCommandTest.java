@@ -8,7 +8,7 @@ import static seedu.placebook.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.placebook.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ import seedu.placebook.ui.Ui;
  */
 public class DeleteCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+    private final Model model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
     private final Ui positive = UiStubFactory.getUiStub(true);
     private final Ui negative = UiStubFactory.getUiStub(false);
 
@@ -38,7 +38,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+        ModelManager expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, positive, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
+        Model expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
@@ -73,8 +73,8 @@ public class DeleteCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of contacts list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

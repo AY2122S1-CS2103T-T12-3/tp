@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.person.Person;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code Contacts} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Contacts getTypicalContacts() {
+        Contacts ab = new Contacts();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

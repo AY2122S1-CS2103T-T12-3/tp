@@ -2,12 +2,12 @@ package seedu.placebook.logic.commands;
 
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
-import static seedu.placebook.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.placebook.logic.UiStubFactory;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
@@ -19,7 +19,7 @@ public class ClearCommandTest {
     private final Ui uiStub = UiStubFactory.getUiStub(true);
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyContacts_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -27,10 +27,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalSchedule());
-        expectedModel.setAddressBook(new AddressBook());
+    public void execute_nonEmptyContacts_success() {
+        Model model = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
+        Model expectedModel = new ModelManager(getTypicalContacts(), new UserPrefs(), getTypicalSchedule());
+        expectedModel.setContact(new Contacts());
         expectedModel.setSchedule(new Schedule());
 
         assertCommandSuccess(new ClearCommand(), model, uiStub, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -20,7 +20,7 @@ import seedu.placebook.commons.core.Messages;
 import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.placebook.model.AddressBook;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
@@ -28,8 +28,8 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.testutil.AddressBookBuilder;
 import seedu.placebook.testutil.AppointmentBuilder;
+import seedu.placebook.testutil.ContactsBuilder;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
 import seedu.placebook.testutil.Seed;
@@ -45,7 +45,7 @@ public class EditCommandTest {
     private final UniquePersonList editTestPersonList = new UniquePersonList();
 
     private Model model;
-    private AddressBook testAddressbook;
+    private Contacts testContacts;
     private Schedule testSchedule;
 
     @BeforeEach
@@ -53,9 +53,9 @@ public class EditCommandTest {
         Person client1 = new PersonBuilder().withName("Client1").build();
         Person client2 = new PersonBuilder().withName("Client2").build();
 
-        testAddressbook = new AddressBookBuilder().build();
-        testAddressbook.addPerson(client1);
-        testAddressbook.addPerson(client2);
+        testContacts = new ContactsBuilder().build();
+        testContacts.addPerson(client1);
+        testContacts.addPerson(client2);
 
         Appointment appointment1 = new AppointmentBuilder(Seed.ONE).addClient(client1).build();
         Appointment appointment2 = new AppointmentBuilder(Seed.TWO).addClient(client1).addClient(client2).build();
@@ -63,7 +63,7 @@ public class EditCommandTest {
         testSchedule = new Schedule();
         testSchedule.addAppointment(appointment1);
         testSchedule.addAppointment(appointment2);
-        model = new ModelManager(testAddressbook, new UserPrefs(), testSchedule);
+        model = new ModelManager(testContacts, new UserPrefs(), testSchedule);
         System.out.println(model.getFilteredAppointmentList().get(0));
         System.out.println(model.getFilteredAppointmentList().get(1));
     }
@@ -77,7 +77,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(testAddressbook, new UserPrefs(), testSchedule);
+                new ModelManager(testContacts, new UserPrefs(), testSchedule);
 
         Person personToEdit = model.getFilteredPersonList().get(0);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
@@ -103,7 +103,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
@@ -117,7 +117,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
     }
@@ -134,7 +134,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), model.getSchedule());
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
@@ -153,8 +153,8 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        // edit person in filtered list into a duplicate in contacts
+        Person personInList = model.getContacts().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -172,14 +172,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of contacts
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of contacts list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getContacts().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
