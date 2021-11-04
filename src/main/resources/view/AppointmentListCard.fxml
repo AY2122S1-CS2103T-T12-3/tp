@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.text.Text?>
 <HBox id="appointmentCardPane" fx:id="appointmentCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane fx:id="appointmentColorPane" HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -28,7 +29,11 @@
                 <Label fx:id="description" text="\$description" styleClass="cell_big_label" />
             </HBox>
 
-            <TitledPane fx:id="clientsPane" styleClass="titled_pane" expanded="false" maxHeight="400"/>
+            <TitledPane fx:id="clientsPane" styleClass="titled_pane" expanded="false" maxHeight="400">
+                <graphic>
+                    <Text fx:id="clientNames" styleClass="client_names" text="\$client names" />
+                </graphic>
+            </TitledPane>
 
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <HBox>
