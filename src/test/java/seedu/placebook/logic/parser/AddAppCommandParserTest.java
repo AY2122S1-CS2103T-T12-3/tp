@@ -1,5 +1,19 @@
 package seedu.placebook.logic.parser;
 
+import static seedu.placebook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.placebook.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.placebook.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.placebook.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.placebook.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.placebook.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.placebook.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.placebook.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.placebook.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,7 +24,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.placebook.commons.core.index.Index;
 import seedu.placebook.logic.commands.AddAppCommand;
+import seedu.placebook.logic.commands.AddCommand;
 import seedu.placebook.model.person.Address;
+import seedu.placebook.model.person.Email;
+import seedu.placebook.model.person.Name;
+import seedu.placebook.model.person.Phone;
+import seedu.placebook.model.tag.Tag;
 
 public class AddAppCommandParserTest {
     private ArrayList<Index> indexes = new ArrayList<>();
@@ -43,23 +62,25 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        // missing index
-        assertParseFailure(parser,
-                " id/ a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
-                "Index is not a non-zero unsigned integer.");
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE);
 
-        // missing address
+        // missing index prefix
         assertParseFailure(parser,
                 " id/1 a/ start/01-01-2021 1000 end/01-01-2021 1200 ds/",
                 "Addresses can take any values, and it should not be blank");
 
-        // missing start
+        // missing address prefix
+        assertParseFailure(parser,
+                " id/1 a/ start/01-01-2021 1000 end/01-01-2021 1200 ds/",
+                "Addresses can take any values, and it should not be blank");
+
+        // missing start prefix
         assertParseFailure(parser,
                 " id/1 a/vivocity start/ end/01-01-2021 1000 ds/",
                 "DateTime format should be \"dd-MM-yyyy HHmm\"."
                         + " Don't forget that there are only 12 months in a year!");
 
-        // missing end
+        // missing end prefix
         assertParseFailure(parser,
                 " id/1 a/vivocity start/01-01-2021 1000 end/ ds/",
                 "DateTime format should be \"dd-MM-yyyy HHmm\"."
@@ -68,33 +89,33 @@ public class AddAppCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid id
-        assertParseFailure(parser,
-                " id/at a/vivocity start/01-01-2021 1000 end/01-01-2021 1200 ds/",
-                "Index is not a non-zero unsigned integer.");
+        // invalid name
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid start, invalid values
-        assertParseFailure(parser,
-                " id/1 a/vivocity start/00-00-0000 0000 end/01-01-2021 1000 ds/",
-                "DateTime format should be \"dd-MM-yyyy HHmm\"."
-                        + " Don't forget that there are only 12 months in a year!");
+        // invalid phone
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
 
-        // invalid start, missing values
-        assertParseFailure(parser,
-                " id/1 a/vivocity start/01-01-2021 end/01-01-2021 1000 ds/",
-                "DateTime format should be \"dd-MM-yyyy HHmm\"."
-                        + " Don't forget that there are only 12 months in a year!");
+        // invalid email
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
 
-        // invalid end, invalid values
-        assertParseFailure(parser,
-                " id/1 a/vivocity start/01-01-2021 1000 end/00-00-0000 0000 ds/",
-                "DateTime format should be \"dd-MM-yyyy HHmm\"."
-                        + " Don't forget that there are only 12 months in a year!");
+        // invalid address
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
-        // invalid end, missing values
-        assertParseFailure(parser,
-                " id/1 a/vivocity start/01-01-2021 1000 end/01-01-2021 ds/",
-                "DateTime format should be \"dd-MM-yyyy HHmm\"."
-                        + " Don't forget that there are only 12 months in a year!");
+        // invalid tag
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+
+        // two invalid values, only first invalid value reported
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
+                Name.MESSAGE_CONSTRAINTS);
+
+        // non-empty preamble
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
