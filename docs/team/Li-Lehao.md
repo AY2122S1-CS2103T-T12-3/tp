@@ -20,7 +20,7 @@ Given below are my contributions to the project.
   * Highlights: This enhancement affects almost all existing commands and commands to be added in future. 
     It required an in-depth analysis of design alternatives. 
     The implementation too was challenging as it required changes to existing commands.
-    
+
 * **New Feature**: Added the `listApp` command.
   * What it does: the `listApp` command allows the user to let PlackBook display a list of all the appointments.
     In addition, users can also add keywords such as `time` and `description` after the `listApp` command,
@@ -29,7 +29,7 @@ Given below are my contributions to the project.
     to go back to the original appointment list after they use `findApp` command and some other commands.
     In addition, sorting the appointment list according to certain keywords significantly improves the convenience
     for users to look through the appointment list.
-    
+
 * **New Feature**: Implement the `TimePeriod` class so that PlaceBook can check potential time conflicts among the appointments.
   * What it does: each `TimePeriod` object represent a specific period of time. 
     It ensures that the recorded time period must be valid, that is, 
@@ -39,14 +39,14 @@ Given below are my contributions to the project.
     At the same time, it provides a way to check whether there is a conflict between two time periods.
   * Justification: This feature is important because it allows PlaceBook to check potential time conflicts among all the
     appointments in the schedule, and checking time conflict is an essential feature of PlaceBook.
-    
+
 * **Other significant contribution**: Implement some test utilities such as `AppointmentBuilder` and `TypicalAppointments`.
   * What it does: These test utilities provide a way to quickly and concisely generate many meaningful appointment objects.
   * Justification: These test utilities are important because
     it is often necessary to create a lot of appointments during testing.
     These tools allow people to quickly create many meaningful appointment instances,
     avoiding the confusion and duplication of creating different instances everywhere.
-    
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)
 * **Project management**:
     * Record some important contents of the weekly team meeting.
@@ -55,7 +55,7 @@ Given below are my contributions to the project.
     * Updated the `Appointment` and `Schedule` class, allowing them to detact and remove the appointment
       with empty client list.
     * Wrote additional tests for `Appointment` class.
-    
+
 * **Documentation**:
     * User Guide:
         * Added screenshots to better display the product interface and better guide the users how to operate. [#136](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/136)
