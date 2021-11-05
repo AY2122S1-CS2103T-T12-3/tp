@@ -2,6 +2,7 @@ package seedu.placebook.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setContactsFilePath(Paths.get("contacts.json"));
+        userPrefs.setScheduleFilePath(Paths.get("schedule.json"));
         return userPrefs;
     }
 
@@ -105,8 +107,8 @@ public class JsonUserPrefsStorageTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
-        Path pefsFilePath = testFolder.resolve("TempPrefs.json");
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
+        Path prefsFilePath = testFolder.resolve("TempPrefs.json");
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(prefsFilePath);
 
         //Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);
@@ -118,6 +120,13 @@ public class JsonUserPrefsStorageTest {
         jsonUserPrefsStorage.saveUserPrefs(original);
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);
+    }
+
+    @Test
+    public void getUserPrefs() {
+        Path prefsFilePath = testFolder.resolve("TempPrefs.json");
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(prefsFilePath);
+        assertNotNull(jsonUserPrefsStorage.getUserPrefsFilePath());
     }
 
 }

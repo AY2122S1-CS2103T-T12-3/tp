@@ -1,0 +1,31 @@
+{
+  "appointments" : [ {
+    "clients" : [ {
+      "name" : "Charlotte Oliveiro",
+      "phone" : "93210283",
+      "email" : "charlotte@example.com",
+      "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
+      "tagged" : [ "neighbours" ]
+    } ],
+    "location" : "Vivo City",
+    "timePeriod" : {
+      "startDateTime" : "04-11-2021 2100",
+      "endDateTime" : "04-11-2021 2200"
+    },
+    "description" : "Team meeting"
+  }, {
+    "clients" : [ {
+      "name" : "Irfan Ibrahim",
+      "phone" : "92492021",
+      "email" : "irfan@example.com",
+      "address" : "Blk 47 Tampines Street 20, #17-35",
+      "tagged" : [ "classmates" ]
+    } ],
+    "location" : " ",
+    "timePeriod" : {
+      "startDateTime" : "06-11-2021 2206",
+      "endDateTime" : "06-11-2021 2306"
+    },
+    "description" : "Sales Update"
+  } ]
+}

@@ -33,7 +33,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/li-lehao.png" width="200px">
 
-[[github](https://github.com/Li-Lehao)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/Li-Lehao)] [[portfolio](team/li-lehao.md)]
 
 * Role: Developer
 * Responsibilities: ..

@@ -20,7 +20,8 @@ import seedu.placebook.model.Contacts;
 import seedu.placebook.model.ReadOnlyContacts;
 
 public class JsonContactsStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonPlaceBookStorageTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonPlaceBookStorageTest");
 
     @TempDir
     public Path testFolder;

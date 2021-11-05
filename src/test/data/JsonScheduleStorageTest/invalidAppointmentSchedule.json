@@ -1,0 +1,17 @@
+{
+  "appointments" : [ {
+    "clients" : [ {
+      "name" : "Charlotte Oliveiro",
+      "phone" : "93210283",
+      "email" : "charlotte@example.com",
+      "address" : "Blk 11 Ang Mo Kio Street 74, #11-04",
+      "tagged" : [ "neighbours" ]
+    } ],
+    "location" : " ",
+    "timePeriod" : {
+      "startDateTime" : "04-11-2021 2100",
+      "endDateTime" : "04-11-2021 2200"
+    },
+    "description" : "Team meeting"
+  } ]
+}

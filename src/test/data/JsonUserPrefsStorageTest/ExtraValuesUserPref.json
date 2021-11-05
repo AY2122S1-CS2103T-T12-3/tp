@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "contactsFilePath" : "contacts.json"
+  "contactsFilePath" : "contacts.json",
+  "scheduleFilePath" : "schedule.json"
 }

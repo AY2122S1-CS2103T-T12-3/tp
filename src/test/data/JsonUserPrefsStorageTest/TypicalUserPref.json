@@ -7,5 +7,6 @@
       "y" : 100
     }
   },
-  "contactsFilePath" : "contacts.json"
+  "contactsFilePath" : "contacts.json",
+  "scheduleFilePath" : "schedule.json"
 }

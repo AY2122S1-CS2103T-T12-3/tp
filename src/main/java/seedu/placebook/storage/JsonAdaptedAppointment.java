@@ -1,5 +1,7 @@
 package seedu.placebook.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.placebook.commons.exceptions.IllegalValueException;
 import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Person;
-import seedu.placebook.model.person.Phone;
 import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.TimePeriod;
@@ -34,6 +35,7 @@ public class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(@JsonProperty("clients") List<JsonAdaptedPerson> clients,
             @JsonProperty("location") String location, @JsonProperty("timePeriod") JsonAdaptedTimePeriod timePeriod,
             @JsonProperty("description") String description) {
+        requireNonNull(clients);
         this.clients.addAll(clients);
         this.location = location;
         this.timePeriod = timePeriod;
@@ -57,7 +59,7 @@ public class JsonAdaptedAppointment {
      */
     public Appointment toModelType() throws IllegalValueException {
 
-        if (clients == null) {
+        if (clients.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
         final UniquePersonList modelClients = createModelClient(this.clients);
@@ -66,7 +68,7 @@ public class JsonAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(location)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelLocation = new Address(location);
 
