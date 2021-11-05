@@ -318,23 +318,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the String representation of the appointments that have time conflict with the
-     * given appointment.
-     * @param appointment The given appointment to check.
-     * @return The String representation of the appointments that have time conflict with the
-     * given appointment.
-     */
-    @Override
-    public String getClashingAppointmentsAsString(Appointment appointment) {
-        List<Appointment> clashingAppointments = getClashingAppointments(appointment);
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Appointment app : clashingAppointments) {
-            stringBuilder.append(app + "\n");
-        }
-        return stringBuilder.toString();
-    }
-
-    /**
      * Go back to the previous state before executing a certain command.
      * @throws NoHistoryStatesException Throw exception if there is no previous state.
      */

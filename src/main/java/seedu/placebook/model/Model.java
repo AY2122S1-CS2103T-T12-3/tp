@@ -161,15 +161,6 @@ public interface Model {
     List<Appointment> getClashingAppointments(Appointment appointment);
 
     /**
-     * Returns the String representation of the appointments that have time conflict with the
-     * given appointment.
-     * @param appointment The given appointment to check.
-     * @return The String representation of the appointments that have time conflict with the
-     * given appointment.
-     */
-    String getClashingAppointmentsAsString(Appointment appointment);
-
-    /**
      * Replaces the given appointment {@code target} with {@code editedAppointment}.
      * {@code target} must exist in Placebook.
      * The appointment identity of {@code editedAppointment}
