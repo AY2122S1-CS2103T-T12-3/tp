@@ -25,6 +25,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
+    public static final String MESSAGE_NO_PERSON_DELETED = "No person deleted.";
+
     public static final String MESSAGE_DELETE_PERSON_WARNING =
             "The following appointments related to the client will be deleted as well:\n";
 
@@ -52,7 +54,7 @@ public class DeleteCommand extends Command {
             model.updateState();
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
         } else {
-            return new CommandResult("No person deleted.");
+            return new CommandResult(MESSAGE_NO_PERSON_DELETED);
         }
     }
 
