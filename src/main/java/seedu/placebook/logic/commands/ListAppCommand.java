@@ -28,4 +28,11 @@ public class ListAppCommand extends Command {
         model.updateState();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListAppCommand // instanceof handles nulls
+                && sortBy.equals(((ListAppCommand) other).sortBy)); // state check
+    }
 }
