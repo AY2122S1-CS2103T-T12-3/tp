@@ -1,16 +1,10 @@
 package seedu.placebook.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.placebook.logic.commands.FindTagsCommand;
-import seedu.placebook.logic.commands.ListAppCommand;
-import seedu.placebook.model.person.PersonHasTagsPredicate;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.placebook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.placebook.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.placebook.logic.commands.ListAppCommand;
 
 class ListAppCommandParserTest {
 
