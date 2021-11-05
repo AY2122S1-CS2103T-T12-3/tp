@@ -46,17 +46,17 @@ public class ThemeManager {
 
     private void toggle() {
         switch (currentTheme) {
-            case DARK:
-                currentTheme = Theme.LIGHT;
-                currentStylesheet = LIGHT_THEME_CSS;
-                currentButtonImage = SUN;
-                break;
-            case LIGHT:
-                currentTheme = Theme.DARK;
-                currentStylesheet = DARK_THEME_CSS;
-                currentButtonImage = MOON;
-                break;
-            default:
+        case DARK:
+            currentTheme = Theme.LIGHT;
+            currentStylesheet = LIGHT_THEME_CSS;
+            currentButtonImage = SUN;
+            break;
+        case LIGHT:
+            currentTheme = Theme.DARK;
+            currentStylesheet = DARK_THEME_CSS;
+            currentButtonImage = MOON;
+            break;
+        default:
         }
     }
 
