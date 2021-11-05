@@ -55,25 +55,6 @@ public class ModelManager implements Model {
         this.historyStates.addNewState(originState);
     }
 
-    /**
-     * Initializes a ModelManager with the given contacts, userPrefs, schedule and history states.
-     */
-    public ModelManager(ReadOnlyContacts contacts, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlySchedule schedule, HistoryStates historyStates) {
-        super();
-        requireAllNonNull(contacts, userPrefs);
-
-        logger.fine("Initializing with contacts: " + contacts
-                + ", user prefs " + userPrefs + " and schedule " + schedule);
-
-        this.contacts = new Contacts(contacts);
-        this.userPrefs = new UserPrefs(userPrefs);
-        this.schedule = new Schedule(schedule);
-        filteredPersons = new FilteredList<>(this.contacts.getPersonList());
-        filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
-        this.historyStates = historyStates;
-    }
-
     public ModelManager() {
         this(new Contacts(), new UserPrefs(), new Schedule());
     }
