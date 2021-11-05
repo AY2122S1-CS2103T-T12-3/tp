@@ -54,7 +54,8 @@ class ListAppCommandTest {
     public void execute_description_sortsListByDescription() {
         model.updateFilteredAppointmentList(x -> false);
         expectedModel.sortFilteredAppointmentList("Description");
-        assertCommandSuccess(new ListAppCommand("Description"), model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAppCommand("Description"),
+                model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
