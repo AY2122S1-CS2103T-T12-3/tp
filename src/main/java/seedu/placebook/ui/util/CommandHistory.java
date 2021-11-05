@@ -1,4 +1,4 @@
-package seedu.placebook.ui;
+package seedu.placebook.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;

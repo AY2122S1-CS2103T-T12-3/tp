@@ -17,6 +17,7 @@ import seedu.placebook.logic.Logic;
 import seedu.placebook.logic.commands.CommandResult;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.logic.parser.exceptions.ParseException;
+import seedu.placebook.ui.util.ThemeManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
