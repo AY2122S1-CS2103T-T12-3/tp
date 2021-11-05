@@ -47,9 +47,8 @@ public class CommandHistory {
      */
     public String getNextInput() {
         try {
-            String nextInput = history.get(historyIndex + 1);
-            historyIndex = Math.min(historyIndex + 1, history.size() - 1);
-            return nextInput;
+            historyIndex = Math.min(historyIndex + 1, history.size());
+            return history.get(historyIndex);
         } catch (IndexOutOfBoundsException e) {
             return "";
         }

@@ -10,27 +10,35 @@ class CommandHistoryTest {
     void addCommand() {
         CommandHistory commandHistory = new CommandHistory();
         commandHistory.addCommand("command1");
-        assertEquals("command1", commandHistory.getLastInput());
         // newly added command
         assertEquals("command1", commandHistory.getLastInput());
         // reach the end of the state
-        assertEquals("", commandHistory.getNextInput());
+        assertEquals("command1", commandHistory.getLastInput());
         // no next input
+        assertEquals("", commandHistory.getNextInput());
+        // no next input when go beyond the limit
+        assertEquals("", commandHistory.getNextInput());
+        // newly added command when go back
+        assertEquals("command1", commandHistory.getLastInput());
 
-        assertEquals("command1", commandHistory.getLastInput());
         // go to the previous command
-        commandHistory.addCommand("command2");
-        // adding new command will reset pointer
-        assertEquals("command2", commandHistory.getLastInput());
-        // newly added command
         assertEquals("command1", commandHistory.getLastInput());
+        // adding new command will reset pointer
+        commandHistory.addCommand("command2");
+        // newly added command
+        assertEquals("command2", commandHistory.getLastInput());
         // last command
         assertEquals("command1", commandHistory.getLastInput());
         // reach the end of the state
-        assertEquals("command2", commandHistory.getNextInput());
+        assertEquals("command1", commandHistory.getLastInput());
         // next input
-        assertEquals("", commandHistory.getNextInput());
+        assertEquals("command2", commandHistory.getNextInput());
         // no next input
+        assertEquals("", commandHistory.getNextInput());
+        // no next input when go beyond the limit
+        assertEquals("", commandHistory.getNextInput());
+        // newly added command when go back
+        assertEquals("command2", commandHistory.getLastInput());
     }
 
     @Test
