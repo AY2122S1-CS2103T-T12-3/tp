@@ -6,6 +6,7 @@ import static seedu.placebook.testutil.TypicalAppointment.getTypicalSchedule;
 import static seedu.placebook.testutil.TypicalPersons.getTypicalContacts;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.placebook.logic.UiStubFactory;
 import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;

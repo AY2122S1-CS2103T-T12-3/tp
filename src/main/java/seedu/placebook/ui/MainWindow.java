@@ -137,6 +137,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up person list and appointment list again.
+     */
+    void updateLists() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -208,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isUndo()) {
-                fillInnerParts();
+                updateLists();
             }
             return commandResult;
         } catch (CommandException | ParseException e) {
