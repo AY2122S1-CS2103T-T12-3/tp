@@ -23,10 +23,13 @@ import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.NameContainsKeywordsPredicate;
 import seedu.placebook.model.person.Person;
+import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
 import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
+import seedu.placebook.testutil.EditAppDescriptorBuilder;
+import seedu.placebook.testutil.TypicalPersons;
 import seedu.placebook.ui.Ui;
 
 /**
@@ -52,6 +55,20 @@ public class CommandTestUtil {
             new TimePeriod(LocalDateTime.of(2021, 12, 14, 10, 00),
                     LocalDateTime.of(2021, 12, 14, 11, 00));
 
+    public static final LocalDateTime VALID_START_A = LocalDateTime
+            .of(2021, 12, 14, 10, 00);
+    public static final LocalDateTime VALID_END_A = LocalDateTime
+            .of(2021, 12, 14, 11, 00);
+    public static final String VALID_LOCATION_A = "Starbucks @ Vivocity";
+    public static final String VALID_DESCRIPTION_A = "Project meeting";
+
+    public static final LocalDateTime VALID_START_B = LocalDateTime
+            .of(2021, 12, 14, 12, 00);
+    public static final LocalDateTime VALID_END_B = LocalDateTime
+            .of(2021, 12, 14, 13, 00);
+    public static final String VALID_LOCATION_B = "GYG @ Star Vista";
+    public static final String VALID_DESCRIPTION_B = "Company lunch";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -74,6 +91,8 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditAppCommand.EditAppDescriptor DESC_A;
+    public static final EditAppCommand.EditAppDescriptor DESC_B;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -82,6 +101,21 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_A = new EditAppDescriptorBuilder().withClients(createClients(TypicalPersons.ALICE))
+                .withLocation(VALID_LOCATION_A).withStart(VALID_START_A)
+                .withEnd(VALID_END_A).withDescription(VALID_DESCRIPTION_A).build();
+        DESC_B = new EditAppDescriptorBuilder().withClients(createClients(TypicalPersons.BENSON, TypicalPersons.BOB))
+                .withLocation(VALID_LOCATION_B).withStart(VALID_START_B)
+                .withEnd(VALID_END_B).withDescription(VALID_DESCRIPTION_B).build();
+    }
+
+    public static UniquePersonList createClients(Person... persons) {
+        UniquePersonList clientsList = new UniquePersonList();
+        for (Person p : persons) {
+            clientsList.add(p);
+        }
+
+        return clientsList;
     }
 
     /**
