@@ -26,6 +26,10 @@ public class DelAppCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment deleted: %1$s";
 
+    public static final String MESSAGE_NO_APPOINTMENT_DELETED = "No appointment deleted.";
+
+    public static final String MESSAGE_DELETE_APPOINTMENT_WARNING = "You are about to delete:\n";
+
     private final Index index;
 
     /**
@@ -48,14 +52,14 @@ public class DelAppCommand extends Command {
         }
 
         Appointment appointmentToDelete = lastShownList.get(index.getZeroBased());
-        String deleteWarning = "You are about to delete:\n" + appointmentToDelete;
+        String deleteWarning = MESSAGE_DELETE_APPOINTMENT_WARNING + appointmentToDelete;
 
         if (ui.showDeleteDialogAndWait(deleteWarning)) {
             model.deleteAppointment(appointmentToDelete);
             model.updateState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, appointmentToDelete));
         } else {
-            return new CommandResult("No appointment deleted.");
+            return new CommandResult(MESSAGE_NO_APPOINTMENT_DELETED);
         }
     }
 

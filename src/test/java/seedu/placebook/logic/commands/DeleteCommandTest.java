@@ -69,6 +69,17 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validIndexFilteredList_cancel() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        String expectedMessage = DeleteCommand.MESSAGE_NO_PERSON_DELETED;
+
+        assertCommandSuccess(deleteCommand, model, negative, expectedMessage, model);
+    }
+
+    @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 

@@ -43,6 +43,16 @@ public class DelAppCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredList_cancel() {
+
+        DelAppCommand delAppCommand = new DelAppCommand(INDEX_FIRST_APPOINTMENT);
+
+        String expectedMessage = DelAppCommand.MESSAGE_NO_APPOINTMENT_DELETED;
+
+        assertCommandSuccess(delAppCommand, model, negative, expectedMessage, model);
+    }
+
+    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DelAppCommand deleteCommand = new DelAppCommand(outOfBoundIndex);
