@@ -1,4 +1,4 @@
-package seedu.placebook.ui;
+package seedu.placebook.ui.util;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -9,10 +9,13 @@ public class ThemeManager {
     private static final double size = 30;
     private static final String DARK_THEME_CSS = "view/DarkTheme.css";
     private static final String LIGHT_THEME_CSS = "view/LightTheme.css";
+    private static final String SUN = "images/sun.png";
+    private static final String MOON = "images/moon.png";
     private enum Theme { LIGHT, DARK }
 
     private Theme currentTheme;
     private String currentStylesheet;
+    private String currentButtonImage;
 
     /**
      * Constructs ThemeManager
@@ -20,6 +23,7 @@ public class ThemeManager {
     public ThemeManager() {
         currentTheme = Theme.LIGHT;
         currentStylesheet = LIGHT_THEME_CSS;
+        currentButtonImage = SUN;
     }
 
     /**
@@ -29,30 +33,28 @@ public class ThemeManager {
      * @param themeButton the theme button
      */
     public void changeTheme(Stage primaryStage, Button themeButton) {
+        primaryStage.getScene().getStylesheets().remove(currentStylesheet);
+
+        toggle();
+
+        primaryStage.getScene().getStylesheets().add(currentStylesheet);
+        ImageView buttonGraphic = new ImageView(currentButtonImage);
+        buttonGraphic.setFitHeight(size);
+        buttonGraphic.setFitWidth(size);
+        themeButton.setGraphic(buttonGraphic);
+    }
+
+    private void toggle() {
         switch (currentTheme) {
         case DARK:
-            primaryStage.getScene().getStylesheets().remove(DARK_THEME_CSS);
-            primaryStage.getScene().getStylesheets().add(LIGHT_THEME_CSS);
-
-            ImageView sun = new ImageView("images/sun.png");
-            sun.setFitHeight(size);
-            sun.setFitWidth(size);
-            themeButton.setGraphic(sun);
-
             currentTheme = Theme.LIGHT;
             currentStylesheet = LIGHT_THEME_CSS;
+            currentButtonImage = SUN;
             break;
         case LIGHT:
-            primaryStage.getScene().getStylesheets().remove(LIGHT_THEME_CSS);
-            primaryStage.getScene().getStylesheets().add(DARK_THEME_CSS);
-
-            ImageView moon = new ImageView("images/moon.png");
-            moon.setFitHeight(size);
-            moon.setFitWidth(size);
-            themeButton.setGraphic(moon);
-
             currentTheme = Theme.DARK;
             currentStylesheet = DARK_THEME_CSS;
+            currentButtonImage = MOON;
             break;
         default:
         }

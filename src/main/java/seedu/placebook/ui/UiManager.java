@@ -13,6 +13,7 @@ import seedu.placebook.MainApp;
 import seedu.placebook.commons.core.LogsCenter;
 import seedu.placebook.commons.util.StringUtil;
 import seedu.placebook.logic.Logic;
+import seedu.placebook.ui.util.ThemeManager;
 
 /**
  * The manager of the UI component.

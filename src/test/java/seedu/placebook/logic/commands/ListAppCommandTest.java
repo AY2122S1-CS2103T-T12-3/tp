@@ -1,5 +1,7 @@
 package seedu.placebook.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,5 +41,32 @@ class ListAppCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         model.updateFilteredAppointmentList(x -> false);
         assertCommandSuccess(new ListAppCommand(""), model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_time_sortsListByTime() {
+        model.updateFilteredAppointmentList(x -> false);
+        expectedModel.sortFilteredAppointmentList("Time");
+        assertCommandSuccess(new ListAppCommand("Time"), model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_description_sortsListByDescription() {
+        model.updateFilteredAppointmentList(x -> false);
+        expectedModel.sortFilteredAppointmentList("Description");
+        assertCommandSuccess(new ListAppCommand("Description"),
+                model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        ListAppCommand emptyListAppCommand = new ListAppCommand("");
+        ListAppCommand anotherEmptyListAppCommand = new ListAppCommand("");
+        ListAppCommand timeListAppCommand = new ListAppCommand("Time");
+
+        assertEquals(emptyListAppCommand, emptyListAppCommand);
+        assertEquals(emptyListAppCommand, anotherEmptyListAppCommand);
+        assertFalse(emptyListAppCommand.equals(timeListAppCommand));
+
     }
 }

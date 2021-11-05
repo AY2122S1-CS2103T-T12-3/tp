@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.placebook.logic.commands.CommandResult;
 import seedu.placebook.logic.commands.exceptions.CommandException;
 import seedu.placebook.logic.parser.exceptions.ParseException;
+import seedu.placebook.ui.util.CommandHistory;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

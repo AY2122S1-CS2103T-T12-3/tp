@@ -262,8 +262,6 @@ public class AddAppCommandTest {
     public void equals_sameAddAppCommand_returnTrue() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
-        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
-        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
         Command initialCommand = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
@@ -277,14 +275,13 @@ public class AddAppCommandTest {
                 LocalDateTime.of(2021, 1, 1, 12, 0),
                 "Halloween Sales");
         assertEquals(initialCommand, compareCommand);
+        assertEquals(initialCommand, initialCommand);
     }
 
     @Test
     public void equals_nullAddAppCommand_returnFalse() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
-        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
-        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
         Command initialCommand = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
@@ -299,8 +296,6 @@ public class AddAppCommandTest {
     public void equals_differentDescriptionAddAppCommand_returnFalse() {
         ArrayList<Index> indexes = new ArrayList<>();
         indexes.add(Index.fromZeroBased(0));
-        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
-        modelStub.addPerson(new PersonBuilder().withName("ALICE").build());
         Command initialCommand = new AddAppCommand(
                 indexes,
                 new Address("vivocity"),
@@ -313,6 +308,82 @@ public class AddAppCommandTest {
                 LocalDateTime.of(2021, 1, 1, 10, 0),
                 LocalDateTime.of(2021, 1, 1, 12, 0),
                 "Halloween Purchase");
+        assertFalse(() -> initialCommand.equals(compareCommand));
+    }
+
+    @Test
+    public void equals_differentIndexAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                new ArrayList<>(),
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        assertFalse(() -> initialCommand.equals(compareCommand));
+    }
+
+    @Test
+    public void equals_differentAddressAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity level 1"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        assertFalse(() -> initialCommand.equals(compareCommand));
+    }
+
+    @Test
+    public void equals_differentStartTimeAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 11, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        assertFalse(() -> initialCommand.equals(compareCommand));
+    }
+
+    @Test
+    public void equals_differentEndTimeAddAppCommand_returnFalse() {
+        ArrayList<Index> indexes = new ArrayList<>();
+        indexes.add(Index.fromZeroBased(0));
+        Command initialCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 12, 0),
+                "Halloween Sales");
+        Command compareCommand = new AddAppCommand(
+                indexes,
+                new Address("vivocity"),
+                LocalDateTime.of(2021, 1, 1, 10, 0),
+                LocalDateTime.of(2021, 1, 1, 11, 0),
+                "Halloween Sales");
         assertFalse(() -> initialCommand.equals(compareCommand));
     }
 
@@ -443,11 +514,6 @@ public class AddAppCommandTest {
         @Override
         public List<Appointment> getClashingAppointments(Appointment appointment) {
             return new ArrayList<>();
-        }
-
-        @Override
-        public String getClashingAppointmentsAsString(Appointment appointment) {
-            return "";
         }
 
         @Override
