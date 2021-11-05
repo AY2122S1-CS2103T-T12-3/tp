@@ -44,6 +44,20 @@ class ListAppCommandTest {
     }
 
     @Test
+    public void execute_time_sortsListByTime() {
+        model.updateFilteredAppointmentList(x -> false);
+        expectedModel.sortFilteredAppointmentList("Time");
+        assertCommandSuccess(new ListAppCommand("Time"), model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_description_sortsListByDescription() {
+        model.updateFilteredAppointmentList(x -> false);
+        expectedModel.sortFilteredAppointmentList("Description");
+        assertCommandSuccess(new ListAppCommand("Description"), model, uiStub, ListAppCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
     public void equals() {
         ListAppCommand emptyListAppCommand = new ListAppCommand("");
         ListAppCommand anotherEmptyListAppCommand = new ListAppCommand("");
