@@ -58,7 +58,7 @@ public class CommandResultTest {
         assertFalse(commandResult.isShowHelp());
 
         CommandResult anotherCommandResult = new CommandResult("feedback", true, false, false);
-        assertFalse(commandResult.isShowHelp());
+        assertTrue(anotherCommandResult.isShowHelp());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class CommandResultTest {
         assertFalse(commandResult.isExit());
 
         CommandResult anotherCommandResult = new CommandResult("feedback", false, true, false);
-        assertFalse(commandResult.isExit());
+        assertTrue(anotherCommandResult.isExit());
     }
 
     @Test
@@ -76,6 +76,6 @@ public class CommandResultTest {
         assertFalse(commandResult.isUndo());
 
         CommandResult anotherCommandResult = new CommandResult("feedback", false, false, true);
-        assertFalse(commandResult.isUndo());
+        assertTrue(anotherCommandResult.isUndo());
     }
 }
