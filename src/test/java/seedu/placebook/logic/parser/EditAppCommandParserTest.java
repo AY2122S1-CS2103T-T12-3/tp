@@ -181,7 +181,7 @@ public class EditAppCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_DESCRIPTION_DESC + LOCATION_DESC_B + DESCRIPTION_DESC_B ;
+        userInput = targetIndex.getOneBased() + INVALID_DESCRIPTION_DESC + LOCATION_DESC_B + DESCRIPTION_DESC_B;
         descriptor = new EditAppDescriptorBuilder().withLocation(VALID_LOCATION_B)
                 .withDescription(VALID_DESCRIPTION_B).build();
         expectedCommand = new EditAppCommand(targetIndex, descriptor);
