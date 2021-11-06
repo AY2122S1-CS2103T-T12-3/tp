@@ -36,6 +36,21 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * A factory method to create a deep copy of the given person to copy.
+     * @param personToCopy The given person to copy.
+     * @return The deep copy.
+     */
+    public static Person deepCopy(Person personToCopy) {
+        return new Person(
+                personToCopy.getName(),
+                personToCopy.getPhone(),
+                personToCopy.getEmail(),
+                personToCopy.getAddress(),
+                new HashSet<>(personToCopy.tags)
+        );
+    }
+
     public Name getName() {
         return name;
     }

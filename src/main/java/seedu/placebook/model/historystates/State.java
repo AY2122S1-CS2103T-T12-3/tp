@@ -25,41 +25,8 @@ public class State {
      * @param schedule The given {@Code Schedule}.
      */
     public State(Contacts contacts, Schedule schedule) {
-        this.contacts = new Contacts();
-        List<Person> personList = contacts.getPersonList();
-        for (Person personToCopy : personList) {
-            this.contacts.addPerson(
-                    new Person(
-                            personToCopy.getName(),
-                            personToCopy.getPhone(),
-                            personToCopy.getEmail(),
-                            personToCopy.getAddress(),
-                            personToCopy.getTags()
-                    ));
-        }
-
-        this.schedule = new Schedule();
-        List<Appointment> appointmentList = schedule.getSchedule();
-        for (Appointment appointmentToCopy : appointmentList) {
-            UniquePersonList clientList = new UniquePersonList();
-            for (Person clientToCopy : appointmentToCopy.getClients()) {
-                clientList.add(
-                        new Person(
-                                clientToCopy.getName(),
-                                clientToCopy.getPhone(),
-                                clientToCopy.getEmail(),
-                                clientToCopy.getAddress(),
-                                clientToCopy.getTags()
-                        ));
-            }
-            this.schedule.addAppointment(
-                    new Appointment(
-                            clientList,
-                            appointmentToCopy.getLocation(),
-                            appointmentToCopy.getTimePeriod(),
-                            appointmentToCopy.getDescription()
-                    ));
-        }
+        this.contacts = Contacts.deepCopy(contacts);
+        this.schedule = Schedule.deepCopy(schedule);
     }
 
     /**
@@ -67,19 +34,7 @@ public class State {
      * @return A deep copy of the {@Code Contacts} of this state.
      */
     public Contacts getContacts() {
-        Contacts result = new Contacts();
-        for (Person personToCopy : this.contacts.getPersonList()) {
-            result.addPerson(
-                    new Person(
-                            personToCopy.getName(),
-                            personToCopy.getPhone(),
-                            personToCopy.getEmail(),
-                            personToCopy.getAddress(),
-                            personToCopy.getTags()
-                    )
-            );
-        }
-        return result;
+        return Contacts.deepCopy(this.contacts);
     }
 
     /**
@@ -87,28 +42,6 @@ public class State {
      * @return A deep copy of the {@Code Schedule} of this state.
      */
     public Schedule getSchedule() {
-        Schedule result = new Schedule();
-        List<Appointment> appointmentList = schedule.getSchedule();
-        for (Appointment appointmentToCopy : appointmentList) {
-            UniquePersonList clientList = new UniquePersonList();
-            for (Person clientToCopy : appointmentToCopy.getClients()) {
-                clientList.add(
-                        new Person(
-                                clientToCopy.getName(),
-                                clientToCopy.getPhone(),
-                                clientToCopy.getEmail(),
-                                clientToCopy.getAddress(),
-                                clientToCopy.getTags()
-                        ));
-            }
-            result.addAppointment(
-                    new Appointment(
-                            clientList,
-                            appointmentToCopy.getLocation(),
-                            appointmentToCopy.getTimePeriod(),
-                            appointmentToCopy.getDescription()
-                    ));
-        }
-        return result;
+        return Schedule.deepCopy(this.schedule);
     }
 }

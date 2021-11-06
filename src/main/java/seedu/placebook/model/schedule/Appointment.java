@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.placebook.model.Contacts;
 import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;
@@ -24,6 +25,21 @@ public class Appointment {
         this.location = location;
         this.timePeriod = timePeriod;
         this.description = description;
+    }
+
+    /**
+     * A factory method to create a deep copy of the given appointment to copy.
+     * @param appointmentToCopy The given appointment to copy.
+     * @return The deep copy.
+     */
+    public static Appointment deepCopy(Appointment appointmentToCopy) {
+        Appointment result = new Appointment(
+                UniquePersonList.deepCopy(appointmentToCopy.getClients()),
+                appointmentToCopy.getLocation(),
+                appointmentToCopy.getTimePeriod(),
+                appointmentToCopy.getDescription()
+        );
+        return result;
     }
 
     public UniquePersonList getClients() {
