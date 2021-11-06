@@ -29,8 +29,8 @@ import seedu.placebook.model.person.Person;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
 import seedu.placebook.model.schedule.TimePeriod;
-import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.EditAppDescriptorBuilder;
+import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.ui.Ui;
 
 /**

@@ -1,12 +1,11 @@
 package seedu.placebook.testutil;
 
-import seedu.placebook.logic.commands.EditAppCommand;
-import seedu.placebook.model.person.Address;
-import seedu.placebook.model.person.UniquePersonList;
-import seedu.placebook.model.schedule.Appointment;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import seedu.placebook.logic.commands.EditAppCommand;
+import seedu.placebook.model.person.Address;
+import seedu.placebook.model.schedule.Appointment;
 
 public class EditAppDescriptorBuilder {
 

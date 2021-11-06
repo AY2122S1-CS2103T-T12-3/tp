@@ -75,11 +75,11 @@ public class EditAppCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_LOCATION_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_START_DESC,
-                "DateTime format should be \"dd-MM-yyyy HHmm\". " +
-                        "Don't forget that there are only 12 months in a year!"); // invalid DateTime format
+                "DateTime format should be \"dd-MM-yyyy HHmm\". "
+                        + "Don't forget that there are only 12 months in a year!"); // invalid DateTime format
         assertParseFailure(parser, "1" + INVALID_END_DESC,
-                "DateTime format should be \"dd-MM-yyyy HHmm\". " +
-                        "Don't forget that there are only 12 months in a year!"); // invalid DateTime format
+                "DateTime format should be \"dd-MM-yyyy HHmm\". "
+                        + "Don't forget that there are only 12 months in a year!"); // invalid DateTime format
         assertParseFailure(parser, "1"
                 + INVALID_DESCRIPTION_DESC, "Description cannot be empty!"); // invalid description
 
@@ -94,8 +94,8 @@ public class EditAppCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_START_DESC + INVALID_DESCRIPTION_DESC
                         + END_DESC_B + LOCATION_DESC_A,
-                "DateTime format should be \"dd-MM-yyyy HHmm\". " +
-                        "Don't forget that there are only 12 months in a year!");
+                "DateTime format should be \"dd-MM-yyyy HHmm\". "
+                        + "Don't forget that there are only 12 months in a year!");
     }
 
     @Test
