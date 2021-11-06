@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.placebook.model.Contacts;
 import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Person;
 import seedu.placebook.model.person.UniquePersonList;

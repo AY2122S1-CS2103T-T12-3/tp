@@ -1,11 +1,6 @@
 package seedu.placebook.model.historystates;
 
-import java.util.List;
-
 import seedu.placebook.model.Contacts;
-import seedu.placebook.model.person.Person;
-import seedu.placebook.model.person.UniquePersonList;
-import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
 
 /**
