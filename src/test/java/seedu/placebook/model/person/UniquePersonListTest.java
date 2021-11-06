@@ -8,6 +8,7 @@ import static seedu.placebook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.placebook.testutil.Assert.assertThrows;
 import static seedu.placebook.testutil.TypicalPersons.ALICE;
 import static seedu.placebook.testutil.TypicalPersons.BOB;
+import static seedu.placebook.testutil.TypicalPersons.CARL;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -166,5 +167,34 @@ public class UniquePersonListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void getPersonNames_noChange_returnsCorrectString() {
+        String delimiter = ", ";
+        assertEquals("", uniquePersonList.getPersonNames().getValue());
+
+        uniquePersonList.add(ALICE);
+        StringBuilder expected = new StringBuilder();
+        for (Person person : uniquePersonList) {
+            expected.append(person.getName().fullName).append(delimiter);
+        }
+        assertEquals(expected.substring(0, expected.length() - delimiter.length()),
+                uniquePersonList.getPersonNames().getValue());
+
+        uniquePersonList.add(CARL);
+        expected.setLength(0);
+        for (Person person : uniquePersonList) {
+            expected.append(person.getName().fullName).append(delimiter);
+        }
+        assertEquals(expected.substring(0, expected.length() - delimiter.length()),
+                uniquePersonList.getPersonNames().getValue());
+    }
+
+    @Test
+    public void equalsMethod() {
+        UniquePersonList anotherUniquePersonList = new UniquePersonList();
+        assertEquals(uniquePersonList, uniquePersonList);
+        assertEquals(uniquePersonList, anotherUniquePersonList);
     }
 }
