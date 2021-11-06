@@ -1,52 +1,54 @@
 package seedu.placebook.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.placebook.testutil.EditPersonDescriptorBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.placebook.logic.commands.CommandTestUtil.*;
-import static seedu.placebook.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.placebook.logic.commands.CommandTestUtil.DESC_A;
+import static seedu.placebook.logic.commands.CommandTestUtil.DESC_B;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_DESCRIPTION_B;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_END_B;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_LOCATION_B;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_START_B;
 
-// TODO: THESE HAVE NOT BEEN CHANGED
+import org.junit.jupiter.api.Test;
+
+import seedu.placebook.testutil.EditAppDescriptorBuilder;
+
 public class EditAppDescriptorTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditPersonDescriptor descriptorWithSameValues = new EditCommand.EditPersonDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditAppCommand.EditAppDescriptor descriptorWithSameValues = new EditAppCommand.EditAppDescriptor(DESC_A);
+        assertTrue(DESC_A.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_A.equals(DESC_A));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_A.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_A.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_A.equals(DESC_B));
 
-        // different name -> returns false
-        EditCommand.EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different location -> returns false
+        EditAppCommand.EditAppDescriptor editedA = new EditAppDescriptorBuilder(DESC_A)
+                .withLocation(VALID_LOCATION_B).build();
+        assertFalse(DESC_A.equals(editedA));
 
-        // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        // different start -> returns false
+        editedA = new EditAppDescriptorBuilder(DESC_A).withStart(VALID_START_B).build();
+        assertFalse(DESC_A.equals(editedA));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedA = new EditAppDescriptorBuilder(DESC_A).withEnd(VALID_END_B).build();
+        assertFalse(DESC_A.equals(editedA));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedA = new EditAppDescriptorBuilder(DESC_A).withDescription(VALID_DESCRIPTION_B).build();
+        assertFalse(DESC_A.equals(editedA));
 
-        // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

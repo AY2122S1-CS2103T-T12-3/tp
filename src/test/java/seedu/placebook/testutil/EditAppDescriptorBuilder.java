@@ -6,6 +6,7 @@ import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EditAppDescriptorBuilder {
 
@@ -24,20 +25,12 @@ public class EditAppDescriptorBuilder {
      */
     public EditAppDescriptorBuilder(Appointment appointment) {
         descriptor = new EditAppCommand.EditAppDescriptor();
-        descriptor.setClients(appointment.getClients());
         descriptor.setLocation(appointment.getLocation());
         descriptor.setStart(appointment.getStart());
         descriptor.setEnd(appointment.getEnd());
         descriptor.setDescription(appointment.getDescription());
     }
 
-    /**
-     * Sets the {@code UniquePersonList} of the {@code EditAppDescriptor} that we are building.
-     */
-    public EditAppDescriptorBuilder withClients(UniquePersonList clients) {
-        descriptor.setClients(clients);
-        return this;
-    }
 
     /**
      * Sets the {@code Location} of the {@code EditAppDescriptor} that we are building.
@@ -50,7 +43,9 @@ public class EditAppDescriptorBuilder {
     /**
      * Sets the {@code start} of the {@code EditAppDescriptor} that we are building.
      */
-    public EditAppDescriptorBuilder withStart(LocalDateTime start) {
+    public EditAppDescriptorBuilder withStart(String startString) {
+        LocalDateTime start = LocalDateTime
+                .parse(startString, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
         descriptor.setStart(start);
         return this;
     }
@@ -58,7 +53,9 @@ public class EditAppDescriptorBuilder {
     /**
      * Sets the {@code end} of the {@code EditAppDescriptor} that we are building.
      */
-    public EditAppDescriptorBuilder withEnd(LocalDateTime end) {
+    public EditAppDescriptorBuilder withEnd(String endString) {
+        LocalDateTime end = LocalDateTime
+                .parse(endString, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
         descriptor.setEnd(end);
         return this;
     }

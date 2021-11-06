@@ -1,11 +1,11 @@
 package seedu.placebook.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.logic.commands.CommandTestUtil.DESC_A;
 import static seedu.placebook.logic.commands.CommandTestUtil.DESC_B;
-import static seedu.placebook.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.placebook.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_DESCRIPTION_A;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_LOCATION_B;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.logic.commands.CommandTestUtil.showAppointmentAtIndex;
@@ -22,14 +22,14 @@ import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ModelManager;
 import seedu.placebook.model.UserPrefs;
-import seedu.placebook.model.person.Address;
 import seedu.placebook.model.person.Person;
-import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
-import seedu.placebook.model.schedule.TimePeriod;
-import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
-import seedu.placebook.testutil.*;
+import seedu.placebook.testutil.AppointmentBuilder;
+import seedu.placebook.testutil.ContactsBuilder;
+import seedu.placebook.testutil.EditAppDescriptorBuilder;
+import seedu.placebook.testutil.PersonBuilder;
+import seedu.placebook.testutil.Seed;
 import seedu.placebook.ui.Ui;
 
 /**
@@ -63,84 +63,26 @@ public class EditAppCommandTest {
         System.out.println(model.getFilteredAppointmentList().get(1));
     }
 
-    // TODO: FIX THIS TEST
-    @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Appointment editedAppointment = new AppointmentBuilder().build();
-        EditAppCommand.EditAppDescriptor descriptor = new EditAppDescriptorBuilder(editedAppointment).build();
-        EditAppCommand editAppCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT, descriptor);
-
-        String expectedMessage = String.format(EditAppCommand.MESSAGE_SUCCESS, editedAppointment);
-
-        Model expectedModel =
-                new ModelManager(testContacts, new UserPrefs(), testSchedule);
-
-        Appointment appointmentToEdit = model.getFilteredAppointmentList().get(0);
-        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0), editedAppointment);
-
-        System.out.println(model.equals(expectedModel));
-        assertCommandSuccess(editAppCommand, model, uiStub, expectedMessage, expectedModel);
-    }
-
-    // TODO: FIX THIS TEST
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastAppointment = Index.fromOneBased(model.getFilteredAppointmentList().size());
+        Appointment lastAppointment = model.getFilteredAppointmentList().get(indexLastAppointment.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        AppointmentBuilder appointmentInList = new AppointmentBuilder(lastAppointment);
+        Appointment editedAppointment = appointmentInList.withLocation(VALID_LOCATION_B)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
 
-        EditCommand.EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel =
-                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
-        expectedModel.setPerson(lastPerson, editedPerson);
-
-        assertCommandSuccess(editCommand, model, uiStub, expectedMessage, expectedModel);
-    }
-
-    // TODO: HOW TO TEST FOR EMPTY EDITING SHIT
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_failure() {
-        EditAppCommand.EditAppDescriptor emptyDescriptor = new EditAppCommand.EditAppDescriptor();
-        emptyDescriptor.setClients(null);
-        emptyDescriptor.setLocation(null);
-        emptyDescriptor.setStart(null);
-        emptyDescriptor.setEnd(null);
-        emptyDescriptor.setDescription(null);
-        EditAppCommand editAppCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT,
-                emptyDescriptor);
-
-        String expectedMessage = String.format(EditAppCommand.MESSAGE_NOT_EDITED);
-
-        assertCommandFailure(editAppCommand, model, uiStub, expectedMessage);
-    }
-
-    // TODO: FIX THIS TEST
-    @Test
-    public void execute_filteredList_success() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
-
-        Appointment appointmentInFilteredList = model.getFilteredAppointmentList()
-                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
-        Appointment editedAppointment = new AppointmentBuilder(appointmentInFilteredList)
-                .withClient(VALID_NAME_BOB).build();
-        UniquePersonList clients = new UniquePersonList();
-        clients.add(TypicalPersons.BOB);
-        EditAppCommand editAppCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT,
-                new EditAppDescriptorBuilder().withClients(clients).build());
+        EditAppCommand.EditAppDescriptor descriptor = new EditAppDescriptorBuilder().withLocation(VALID_LOCATION_B)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
+        EditAppCommand editAppCommand = new EditAppCommand(indexLastAppointment, descriptor);
 
         String expectedMessage = String.format(EditAppCommand.MESSAGE_SUCCESS, editedAppointment);
 
         Model expectedModel =
                 new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
-        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0), editedAppointment);
+        expectedModel.setAppointment(lastAppointment, editedAppointment);
 
         assertCommandSuccess(editAppCommand, model, uiStub, expectedMessage, expectedModel);
     }
@@ -177,16 +119,12 @@ public class EditAppCommandTest {
     @Test
     public void execute_invalidAppointmentIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
-        UniquePersonList clients = new UniquePersonList();
-        clients.add(TypicalPersons.ALICE);
-        EditAppCommand.EditAppDescriptor descriptor = new EditAppDescriptorBuilder()
-                .withClients(clients).build();
+        EditAppCommand.EditAppDescriptor descriptor = new EditAppDescriptorBuilder().build();
         EditAppCommand editAppCommand = new EditAppCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editAppCommand, model, uiStub, Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
     }
 
-    // THIS WORKS
     /**
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of appointment list
@@ -198,15 +136,12 @@ public class EditAppCommandTest {
         // ensures that outOfBoundIndex is still in bounds of contacts list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getSchedule().getSchedule().size());
 
-        UniquePersonList clients = new UniquePersonList();
-        clients.add(TypicalPersons.BOB);
         EditAppCommand editAppCommand = new EditAppCommand(outOfBoundIndex,
-                new EditAppDescriptorBuilder().withClients(clients).build());
+                new EditAppDescriptorBuilder().build());
 
         assertCommandFailure(editAppCommand, model, uiStub, Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
     }
 
-    // THIS WORKS
     @Test
     public void equals() {
         final EditAppCommand standardCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT, DESC_A);

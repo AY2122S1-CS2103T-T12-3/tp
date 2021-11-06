@@ -3,9 +3,12 @@ package seedu.placebook.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.placebook.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.placebook.logic.parser.CliSyntax.PREFIX_ENDDATETIME;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.placebook.logic.parser.CliSyntax.PREFIX_STARTDATETIME;
 import static seedu.placebook.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.placebook.testutil.Assert.assertThrows;
 
@@ -23,13 +26,11 @@ import seedu.placebook.model.Contacts;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.person.NameContainsKeywordsPredicate;
 import seedu.placebook.model.person.Person;
-import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
 import seedu.placebook.model.schedule.TimePeriod;
 import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.EditAppDescriptorBuilder;
-import seedu.placebook.testutil.TypicalPersons;
 import seedu.placebook.ui.Ui;
 
 /**
@@ -55,19 +56,33 @@ public class CommandTestUtil {
             new TimePeriod(LocalDateTime.of(2021, 12, 14, 10, 00),
                     LocalDateTime.of(2021, 12, 14, 11, 00));
 
-    public static final LocalDateTime VALID_START_A = LocalDateTime
-            .of(2021, 12, 14, 10, 00);
-    public static final LocalDateTime VALID_END_A = LocalDateTime
-            .of(2021, 12, 14, 11, 00);
     public static final String VALID_LOCATION_A = "Starbucks @ Vivocity";
+    public static final String VALID_START_A = "14-12-2021 1000";
+    public static final String VALID_END_A = "14-12-2021 1100";
     public static final String VALID_DESCRIPTION_A = "Project meeting";
 
-    public static final LocalDateTime VALID_START_B = LocalDateTime
-            .of(2021, 12, 14, 12, 00);
-    public static final LocalDateTime VALID_END_B = LocalDateTime
-            .of(2021, 12, 14, 13, 00);
     public static final String VALID_LOCATION_B = "GYG @ Star Vista";
+    public static final String VALID_START_B = "14-12-2021 1200";
+    public static final String VALID_END_B = "14-12-2021 1300";
     public static final String VALID_DESCRIPTION_B = "Company lunch";
+
+    public static final String LOCATION_DESC_A = " " + PREFIX_ADDRESS + VALID_LOCATION_A;
+    public static final String START_DESC_A = " " + PREFIX_STARTDATETIME + VALID_START_A;
+    public static final String END_DESC_A = " " + PREFIX_ENDDATETIME + VALID_END_A;
+    public static final String DESCRIPTION_DESC_A = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_A;
+
+    public static final String LOCATION_DESC_B = " " + PREFIX_ADDRESS + VALID_LOCATION_B;
+    public static final String START_DESC_B = " " + PREFIX_STARTDATETIME + VALID_START_B;
+    public static final String END_DESC_B = " " + PREFIX_ENDDATETIME + VALID_END_B;
+    public static final String DESCRIPTION_DESC_B = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_B;
+
+    public static final String INVALID_LOCATION_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_START_DESC = " " + PREFIX_STARTDATETIME
+            + "01-01-2021 2500"; // HHmm is out of range
+    public static final String INVALID_END_DESC = " " + PREFIX_ENDDATETIME
+            + "01/01/2022 1400"; // separators should be hyphens
+    public static final String INVALID_DESCRIPTION_DESC = " "
+            + PREFIX_DESCRIPTION; // empty string not allowed for description
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -101,21 +116,12 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        DESC_A = new EditAppDescriptorBuilder().withClients(createClients(TypicalPersons.ALICE))
+        DESC_A = new EditAppDescriptorBuilder()
                 .withLocation(VALID_LOCATION_A).withStart(VALID_START_A)
                 .withEnd(VALID_END_A).withDescription(VALID_DESCRIPTION_A).build();
-        DESC_B = new EditAppDescriptorBuilder().withClients(createClients(TypicalPersons.BENSON, TypicalPersons.BOB))
+        DESC_B = new EditAppDescriptorBuilder()
                 .withLocation(VALID_LOCATION_B).withStart(VALID_START_B)
                 .withEnd(VALID_END_B).withDescription(VALID_DESCRIPTION_B).build();
-    }
-
-    public static UniquePersonList createClients(Person... persons) {
-        UniquePersonList clientsList = new UniquePersonList();
-        for (Person p : persons) {
-            clientsList.add(p);
-        }
-
-        return clientsList;
     }
 
     /**
