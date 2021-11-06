@@ -8,13 +8,10 @@ import static seedu.placebook.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
-
-    public static final int MAXIMUM_PHONE_NUMBER_LENGTH = 20;
-
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers, it should be at least 3 digits long"
-                    + " and at most " + MAXIMUM_PHONE_NUMBER_LENGTH + " digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+                    + " and at most 20 digits long";
+    public static final String VALIDATION_REGEX = "\\d{3,20}";
 
     public final String value;
 
@@ -32,7 +29,7 @@ public class Phone {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= MAXIMUM_PHONE_NUMBER_LENGTH;
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
