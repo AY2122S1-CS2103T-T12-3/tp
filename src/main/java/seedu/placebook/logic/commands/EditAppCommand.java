@@ -97,7 +97,7 @@ public class EditAppCommand extends Command {
 
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
-        model.updateState();
+        model.updateState(String.format(MESSAGE_SUCCESS, editedAppointment));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAppointment));
     }
 

@@ -110,7 +110,7 @@ public class AddAppCommand extends Command {
             throw new CommandException(Messages.MESSAGE_APPOINTMENTS_END_TIME_BEFORE_START_TIME);
         }
 
-        model.updateState();
+        model.updateState(String.format(MESSAGE_SUCCESS, appointmentToAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointmentToAdd));
     }
 

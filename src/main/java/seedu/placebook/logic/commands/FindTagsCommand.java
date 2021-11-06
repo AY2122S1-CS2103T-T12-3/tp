@@ -30,7 +30,8 @@ public class FindTagsCommand extends Command {
     public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        model.updateState();
+        model.updateState(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
