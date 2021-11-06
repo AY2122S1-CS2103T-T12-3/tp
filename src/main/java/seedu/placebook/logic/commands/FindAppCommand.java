@@ -31,8 +31,7 @@ public class FindAppCommand extends Command {
     public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
-        model.updateState(String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
-                model.getFilteredAppointmentList().size()));
+        model.updateState(COMMAND_WORD);
         return new CommandResult(
                 String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
                         model.getFilteredAppointmentList().size()));
