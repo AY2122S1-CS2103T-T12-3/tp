@@ -9,28 +9,30 @@ import static seedu.placebook.commons.util.AppUtil.checkArgument;
  */
 public class Phone {
 
+    public static final int MAXIMUM_PHONE_NUMBER_LENGTH = 20;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+            "Phone numbers should only contain numbers, it should be at least 3 digits long"
+                    + " and at most " + MAXIMUM_PHONE_NUMBER_LENGTH + " digits long";
     public static final String VALIDATION_REGEX = "\\d{3,}";
+
     public final String value;
 
     /**
      * Constructs a {@code Phone}.
-     *
-     * @param phone A valid phone number.
+     * @param phone The given valid phone number.
      */
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        this.value = phone;
     }
 
     /**
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAXIMUM_PHONE_NUMBER_LENGTH;
     }
 
     @Override
