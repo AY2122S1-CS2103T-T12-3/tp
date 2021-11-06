@@ -314,6 +314,18 @@ to sort List by, if an invalid condition is input, it will sort by baseline cond
 
 Format: `listApp` Optional: `listApp Time` or `listApp Description`
 
+#### Undo the previous command : `undo`
+
+If you execute a command by mistake, such as accidentally deleting a person or an appointment,
+you can easily undo this command and go back to where you were before executing that command
+by typing `undo` in the text box and pressing enter.
+
+Format: `undo`
+
+Error messages:
+* No history states.
+    * It means there are no more commands to undo, and you are at the initial state.
+
 ### **Other Features**
 
 #### Clearing all entries : `clear`

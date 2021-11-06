@@ -8,22 +8,21 @@ import static seedu.placebook.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
-
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should only contain numbers, it should be at least 3 digits long"
+                    + " and at most 20 digits long";
+    public static final String VALIDATION_REGEX = "\\d{3,20}";
+
     public final String value;
 
     /**
      * Constructs a {@code Phone}.
-     *
-     * @param phone A valid phone number.
+     * @param phone The given valid phone number.
      */
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
-        value = phone;
+        this.value = phone;
     }
 
     /**
