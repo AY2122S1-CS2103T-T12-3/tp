@@ -1,8 +1,6 @@
 package seedu.placebook.model.schedule;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -33,27 +31,6 @@ public class TimePeriod implements Comparable<TimePeriod> {
             this.endDateTime = startDateTime;
             throw new EndTimeBeforeStartTimeException("EndDateTime has been set to startDateTime by default.");
         }
-    }
-
-    /**
-     * A public constructor to initialize the {@code TimePeriod} with startDate, startTime, endDate, endTime.
-     * @param startDate The given startDate.
-     * @param startTime The given startTime.
-     * @param endDate The given endDate.
-     * @param endTime The given endTime.
-     * @throws EndTimeBeforeStartTimeException
-     */
-    public TimePeriod(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime)
-            throws EndTimeBeforeStartTimeException {
-        LocalDateTime startDateTime = LocalDateTime.of(
-                startDate.getYear(), startDate.getMonth(), startDate.getDayOfMonth(),
-                startTime.getHour(), startTime.getMinute()
-        );
-        LocalDateTime endDateTime = LocalDateTime.of(
-                endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth(),
-                endTime.getHour(), endTime.getMinute()
-        );
-        new TimePeriod(startDateTime, endDateTime);
     }
 
     /**

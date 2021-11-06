@@ -95,6 +95,10 @@ public class AppointmentCard extends UiPart<Region> {
         }
     }
 
+    public void expandClients(boolean expanded) {
+        clientsPane.setExpanded(expanded);
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
