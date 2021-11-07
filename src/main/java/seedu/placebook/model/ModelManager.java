@@ -349,6 +349,7 @@ public class ModelManager implements Model {
         ObservableList<Appointment> appointments = schedule.getSchedule();
         ObservableList<Person> persons = contacts.getPersonList();
         for (Appointment invalid : findInvalidAppointments(appointments, persons)) {
+            logger.fine("Deleting Invalid Appointment: " + invalid.toString());
             schedule.deleteAppointment(invalid);
         }
     }
