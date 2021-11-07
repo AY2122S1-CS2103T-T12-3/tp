@@ -17,6 +17,7 @@ import seedu.placebook.model.historystates.HistoryStates;
 import seedu.placebook.model.historystates.State;
 import seedu.placebook.model.historystates.exceptions.NoHistoryStatesException;
 import seedu.placebook.model.person.Person;
+import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
 import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
@@ -363,34 +364,38 @@ public class ModelManager implements Model {
     private void checkValidity(Contacts contacts, Schedule schedule) {
         ObservableList<Appointment> appointments = schedule.getSchedule();
         ObservableList<Person> persons = contacts.getPersonList();
-        for (Appointment invalid : findInvalidAppointments(appointments, persons)) {
-            logger.fine("Deleting Invalid Appointment: " + invalid.toString());
-            schedule.deleteAppointment(invalid);
+        //for (Appointment invalid : findInvalidAppointments(appointments, persons)) {
+        //    logger.fine("Deleting Invalid Appointment: " + invalid.toString());
+        //    schedule.deleteAppointment(invalid);
+        //}
+
+        for (Person person : findMissingPersons(appointments, persons)) {
+            this.contacts.addPerson(person);
         }
     }
 
-    private ArrayList<Appointment> findInvalidAppointments(ObservableList<Appointment> appointments,
-                                                ObservableList<Person> persons) {
+    private UniquePersonList findMissingPersons(ObservableList<Appointment> appointments,
+                                             ObservableList<Person> persons) {
 
-        ArrayList<Appointment> invalidAppointments = new ArrayList<>();
+        UniquePersonList missingPersons = new UniquePersonList();
         for (Appointment appointment : appointments) {
             ObservableList<Person> clients = appointment.getClientList();
-            if (!checkClientExists(persons, clients)) {
-                invalidAppointments.add(appointment);
-            }
+            addMissingPerson(missingPersons, persons, clients);
         }
-        return invalidAppointments;
+        return missingPersons;
     }
 
-    private boolean checkClientExists(ObservableList<Person> persons, ObservableList<Person> clients) {
-        for (Person client: clients) {
+    private void addMissingPerson(UniquePersonList missingPersons, ObservableList<Person> persons,
+                              ObservableList<Person> clients) {
+        for (Person client : clients) {
             if (!persons.contains(client)) {
-                return false;
+                if (!missingPersons.contains(client)) {
+                    missingPersons.add(client);
+                }
             }
         }
-        return true;
     }
-    
+
     @Override
     public String getCommandName() {
         return this.historyStates.getCurrentState().getCommandName();
