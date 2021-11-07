@@ -57,8 +57,7 @@ Given below are my contributions to the project.
         * Added the Reading the document section of the UG to help users better understand various syntaxes in the document.[\#136](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/136)
         * Updated the format for the Features section to separate Person-related features, Appointment-related features and general features.[\#136](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/136)
     * Developer Guide:
-        * Wrote the Use Cases. [\#53](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/53)
-        * Wrote the User Stories. [\#53](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/53)
+        * Wrote the Use Cases and User stories. [\#53](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/53)
         * Added some implementation details for the addApp command.[\#108](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/108)
 
 
@@ -66,7 +65,6 @@ Given below are my contributions to the project.
     * PRs reviewed (with non-trivial review comments):
       [\#76](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/76),
       [\#116](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/116),
-      [\#109](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/109),
       [\#183](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/183),
       [\#194](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/194),
       [\#197](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/197),
