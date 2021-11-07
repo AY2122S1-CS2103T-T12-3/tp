@@ -29,11 +29,17 @@ Given below are my contributions to the project.
     * Highlights: The enhancement is implemented by creating `JsonAdaptedAppointment` and `JsonAdaptedTimePeriod` which helps to represent the `Appointment`
       and its `TimePeriod` in a JSON file format for storage.
     * Credits: The implementation for these Storage features are largely similar to AB-3's Storage features.
+    
+* **New Feature**: Ensure no conflicts, and consistency between contacts and schedule when reading from JSON file
+    * What it does: Checks through the saved data and ensures correctness of the data.
+    * Justification: This feature is crucial as the user might make duplicates, or clashing appointments by accident in the JSON files.
+    * Highlights: This enhancement is implemented by checking the validity of the JSON file format, and replacing the data with sample data if there are errors.
+      Once JSON files has been correctly read, the persons in each appointment is checked to see if they exist in the contacts.
 
 * **Other significant contribution**: Created some test JSON files such as `invalidAndValidAppointmentSchedule.json` to be used for Storage testing.
     * What I did: Modified valid JSON files to create different errors in their formatting to test the error detection of the Storage component. 
     * Justification: Users have the ability to modify their own JSON files and might cause errors in the file formatting, which may affect PlaceBook's ability to read the data.
-
+    
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=nwhloo99&tabRepo=AY2122S1-CS2103T-T12-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:
