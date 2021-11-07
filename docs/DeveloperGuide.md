@@ -174,9 +174,11 @@ The undo feature allows the users to undo the previous command and go back to th
 #### Implementation
 
 To implement the undo feature, we need to record the status of PlaceBook after executing a certain command,
-so that we restore PlaceBook to its previous status by using that piece of recorded information.
+so that we can restore PlaceBook to its previous status by using that piece of recorded information.
 
-We use a `State` to describe the status of PlaceBook at a certain time. The `State` contains a `Contacts` and a `Schedule`. After every execution of the normal commands,
+We use a `State` to describe the status of PlaceBook at a certain time. 
+The `State` contains a `Contacts`, a `Schedule`, a `Predicate<Person>`, a `Predicate<Appointment>` and a `command word`. 
+After every execution of the normal commands,
 we create a new `State` instance to record the status of PlaceBook after executing that command.
 This `State` instance is like a snapshot of the PlaceBook at a certain moment.
 
