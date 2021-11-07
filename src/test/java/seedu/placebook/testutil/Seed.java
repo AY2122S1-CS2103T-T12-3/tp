@@ -1,5 +1,5 @@
 package seedu.placebook.testutil;
 
 public enum Seed {
-    ONE, TWO
+    ONE, TWO, THREE, FOUR
 }

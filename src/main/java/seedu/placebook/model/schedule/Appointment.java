@@ -26,6 +26,21 @@ public class Appointment {
         this.description = description;
     }
 
+    /**
+     * A factory method to create a deep copy of the given appointment to copy.
+     * @param appointmentToCopy The given appointment to copy.
+     * @return The deep copy.
+     */
+    public static Appointment deepCopy(Appointment appointmentToCopy) {
+        Appointment result = new Appointment(
+                UniquePersonList.deepCopy(appointmentToCopy.getClients()),
+                appointmentToCopy.getLocation(),
+                appointmentToCopy.getTimePeriod(),
+                appointmentToCopy.getDescription()
+        );
+        return result;
+    }
+
     public UniquePersonList getClients() {
         return clients;
     }

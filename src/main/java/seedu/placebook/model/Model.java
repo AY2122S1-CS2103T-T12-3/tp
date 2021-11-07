@@ -177,5 +177,7 @@ public interface Model {
     /**
      * Add the current state into the history states.
      */
-    public void updateState();
+    public void updateState(String commandName);
+
+    public String getCommandName();
 }

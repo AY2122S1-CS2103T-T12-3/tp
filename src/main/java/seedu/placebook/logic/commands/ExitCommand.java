@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Ui ui) {
-        model.updateState();
+        model.updateState(MESSAGE_EXIT_ACKNOWLEDGEMENT);
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
     }
 

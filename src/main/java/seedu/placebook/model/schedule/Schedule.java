@@ -37,6 +37,19 @@ public class Schedule implements Iterable<Appointment>, ReadOnlySchedule {
     }
 
     /**
+     * A factory method to create a deep copy of the given schedule to copy.
+     * @param scheduleToCopy The given schedule to copy.
+     * @return The deep copy.
+     */
+    public static Schedule deepCopy(Schedule scheduleToCopy) {
+        Schedule result = new Schedule();
+        for (Appointment appointment : scheduleToCopy.getSchedule()) {
+            result.addAppointment(Appointment.deepCopy(appointment));
+        }
+        return result;
+    }
+
+    /**
      * Replaces the contents of the person list with {@code appointments}.
      * {@code appointments} must not contain duplicate persons.
      */

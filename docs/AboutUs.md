@@ -33,17 +33,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/li-lehao.png" width="200px">
 
-[[github](https://github.com/Li-Lehao)] [[portfolio](team/li-lehao.md)]
+[[github](https://github.com/Li-Lehao)]
+[[portfolio](team/li-lehao.md)]
 
 * Role: Developer
-* Responsibilities: ..
+* Responsibilities: Creating Commands, Implement Models and testing
 
 ### Nicholas
 
 <img src="images/nwhloo99.png" width="200px">
 
-[[github](http://github.com/nwhloo)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/nwhloo99)]
+[[portfolio](team/nwhloo99.md)]
 
 * Role: Developer
 * Responsibilities: Creating Commands
@@ -53,7 +54,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/tchiong.png" width="200px">
 
 [[github](http://github.com/tchiong)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/tchiong.md)]
 
 * Role: Developer
 * Responsibilities: Testing

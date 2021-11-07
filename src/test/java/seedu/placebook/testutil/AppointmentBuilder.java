@@ -16,6 +16,7 @@ public class AppointmentBuilder {
     private static final String DEFAULT_CLIENT = "ALICE";
     private static final String DEFAULT_LOCATION = "vivocity";
     private static final String DEFAULT_DESCRIPTION = "Halloween Sales";
+    private static final String ALTERNATE_DESCRIPTION = "Christmas Sales";
 
     private UniquePersonList clients;
     private Address location;
@@ -48,6 +49,16 @@ public class AppointmentBuilder {
         case TWO:
             this.timePeriod = new TimePeriod(LocalDateTime.of(2022, 12, 25, 21, 30),
                     LocalDateTime.of(2022, 12, 25, 22, 30));
+            break;
+        case THREE:
+            this.timePeriod = new TimePeriod(LocalDateTime.of(2022, 12, 25, 21, 30),
+                    LocalDateTime.of(2022, 12, 25, 22, 30));
+            this.description = ALTERNATE_DESCRIPTION;
+            break;
+        case FOUR:
+            this.timePeriod = new TimePeriod(LocalDateTime.of(2021, 12, 25, 22, 00),
+                    LocalDateTime.of(2022, 12, 25, 22, 30));
+            this.description = "Xmas Sales";
             break;
         default:
             this.timePeriod = new TimePeriod(LocalDateTime.of(2023, 12, 25, 21, 30),
