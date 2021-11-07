@@ -273,6 +273,49 @@ no longer be able to query information about this person.
 little sense in this case to keep the person related to appointments show up event after they deletes the person. Moreover,
   it makes the code harder to maintain, as we will need to consider whether the person is mark as deleted for every other 
   query.
+  
+### Handle invalid JSON data feature
+
+#### Implementation
+
+This feature checks if there are errors in the JSON file formats.
+Below are the different situations that can occur and how it is resolved.
+
+* If both files can be found and are valid, PlaceBook will use create `ModelManager` using the data in those files.
+
+* If the `contacts.json` file is missing or invalid, PlaceBook will wipe both the Schedule and Contacts data, and create sample data for both.
+
+* If the `schedule.json` file is missing or invalid, PlaceBook will wipe the Schedule data, but will not create a sample Schedule, so that there will not be discrepancies between Contacts and Schedule.
+
+* If both files are missing or invalid, PlaceBook will create sample data for both Schedule and Contacts.
+
+#### Design Considerations
+
+* **Alternative 1** Create sample data accordingly to the different situations mentioned above.
+    * Pros: This will ensure that there are no appointments created that contain `Person` objects that are not in the contacts.
+    * Cons: Have to consider many cases and how to handle them correctly. 
+* **Alternative 2** Create sample data for each list, if their data file is missing or invalid.
+    * Pros: Simpler logic and implementation.
+    * Cons: May have discrepancies between the contacts and schedule, confusing the user.
+    
+### Ensure no discrepancies between contacts and schedule upon loading ModelManager
+
+#### Implementation
+
+This feature checks that if the user had modified the JSON files, there will not be any discrepancies between contacts and schedule.
+
+While loading `ModelManager`, PlaceBook checks if there any `Appointment` objects that contain `Person` objects that are not in the contacts.
+
+Upon finding such `Appointment` objects, PlaceBook will add the missing `Person` objects back to the contacts.
+
+#### Design Considerations
+
+* **Alternative 1** Add missing persons back to contacts
+    * Pros: This will ensure that the user will not have unexpected missing data.
+    * Cons: The user might not notice that the person that they wanted to delete is still in the contacts.
+* **Alternative 2** Delete appointments with missing persons
+    * Pros: This will ensure that the persons the user deleted from the JSON will remain deleted.
+    * Cons: The user might not have noticed that those appointments have been deleted.
 
 ### \[Proposed\] Undo/redo feature
 
