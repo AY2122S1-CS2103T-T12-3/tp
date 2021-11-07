@@ -38,6 +38,19 @@ public class Contacts implements ReadOnlyContacts {
         resetData(toBeCopied);
     }
 
+    /**
+     * A factory method to create deep copy of the given {@Code Contacts}.
+     * @param contactsToCopy The given {@Code Contacts} to copy.
+     * @return A deep copy of the given contacts to copy.
+     */
+    public static Contacts deepCopy(Contacts contactsToCopy) {
+        Contacts result = new Contacts();
+        for (Person person : contactsToCopy.getPersonList()) {
+            result.addPerson(Person.deepCopy(person));
+        }
+        return result;
+    }
+
     //// list overwrite operations
 
     /**

@@ -51,7 +51,12 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.contacts.getPersonList());
         filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
         this.historyStates = new HistoryStates();
-        State originState = new State(this.contacts, this.schedule);
+        State originState = new State(
+                this.contacts,
+                this.schedule,
+                this.filteredPersons.getPredicate(),
+                this.filteredAppointments.getPredicate(),
+                "original state, no command name");
         this.historyStates.addNewState(originState);
     }
 
@@ -328,19 +333,34 @@ public class ModelManager implements Model {
         } else {
             this.historyStates.undo();
             State previousState = this.historyStates.getCurrentState();
+
             this.schedule = previousState.getSchedule();
             this.contacts = previousState.getContacts();
+
             filteredPersons = new FilteredList<>(this.contacts.getPersonList());
             filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
-            System.out.println(this.contacts.getPersonList().size() + " " + this.schedule.hashCode());
+
+            filteredPersons.setPredicate(previousState.getPersonListPredicate());
+            filteredAppointments.setPredicate(previousState.getAppointmentListPredicate());
         }
     }
 
     /**
      * Add the current state into the history states.
      */
-    public void updateState() {
-        State stateToUpdate = new State(this.contacts, this.schedule);
+    @Override
+    public void updateState(String commandName) {
+        State stateToUpdate = new State(
+                this.contacts,
+                this.schedule,
+                this.filteredPersons.getPredicate(),
+                this.filteredAppointments.getPredicate(),
+                commandName);
         this.historyStates.addNewState(stateToUpdate);
+    }
+
+    @Override
+    public String getCommandName() {
+        return this.historyStates.getCurrentState().getCommandName();
     }
 }

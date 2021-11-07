@@ -12,7 +12,7 @@ Given below are my contributions to the project.
 ### Summary of Contributions
 
 * **New Feature**: Added Light Theme/ Dark Theme toggle function
-  * What it does: allows the user to change the theme fo the application.
+  * What it does: allows the user to change the theme for the application.
   * Justification: This feature improves the user experience as it allows users to work with greater eye comfort in various
     lighting situation, such as bright office, outdoor, or dark cafe. This may be especially needed by our target audience: 
     sales and management executive, due to their volatile work environment.
@@ -25,8 +25,7 @@ Given below are my contributions to the project.
   * What it does: allows the user to navigate to previous or next commands using up/down keys.
   * Justification: This feature improves the user experience as it improves user's efficiency in repetitive tasks such as 
     adding or deleting multiple appointments/clients.
-  * Highlights: This enhancement is quite independent of the existing system, and it is implemented in a way that adds 
-    minimal dependencies. This makes this feature and the whole system easily maintainable in the future.
+  * Highlights: This enhancement is implemented with great maintainability.
   * Credits: I reused parts of the code from my own CS2103T independent project.
 
 * **New Feature**: Urgency display in appointment list
@@ -55,8 +54,8 @@ Given below are my contributions to the project.
   
   
 * **Enhancements to existing features**:
-  * Updated the UI layout
-  * (to be edited)Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Updated the UI layout ( [\#68](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/68) )
+  * Wrote additional tests for existing components (Pull requests [\#207](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/207), [\#38]())
 
 
 * **Documentation**:
@@ -70,14 +69,12 @@ Given below are my contributions to the project.
 
 
 * **Community**:
-  * (to be edited)
   * PRs reviewed (with non-trivial review comments): 
     [\#84](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/84), 
     [\#116](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/116), 
     [\#117](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/117), 
     [\#69](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/69), 
     [\#185](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/185), 
-  * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/158#issuecomment-909827199), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
+    [\#212](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/212).
+  * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/158#issuecomment-909827199))
+  * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/AY2122S1-CS2103T-T15-3/tp/issues/159), [2](https://github.com/AY2122S1-CS2103T-T15-3/tp/issues/157))

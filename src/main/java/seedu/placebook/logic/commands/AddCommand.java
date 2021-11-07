@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        model.updateState();
+        model.updateState(String.format(MESSAGE_USAGE, toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

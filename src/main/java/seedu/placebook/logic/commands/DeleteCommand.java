@@ -51,7 +51,7 @@ public class DeleteCommand extends Command {
 
         if (ui.showDeleteDialogAndWait(relatedAppointment)) {
             model.deletePerson(personToDelete);
-            model.updateState();
+            model.updateState(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
         } else {
             return new CommandResult(MESSAGE_NO_PERSON_DELETED);

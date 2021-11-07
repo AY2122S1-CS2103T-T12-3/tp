@@ -33,6 +33,19 @@ public class UniquePersonList implements Iterable<Person> {
     private final StringProperty personNames = new SimpleStringProperty("");
 
     /**
+     * A factory method to create a deep copy of the given unique person list to copy.
+     * @param uniquePersonListToCopy The given unique person list to copy.
+     * @return The deep copy.
+     */
+    public static UniquePersonList deepCopy(UniquePersonList uniquePersonListToCopy) {
+        UniquePersonList result = new UniquePersonList();
+        for (Person person : uniquePersonListToCopy) {
+            result.add(Person.deepCopy(person));
+        }
+        return result;
+    }
+
+    /**
      * Returns the observable personNames.
      * @return the person names of the list.
      */

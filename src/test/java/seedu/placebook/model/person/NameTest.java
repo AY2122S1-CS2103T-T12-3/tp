@@ -1,5 +1,6 @@
 package seedu.placebook.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.testutil.Assert.assertThrows;
@@ -36,5 +37,14 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void equalsMethod() {
+        Name name = new Name("peter");
+        Name name1 = new Name("peter");
+
+        assertEquals(name, name);
+        assertEquals(name, name1);
     }
 }

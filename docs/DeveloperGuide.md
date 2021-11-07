@@ -121,7 +121,7 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the contact data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * stores appointment data in `Appointment` objects (which contain `UniquePersonList` for clients, `Address` for location, `TimePeriod` for time period during which the appointment occurs, `String` for description)
@@ -166,6 +166,27 @@ cannot both happen. Each `Appointment` class has a `TimePeriod` class, which rep
 which this appointment occurs. The `TimePeriod` class provides a function to check whether a time period overlaps
 with another time period. `TimePeriod` is also used to calculate the urgency of the appointment, assigning the
 appointment either `High`, `Medium` or `Low` urgency.
+
+### Undo feature
+
+The undo feature allows the users to undo the previous command and go back to the state before executing that command.
+
+#### Implementation
+
+To implement the undo feature, we need to record the status of PlaceBook after executing a certain command,
+so that we can restore PlaceBook to its previous status by using that piece of recorded information.
+
+We use a `State` to describe the status of PlaceBook at a certain time. 
+The `State` contains a `Contacts`, a `Schedule`, a `Predicate<Person>`, a `Predicate<Appointment>` and a `command word`. 
+After every execution of the normal commands,
+we create a new `State` instance to record the status of PlaceBook after executing that command.
+This `State` instance is like a snapshot of the PlaceBook at a certain moment.
+
+In order to manage the different states, we have a `HistoryStates` class which has a data structure inside to store all the `State`. Stack and linked list are
+ususlly used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
+After the execution of a normal command, a new `State` instance is created, and then we add this new `State` to the end of the linked list in `HistoryStates`.
+When an `undo` command is encountered, we simply remove the last node of the linked list, so the current state pointer points to the previous node.
+When there are no more nodes in the linked list except the initial state, the `undo` command cannot be executed and the `HistoryStates` will thrown a `NoHistoryStates` exception.
 
 ### AddApp feature
 

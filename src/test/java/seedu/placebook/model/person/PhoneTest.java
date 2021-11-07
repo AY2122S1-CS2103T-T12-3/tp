@@ -1,5 +1,6 @@
 package seedu.placebook.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.testutil.Assert.assertThrows;
@@ -39,5 +40,14 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
         assertTrue(Phone.isValidPhone("1234567890123456789")); // long phone numbers (19 digits)
         assertTrue(Phone.isValidPhone("12345678901234567890")); // long phone numbers (20 digits)
+    }
+
+    @Test
+    public void equalsMethod() {
+        Phone phone = new Phone("123");
+        Phone phone1 = new Phone("123");
+
+        assertEquals(phone, phone);
+        assertEquals(phone, phone1);
     }
 }

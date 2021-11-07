@@ -221,11 +221,16 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateState() {
+        public void updateState(String commandName) {
         }
 
         @Override
         public void undo() {
+        }
+
+        @Override
+        public String getCommandName() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
