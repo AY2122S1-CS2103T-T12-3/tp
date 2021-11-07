@@ -42,8 +42,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/nwhloo99.png" width="200px">
 
-[[github](http://github.com/nwhloo)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/nwhloo99)]
+[[portfolio](team/nwhloo99.md)]
 
 * Role: Developer
 * Responsibilities: Creating Commands

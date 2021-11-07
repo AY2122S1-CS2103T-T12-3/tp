@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, Ui ui) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.updateState();
+        model.updateState(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

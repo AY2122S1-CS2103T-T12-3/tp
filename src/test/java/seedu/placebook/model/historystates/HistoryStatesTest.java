@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.placebook.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
+import static seedu.placebook.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.LinkedList;
 
@@ -19,7 +21,15 @@ import seedu.placebook.testutil.TypicalPersons;
 class HistoryStatesTest {
     private static Contacts testContacts = TypicalPersons.getTypicalContacts();
     private static Schedule testSchedule = TypicalAppointment.getTypicalSchedule();
-    private static State testState = new State(testContacts, testSchedule);
+    private static String testCommandName = "test command";
+
+    private static State testState = new State(
+            testContacts,
+            testSchedule,
+            PREDICATE_SHOW_ALL_PERSONS,
+            PREDICATE_SHOW_ALL_APPOINTMENTS,
+            testCommandName
+    );
 
     @Test
     public void addNewState_success() {
@@ -36,7 +46,13 @@ class HistoryStatesTest {
         LinkedList<State> listOfState = new LinkedList<>();
         listOfState.add(testState);
         historyStates.addNewState(testState);
-        historyStates.addNewState(new State(testContacts, testSchedule));
+        historyStates.addNewState(new State(
+                testContacts,
+                testSchedule,
+                PREDICATE_SHOW_ALL_PERSONS,
+                PREDICATE_SHOW_ALL_APPOINTMENTS,
+                testCommandName
+        ));
         historyStates.undo();
         assertEquals(historyStates.getHistoryStates(), listOfState);
     }
@@ -58,7 +74,13 @@ class HistoryStatesTest {
     @Test
     public void getCurrentState_returnsCorrectState() {
         HistoryStates historyStates = new HistoryStates();
-        State state = new State(testContacts, testSchedule);
+        State state = new State(
+                testContacts,
+                testSchedule,
+                PREDICATE_SHOW_ALL_PERSONS,
+                PREDICATE_SHOW_ALL_APPOINTMENTS,
+                testCommandName
+        );
         historyStates.addNewState(state);
         assertEquals(historyStates.getCurrentState(), state);
     }
@@ -66,7 +88,13 @@ class HistoryStatesTest {
     @Test
     public void getCurrentState_modifyResult_stateInHistoryStatesNotAffected() {
         HistoryStates historyStates = new HistoryStates();
-        State state = new State(testContacts, testSchedule);
+        State state = new State(
+                testContacts,
+                testSchedule,
+                PREDICATE_SHOW_ALL_PERSONS,
+                PREDICATE_SHOW_ALL_APPOINTMENTS,
+                testCommandName
+        );
         historyStates.addNewState(state);
         State result = historyStates.getCurrentState();
         result.getContacts().addPerson(new PersonBuilder().build());
@@ -96,7 +124,13 @@ class HistoryStatesTest {
     public void hasHistoryStates_historyStatesHasTwoStates_returnsTrue() {
         HistoryStates historyStates = new HistoryStates();
         historyStates.addNewState(testState);
-        historyStates.addNewState(new State(testContacts, testSchedule));
+        historyStates.addNewState(new State(
+                testContacts,
+                testSchedule,
+                PREDICATE_SHOW_ALL_PERSONS,
+                PREDICATE_SHOW_ALL_APPOINTMENTS,
+                testCommandName
+        ));
         assertTrue(historyStates.hasHistoryStates());
     }
 }

@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Ui ui) {
-        model.updateState();
+        model.updateState(SHOWING_HELP_MESSAGE);
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
     }
 }
