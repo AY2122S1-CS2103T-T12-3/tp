@@ -3,7 +3,7 @@ layout: page
 title: Li Lehao's Project Portfolio Page
 ---
 
-### Project: PlackBook
+### Project: PlaceBook
 
 PlaceBook (PB) is a desktop app for managing contacts and appointments designed for salesperson and marketing person,
 optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
@@ -14,7 +14,7 @@ If you can type fast, PB can get your contact management tasks done faster than 
 Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to undo previous commands.
-  * What it does: allows the user to enter an `undo` command, which let the PlackBook undo the previous command
+  * What it does: allows the user to enter an `undo` command, which let the PlaceBook undo the previous command
     and go back to the state before executing the previous command.
   * Justification: This feature improves the user experience significantly because the user 
     can make mistakes in commands, such as deleting a contact accidentally, 
@@ -25,9 +25,9 @@ Given below are my contributions to the project.
     The implementation too was challenging as it required changes to existing commands.
 
 * **New Feature**: Added the `listApp` command.
-  * What it does: the `listApp` command allows the user to let PlackBook display a list of all the appointments.
+  * What it does: the `listApp` command allows the user to let PlaceBook display a list of all the appointments.
     In addition, users can also add keywords such as `time` and `description` after the `listApp` command,
-    to request PlackBook to display the list sorted according to certain keywords.
+    to request PlaceBook to display the list sorted according to certain keywords.
   * Justification: This feature improves the user experience significantly because the user need a command
     to go back to the original appointment list after they use `findApp` command and some other commands.
     In addition, sorting the appointment list according to certain keywords significantly improves the convenience
