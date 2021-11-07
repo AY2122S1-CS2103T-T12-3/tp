@@ -48,6 +48,7 @@ public class ModelManager implements Model {
         this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
+        checkValidity(this.contacts, this.schedule);
         filteredPersons = new FilteredList<>(this.contacts.getPersonList());
         filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
         this.historyStates = new HistoryStates();
@@ -342,5 +343,35 @@ public class ModelManager implements Model {
     public void updateState() {
         State stateToUpdate = new State(this.contacts, this.schedule);
         this.historyStates.addNewState(stateToUpdate);
+    }
+
+    private void checkValidity(Contacts contacts, Schedule schedule) {
+        ObservableList<Appointment> appointments = schedule.getSchedule();
+        ObservableList<Person> persons = contacts.getPersonList();
+        for (Appointment invalid : findInvalidAppointments(appointments, persons)) {
+            schedule.deleteAppointment(invalid);
+        }
+    }
+
+    private ArrayList<Appointment> findInvalidAppointments(ObservableList<Appointment> appointments,
+                                                ObservableList<Person> persons) {
+
+        ArrayList<Appointment> invalidAppointments = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            ObservableList<Person> clients = appointment.getClientList();
+            if (!checkClientExists(persons, clients)) {
+                invalidAppointments.add(appointment);
+            }
+        }
+        return invalidAppointments;
+    }
+
+    private boolean checkClientExists(ObservableList<Person> persons, ObservableList<Person> clients) {
+        for (Person client: clients) {
+            if (!persons.contains(client)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
