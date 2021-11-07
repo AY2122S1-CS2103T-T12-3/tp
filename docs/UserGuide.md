@@ -378,10 +378,13 @@ PlaceBook data will be saved in the hard disk automatically after any command th
 Advanced users are welcome to update data directly by editing that data file.
 PlaceBook Person and Appointment data will be saved in two separate JSON files, locations in the table below.
 
+
 Data | File Location
 -----|--------------
 Person | `[JAR file location]/data/contacts.json`
 Appointment | `[JAR file location]/data/schedule.json`
+
+**Take Note:** If you delete a person which is still contained in appointments, PlaceBook will add that person back to the contacts upon start-up.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PlaceBook will discard all data and start with an empty data file at the next run.<br>
