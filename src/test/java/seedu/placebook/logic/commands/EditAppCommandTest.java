@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.placebook.logic.commands.CommandTestUtil.DESC_A;
 import static seedu.placebook.logic.commands.CommandTestUtil.DESC_B;
 import static seedu.placebook.logic.commands.CommandTestUtil.VALID_DESCRIPTION_A;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_END_A;
 import static seedu.placebook.logic.commands.CommandTestUtil.VALID_LOCATION_B;
+import static seedu.placebook.logic.commands.CommandTestUtil.VALID_START_A;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.placebook.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.placebook.logic.commands.CommandTestUtil.showAppointmentAtIndex;
@@ -64,6 +66,35 @@ public class EditAppCommandTest {
     }
 
     @Test
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Index indexLastAppointment = Index.fromOneBased(model.getFilteredAppointmentList().size());
+        Appointment lastAppointment = model.getFilteredAppointmentList().get(indexLastAppointment.getZeroBased());
+
+        AppointmentBuilder appointmentInList = new AppointmentBuilder(lastAppointment);
+        Appointment editedAppointment = appointmentInList
+                .withLocation(VALID_LOCATION_B)
+                .withTimePeriod(VALID_START_A, VALID_END_A)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
+
+        EditAppCommand.EditAppDescriptor descriptor = new EditAppDescriptorBuilder()
+                .withLocation(VALID_LOCATION_B)
+                .withStart(VALID_START_A)
+                .withEnd(VALID_END_A)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
+        EditAppCommand editAppCommand = new EditAppCommand(indexLastAppointment, descriptor);
+
+        String expectedMessage = String.format(EditAppCommand.MESSAGE_SUCCESS, editedAppointment);
+
+        Model expectedModel =
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
+        expectedModel.setAppointment(lastAppointment, editedAppointment);
+
+        assertCommandSuccess(editAppCommand, model, uiStub, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastAppointment = Index.fromOneBased(model.getFilteredAppointmentList().size());
         Appointment lastAppointment = model.getFilteredAppointmentList().get(indexLastAppointment.getZeroBased());
@@ -114,6 +145,54 @@ public class EditAppCommandTest {
                 .format(Messages.MESSAGE_APPOINTMENTS_CLASHING_APPOINTMENT_ADDED + "\n" + appointmentInList + "\n");
 
         assertCommandFailure(editAppCommand, model, uiStub, expectedMessage);
+    }
+
+    @Test
+    public void execute_unfilteredList_success() {
+        Appointment appointmentInFilteredList = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment editedAppointment = new AppointmentBuilder(appointmentInFilteredList)
+                .withLocation(VALID_LOCATION_B)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
+        EditAppCommand editAppCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT,
+                new EditAppDescriptorBuilder()
+                        .withLocation(VALID_LOCATION_B)
+                        .withDescription(VALID_DESCRIPTION_A)
+                        .build());
+
+        String expectedMessage = String.format(EditAppCommand.MESSAGE_SUCCESS, editedAppointment);
+
+        Model expectedModel =
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
+        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0), editedAppointment);
+
+        assertCommandSuccess(editAppCommand, model, uiStub, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_filteredList_success() {
+        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+
+        Appointment appointmentInFilteredList = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment editedAppointment = new AppointmentBuilder(appointmentInFilteredList)
+                .withLocation(VALID_LOCATION_B)
+                .withDescription(VALID_DESCRIPTION_A)
+                .build();
+        EditAppCommand editAppCommand = new EditAppCommand(INDEX_FIRST_APPOINTMENT,
+                new EditAppDescriptorBuilder()
+                        .withLocation(VALID_LOCATION_B)
+                        .withDescription(VALID_DESCRIPTION_A)
+                        .build());
+
+        String expectedMessage = String.format(EditAppCommand.MESSAGE_SUCCESS, editedAppointment);
+
+        Model expectedModel =
+                new ModelManager(new Contacts(model.getContacts()), new UserPrefs(), model.getSchedule());
+        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0), editedAppointment);
+
+        assertCommandSuccess(editAppCommand, model, uiStub, expectedMessage, expectedModel);
     }
 
     @Test
