@@ -64,6 +64,7 @@ Given below are my contributions to the project.
     * Added documentation for the features `command history navigation` and `theme toggle`.[\#140](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/140)
   * Developer Guide:
     * Added implementation details of the `delete` feature. [\#106](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/106)
+    * Added implementation details of the `theme change` and `command history` features. [\#236](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/236)
     * Update uml for model and storage. [\#134](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/134)
 
 
