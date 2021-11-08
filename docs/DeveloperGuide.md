@@ -183,7 +183,7 @@ we create a new `State` instance to record the status of PlaceBook after executi
 This `State` instance is like a snapshot of the PlaceBook at a certain moment.
 
 In order to manage the different states, we have a `HistoryStates` class which has a data structure inside to store all the `State`. Stack and linked list are
-ususlly used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
+usually used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
 After the execution of a normal command, a new `State` instance is created, and then we add this new `State` to the end of the linked list in `HistoryStates`.
 When an `undo` command is encountered, we simply remove the last node of the linked list, so the current state pointer points to the previous node.
 When there are no more nodes in the linked list except the initial state, the `undo` command cannot be executed and the `HistoryStates` will thrown a `NoHistoryStates` exception.
@@ -218,18 +218,15 @@ appropriate client or clients retrieved from the list of persons according to th
 A new Appointment will then be created and added to the `ModelManager`. It is at this stage the input will
 be checked to ensure that there are no duplicates or clashes with other appointments.
 
-##INSERT UML HERE
 
 Step 4. After execution, the CommandResult is passed upwards to the UI so that it can return a status message
 and update the display to match the updated model
-
-##@Yanyu im not 100% sure how the UI interacts with the overall model, if you see any issues could you help me correct them?
 
 The following sequence diagram shows how the addAppCommand operation works:
 
 ![AddAppSequenceDiagram](images/AddAppSequenceDiagram.png)
 
-####Design considerations
+#### Design considerations
 * **Alternative 1 (current choice):** User selects `Person` in `Appointment` through indexes of the displayed list.
     * Pros: Easy to implement, every `Person` in the displayed list will have a unique index.
     * Cons: As the user filters the displayed list, the indexes may change and be re-ordered, causing some confusion to the user.
@@ -262,7 +259,7 @@ The delete feature deletes a person from the storage by specifying an index show
 
 
 
-####Design considerations
+#### Design considerations
 * This will likely be break the current data relations as those appointments that refer to this person will
 no longer be able to query information about this person.
 * Thus, we either:  
@@ -375,7 +372,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
 | `* *`   | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -643,18 +639,16 @@ Use case ends.
     * PB displays an empty list.
 
       Use case ends.
-		
-*{More to be added}*
+    
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 persons and appointments without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  The system is not required to handle sending emails to contacts.
 5.  Users can see previously written commands in the same session.
 
-*{More to be added}*
 
 ### Glossary
 
