@@ -186,7 +186,7 @@ In order to manage the different states, we have a `HistoryStates` class which h
 usually used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
 After the execution of a normal command, a new `State` instance is created, and then we add this new `State` to the end of the linked list in `HistoryStates`.
 When an `undo` command is encountered, we simply remove the last node of the linked list, so the current state pointer points to the previous node.
-When there are no more nodes in the linked list except the initial state, the `undo` command cannot be executed and the `HistoryStates` will thrown a `NoHistoryStates` exception.
+When there are no more nodes in the linked list except the initial state, the `undo` command cannot be executed and the `HistoryStates` will thrown a `NoHistoryStatesException`.
 
 ### AddApp feature
 
