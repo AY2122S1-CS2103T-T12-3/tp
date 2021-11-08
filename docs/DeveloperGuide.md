@@ -369,11 +369,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | marketeer                                  | delete appointments            | remove cancelled/finished appointments                                 |
 | `* * *`  | new user                                   | view some example contacts     | have an idea of what contact info will look like                       |
 | `*`      | user with many persons in the contacts     | sort persons by name           | locate a person easily                                                 |
-| `* *`   | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
-| `* *`   | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
-| `* *`   | user		                                | sort appointments by Description | locate an appointment easily                                         |
-| `* *`   | user		                                | find an appointment by name | locate details of an appointment without having to go through the list    |
-
+| `*`      | user with many appointments                | sort appointments by Description | locate an appointment easily                                         |
+| `* *`    | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
+| `* *`    | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
+| `* *`    | user		                                | find an appointment by name | locate details of an appointment without having to go through the list    |
+| `* *`    | user		                                | undo my commands               | correct my mistakes quickly and easily                                 |
+| `* *`    | user		                                | edit a person                  | easily make changes to people in my contacts                           |
+| `* *`    | user		                                | edit an appointment            | easily make changes to appointments in my contacts                     |
 
 ### Use cases
 
