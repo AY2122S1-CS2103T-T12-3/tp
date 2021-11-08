@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Placebook
+title: PlaceBook
 ---
 
 [![CI Status](https://github.com/AY2122S1-CS2103T-T12-3/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S1-CS2103T-T12-3/tp/actions)
