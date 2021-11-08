@@ -36,6 +36,6 @@ class UndoCommandTest {
         clearedModel.setSchedule(new Schedule());
         assertCommandSuccess(new ClearCommand(), model, uiStub, ClearCommand.MESSAGE_SUCCESS, clearedModel);
 
-        assertCommandSuccess(new UndoCommand(), model, uiStub, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, uiStub, "Undo command: clear", expectedModel);
     }
 }

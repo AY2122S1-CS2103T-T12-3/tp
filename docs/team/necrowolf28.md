@@ -9,11 +9,14 @@ PlaceBook (PB) is a desktop app for managing contacts and appointments, optimize
 Given below are my contributions to the project.
 
 
+
+
 * **New Feature**: `findTags`
     * What it does: allows the user to find contacts with tags that match the given keyword(s).
     * Justification: This is an important feature if users want to create appointments with groups of people with the same
       tags, for example people from the same company.
     * Credits: the implementation is largely similar to the AB-3 find feature.
+
 
 
 * **New Feature**: `editApp`
@@ -23,10 +26,12 @@ Given below are my contributions to the project.
     * Credits: the implementation is slightly similar to the AB-3 edit feature, but includes important additions as well.
 
 
+
 * **New Feature**: `delApp`
     * What it does: allows the user to delete an existing application based on its index shown on the app.
     * Justification: This is a must-have feature for users to delete appointments.
     * Credits: the implementation is slightly similar to the AB-3 delete feature, but includes important additions as well.
+
 
 
 * **Other significant contribution**: Implemented the `EditAppDescriptorBuilder` test utility.
@@ -62,4 +67,5 @@ Given below are my contributions to the project.
     * Reviewed PRs
     * Reported possible bugs and feature implementation issues for teammates'
       
+
 

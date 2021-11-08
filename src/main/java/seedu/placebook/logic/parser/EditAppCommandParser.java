@@ -41,6 +41,9 @@ public class EditAppCommandParser implements Parser<EditAppCommand> {
             editAppDescriptor.setEnd(ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_ENDDATETIME).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            if (argMultimap.getValue(PREFIX_DESCRIPTION).get().equals("")) {
+                throw new ParseException(String.format("Description cannot be empty!"));
+            }
             editAppDescriptor.setDescription(ParserUtil
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }

@@ -21,7 +21,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setContact(new Contacts());
         model.setSchedule(new Schedule());
-        model.updateState();
+        model.updateState(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

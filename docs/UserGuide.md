@@ -85,6 +85,8 @@ Parameter | Data format
   
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Features
 
 ### **Contact Features**
@@ -322,6 +324,24 @@ Clears all contacts and appointments from PlaceBook.
 
 Format: `clear`
 
+#### Undo the previous command : `undo`
+
+If you execute a command by mistake, such as accidentally deleting a person or an appointment,
+you can easily undo this command and go back to where you were before executing that command
+by typing `undo` in the text box and pressing enter.
+
+Format: `undo`
+
+Error messages:
+* No history states.
+    * It means there are no more commands to undo, and you are at the initial state.
+
+Before:
+![result for `undo` before change](images/undoBefore.png)
+
+After:
+![result for `undo` after change](images/undoAfter.png)
+
 #### Command history navigation
 
 Using the keyboard `UP` and `DOWN` arrow buttons, you can easily navigate through the command that you previously entered.
@@ -366,10 +386,13 @@ PlaceBook data will be saved in the hard disk automatically after any command th
 Advanced users are welcome to update data directly by editing that data file.
 PlaceBook Person and Appointment data will be saved in two separate JSON files, locations in the table below.
 
+
 Data | File Location
 -----|--------------
 Person | `[JAR file location]/data/contacts.json`
 Appointment | `[JAR file location]/data/schedule.json`
+
+**Take Note:** If you delete a person which is still contained in appointments, PlaceBook will add that person back to the contacts upon start-up.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PlaceBook will discard all data and start with an empty data file at the next run.<br>
@@ -381,10 +404,6 @@ In the case that PlaceBook cannot find any data files, PlaceBook will attempt to
 If the schedule.json file is missing but the contacts.json file is correctly read, there will not be any Sample schedule made.<br>
 In all other cases (i.e. both files missing, or only contacts.json missing), both Sample contacts and Sample schedule will be created.
 </div>
-
-#### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 

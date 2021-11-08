@@ -41,7 +41,9 @@ public class AppointmentListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AppointmentCard(appointment, getIndex() + 1).getRoot());
+                AppointmentCard appointmentCard = new AppointmentCard(appointment, getIndex() + 1);
+                setGraphic(appointmentCard.getRoot());
+                appointmentCard.expandClients(isSelected());
             }
         }
     }
