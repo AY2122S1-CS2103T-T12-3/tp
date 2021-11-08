@@ -57,8 +57,8 @@ public class EditCommandTest {
         testContacts.addPerson(client1);
         testContacts.addPerson(client2);
 
-        Appointment appointment1 = new AppointmentBuilder(Seed.ONE).addClient(client1).build();
-        Appointment appointment2 = new AppointmentBuilder(Seed.TWO).addClient(client1).addClient(client2).build();
+        Appointment appointment1 = new AppointmentBuilder(Seed.ONE).withClient(client1).build();
+        Appointment appointment2 = new AppointmentBuilder(Seed.TWO).withClient(client1).addClient(client2).build();
 
         testSchedule = new Schedule();
         testSchedule.addAppointment(appointment1);

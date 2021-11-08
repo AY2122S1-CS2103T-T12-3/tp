@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PlacebookParser" as PlacebookParser LOGIC_COLOR
 participant ":AddAppCommandParser" as AddAppCommandParser LOGIC_COLOR
 participant "AddAppCommand" as AddAppCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("addApp ...")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("addApp ...")
-activate AddressBookParser
+LogicManager -> PlacebookParser : parseCommand("addApp ...")
+activate PlacebookParser
 
 create AddAppCommandParser
-AddressBookParser -> AddAppCommandParser
+PlacebookParser -> AddAppCommandParser
 activate AddAppCommandParser
 
-AddAppCommandParser --> AddressBookParser
+AddAppCommandParser --> PlacebookParser
 deactivate AddAppCommandParser
 
-AddressBookParser -> AddAppCommandParser : parse("...")
+PlacebookParser -> AddAppCommandParser : parse("...")
 activate AddAppCommandParser
 
 create AddAppCommand
@@ -36,14 +36,14 @@ activate AddAppCommand
 AddAppCommand --> AddAppCommandParser
 deactivate AddAppCommand
 
-AddAppCommandParser --> AddressBookParser
+AddAppCommandParser --> PlacebookParser
 deactivate AddAppCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddAppCommandParser -[hidden]-> AddressBookParser
+AddAppCommandParser -[hidden]-> PlacebookParser
 destroy AddAppCommandParser
 
-AddressBookParser --> LogicManager
-deactivate AddressBookParser
+PlacebookParser --> LogicManager
+deactivate PlacebookParser
 
 LogicManager -> AddAppCommand : execute()
 activate AddAppCommand

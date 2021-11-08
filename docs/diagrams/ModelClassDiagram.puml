@@ -5,12 +5,12 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyContacts <<Interface>>
 Interface ReadOnlySchedule <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Contacts
+Class ReadOnlyContacts
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -35,19 +35,19 @@ Class Urgency <<Enumeration>>
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Contacts .up.|> ReadOnlyContacts
 Schedule .up.|> ReadOnlySchedule
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
+Model .left.> ReadOnlyContacts
 Model .right.> ReadOnlySchedule
-ModelManager -left-> "1" AddressBook
+ModelManager -left-> "1" Contacts
 ModelManager -right-> "1" Schedule
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *-left-> "1" UniquePersonList
+Contacts *-left-> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone

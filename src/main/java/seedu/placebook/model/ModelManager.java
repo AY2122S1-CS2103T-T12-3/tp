@@ -17,6 +17,7 @@ import seedu.placebook.model.historystates.HistoryStates;
 import seedu.placebook.model.historystates.State;
 import seedu.placebook.model.historystates.exceptions.NoHistoryStatesException;
 import seedu.placebook.model.person.Person;
+import seedu.placebook.model.person.UniquePersonList;
 import seedu.placebook.model.schedule.Appointment;
 import seedu.placebook.model.schedule.Schedule;
 import seedu.placebook.model.schedule.exceptions.ClashingAppointmentsException;
@@ -48,6 +49,7 @@ public class ModelManager implements Model {
         this.contacts = new Contacts(contacts);
         this.userPrefs = new UserPrefs(userPrefs);
         this.schedule = new Schedule(schedule);
+        checkValidity(this.contacts, this.schedule);
         filteredPersons = new FilteredList<>(this.contacts.getPersonList());
         filteredAppointments = new FilteredList<>(this.schedule.getSchedule());
         this.historyStates = new HistoryStates();
@@ -357,6 +359,41 @@ public class ModelManager implements Model {
                 this.filteredAppointments.getPredicate(),
                 commandName);
         this.historyStates.addNewState(stateToUpdate);
+    }
+
+    private void checkValidity(Contacts contacts, Schedule schedule) {
+        ObservableList<Appointment> appointments = schedule.getSchedule();
+        ObservableList<Person> persons = contacts.getPersonList();
+        //for (Appointment invalid : findInvalidAppointments(appointments, persons)) {
+        //    logger.fine("Deleting Invalid Appointment: " + invalid.toString());
+        //    schedule.deleteAppointment(invalid);
+        //}
+
+        for (Person person : findMissingPersons(appointments, persons)) {
+            this.contacts.addPerson(person);
+        }
+    }
+
+    private UniquePersonList findMissingPersons(ObservableList<Appointment> appointments,
+                                             ObservableList<Person> persons) {
+
+        UniquePersonList missingPersons = new UniquePersonList();
+        for (Appointment appointment : appointments) {
+            ObservableList<Person> clients = appointment.getClientList();
+            addMissingPerson(missingPersons, persons, clients);
+        }
+        return missingPersons;
+    }
+
+    private void addMissingPerson(UniquePersonList missingPersons, ObservableList<Person> persons,
+                              ObservableList<Person> clients) {
+        for (Person client : clients) {
+            if (!persons.contains(client)) {
+                if (!missingPersons.contains(client)) {
+                    missingPersons.add(client);
+                }
+            }
+        }
     }
 
     @Override
