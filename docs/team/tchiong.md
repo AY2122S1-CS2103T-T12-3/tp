@@ -47,7 +47,8 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=tchiong)
 
 * **Project management**:
-    * Took minutes for one of the weekly meetings
+    * Took minutes for certain the weekly meetings
+    * Created some issues as user stories
 
 * **Documentation**:
     * User Guide:
