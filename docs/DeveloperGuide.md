@@ -372,7 +372,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
 | `* *`   | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -640,8 +639,7 @@ Use case ends.
     * PB displays an empty list.
 
       Use case ends.
-		
-*{More to be added}*
+    
 
 ### Non-Functional Requirements
 
@@ -651,7 +649,6 @@ Use case ends.
 4.  The system is not required to handle sending emails to contacts.
 5.  Users can see previously written commands in the same session.
 
-*{More to be added}*
 
 ### Glossary
 
