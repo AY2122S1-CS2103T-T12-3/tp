@@ -229,7 +229,7 @@ The following sequence diagram shows how the addAppCommand operation works:
 
 ![AddAppSequenceDiagram](images/AddAppSequenceDiagram.png)
 
-####Design considerations
+#### Design considerations
 * **Alternative 1 (current choice):** User selects `Person` in `Appointment` through indexes of the displayed list.
     * Pros: Easy to implement, every `Person` in the displayed list will have a unique index.
     * Cons: As the user filters the displayed list, the indexes may change and be re-ordered, causing some confusion to the user.
@@ -262,7 +262,7 @@ The delete feature deletes a person from the storage by specifying an index show
 
 
 
-####Design considerations
+#### Design considerations
 * This will likely be break the current data relations as those appointments that refer to this person will
 no longer be able to query information about this person.
 * Thus, we either:  
