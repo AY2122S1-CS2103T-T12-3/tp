@@ -191,6 +191,7 @@ When there are no more nodes in the linked list except the initial state, the `u
 ### AddApp feature
 
 #### Implementation
+
 The feature allows users to create an appointment with any number of clients (`Person`), 
 along with a location (`Address`), a time period (`timePeriod`) and a description (`String`).
 The addApp mechanism is facilitated by `Schedule`.
@@ -227,6 +228,7 @@ The following sequence diagram shows how the addAppCommand operation works:
 ![AddAppSequenceDiagram](images/AddAppSequenceDiagram.png)
 
 #### Design considerations
+
 * **Alternative 1 (current choice):** User selects `Person` in `Appointment` through indexes of the displayed list.
     * Pros: Easy to implement, every `Person` in the displayed list will have a unique index.
     * Cons: As the user filters the displayed list, the indexes may change and be re-ordered, causing some confusion to the user.
@@ -239,12 +241,14 @@ The following sequence diagram shows how the addAppCommand operation works:
 #### Implementation
 
 ##### Filtering
+
 The feature allows users to filter using `findApp` . The input of the command will be passed down through the parser into 
 the findAppCommand as a `DescriptionContainsKeywordsPredicate`, where on execution, this predicate is passed
 into the initialized `ModelManager` filters the list of Appointments by setting this predicate in a 
 FilteredList of Appointments, updating it to be displayed by the UI.
 
 ##### Sorting
+
 The feature allows sort using one of two metrics, time of appointment or description, and return to the original list.
 Using `listApp Time` or `listApp Description` will sort the list, and `listApp` will return the list of appointments to
 its original display. This is also done through the `ModelManager`. The parser will first determine what type of `listApp`
@@ -257,9 +261,8 @@ functions to sort the list according to input and update the displayed list to b
 
 The delete feature deletes a person from the storage by specifying an index shown on the display list.
 
-
-
 #### Design considerations
+
 * This will likely be break the current data relations as those appointments that refer to this person will
 no longer be able to query information about this person.
 * Thus, we either:  
