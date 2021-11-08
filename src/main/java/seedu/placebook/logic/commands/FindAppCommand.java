@@ -13,6 +13,8 @@ import seedu.placebook.ui.Ui;
  */
 public class FindAppCommand extends Command {
 
+    // adapted from AB-3
+
     public static final String COMMAND_WORD = "findApp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
