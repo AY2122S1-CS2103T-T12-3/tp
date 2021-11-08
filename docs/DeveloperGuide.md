@@ -371,6 +371,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user with many persons in the contacts     | sort persons by name           | locate a person easily                                                 |
 | `* *`   | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
 | `* *`   | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
+| `* *`   | user		                                | sort appointments by Description | locate an appointment easily                                         |
+| `* *`   | user		                                | find an appointment by name | locate details of an appointment without having to go through the list    |
 
 *{More to be added}*
 
