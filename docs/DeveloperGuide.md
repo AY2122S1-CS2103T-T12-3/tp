@@ -60,6 +60,9 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
+
+<div style="page-break-after: always;"></div>
+
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
@@ -138,6 +141,8 @@ The `Model` component,
 * stores the schedule data i.e., all `Appointment` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `Contatcs`, which `Person` references. This allows `Contacts` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
@@ -156,8 +161,6 @@ The `Storage` component,
 * can save contacts data, schedule data and user preference data in json format, and read them back into corresponding objects.
 * inherits from both `ContactsStorage`, `ScheduleStorage` and `UserPrefStorage`, which means it can be treated as any (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
-
-<div style="page-break-after: always;"></div>
 
 ### Common classes
 
