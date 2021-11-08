@@ -403,9 +403,6 @@ If the schedule.json file is missing but the contacts.json file is correctly rea
 In all other cases (i.e. both files missing, or only contacts.json missing), both Sample contacts and Sample schedule will be created.
 </div>
 
-#### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 

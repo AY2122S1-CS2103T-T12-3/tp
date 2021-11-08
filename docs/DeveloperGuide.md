@@ -116,7 +116,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-T12-3/tp/blob/master/src/main/java/seedu/placebook/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="600" />
 
 
 The `Model` component,
@@ -128,7 +128,7 @@ The `Model` component,
 * stores the schedule data i.e., all `Appointment` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `COntatcs`, which `Person` references. This allows `Contacts` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `Contatcs`, which `Person` references. This allows `Contacts` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -346,12 +346,6 @@ like the path to the stylesheet and the button image is stored. When the theme c
 in the `themeManager`, which will remove the previous stylesheet from the `MainWindow` and add the new stylesheet.
 
 Moreover, other windows such as the `deleteConfirmationWindow`, can also get the current stylesheet by `getCurrentStylesheet` method
-
-
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
