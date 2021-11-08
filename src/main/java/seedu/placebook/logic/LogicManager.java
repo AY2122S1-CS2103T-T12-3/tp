@@ -10,7 +10,7 @@ import seedu.placebook.commons.core.LogsCenter;
 import seedu.placebook.logic.commands.Command;
 import seedu.placebook.logic.commands.CommandResult;
 import seedu.placebook.logic.commands.exceptions.CommandException;
-import seedu.placebook.logic.parser.PlacebookParser;
+import seedu.placebook.logic.parser.PlaceBookParser;
 import seedu.placebook.logic.parser.exceptions.ParseException;
 import seedu.placebook.model.Model;
 import seedu.placebook.model.ReadOnlyContacts;
@@ -29,7 +29,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private Ui ui;
-    private final PlacebookParser placebookParser;
+    private final PlaceBookParser placeBookParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -37,7 +37,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        placebookParser = new PlacebookParser();
+        placeBookParser = new PlaceBookParser();
     }
 
     /**
@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
         }
 
         CommandResult commandResult;
-        Command command = placebookParser.parseCommand(commandText);
+        Command command = placeBookParser.parseCommand(commandText);
         commandResult = command.execute(model, ui);
 
         try {
