@@ -9,7 +9,6 @@ import seedu.placebook.commons.util.StringUtil;
  * Tests that a {@code Appointment}'s {@code Description} matches any of the keywords given.
  */
 public class DescriptionContainsKeywordsPredicate implements Predicate<Appointment> {
-
     //@@author
     // adapted from AB-3
 

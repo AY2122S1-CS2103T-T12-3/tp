@@ -12,7 +12,6 @@ import seedu.placebook.model.schedule.DescriptionContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindAppCommand object
  */
 public class FindAppCommandParser implements Parser<FindAppCommand> {
-    
     //@@author
     // adapted from AB-3
 
