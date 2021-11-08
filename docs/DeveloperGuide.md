@@ -380,15 +380,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
+| `* * *`  | user                                       | add a new person               | have that person reflected in my contacts list                         |
 | `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
 | `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* * *`  | marketeer                                  | add appointments with clients  |                                                                        |
+| `* *  `  | user                                       | find a person by tags          | locate details of persons with relevant tags                           |
+| `* * *`  | marketeer                                  | add appointments with clients  | have that appointment reflected in my schedule                         |
 | `* * *`  | marketeer                                  | delete appointments            | remove cancelled/finished appointments                                 |
+| `* *  `  | marketeer                                  | edit existing appointments     | edit appointments in the event of changing details                     |
 | `* * *`  | new user                                   | view some example contacts     | have an idea of what contact info will look like                       |
 | `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-| `* *`   | marketeer		                            | list appointments with clients  | view and plan my week and meet clients in a timely manner             |
-| `* *`   | user		                                | view my list of contacts	      | see who is already inside and contact clients that are forgotten      |
+| `* *`   | marketeer		                            | list appointments with clients | view and plan my week and meet clients in a timely manner              |
+| `* *`   | user		                                | view my list of contacts	     | see who is already inside and contact clients that are forgotten       |
 
 *{More to be added}*
 

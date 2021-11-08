@@ -27,7 +27,7 @@ import seedu.placebook.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class PlacebookParser {
+public class PlaceBookParser {
 
     /**
      * Used for initial separation of command word and args.

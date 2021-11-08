@@ -29,9 +29,9 @@ import seedu.placebook.testutil.EditPersonDescriptorBuilder;
 import seedu.placebook.testutil.PersonBuilder;
 import seedu.placebook.testutil.PersonUtil;
 
-public class PlacebookParserTest {
+public class PlaceBookParserTest {
 
-    private final PlacebookParser parser = new PlacebookParser();
+    private final PlaceBookParser parser = new PlaceBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
