@@ -17,5 +17,5 @@ public class Messages {
     public static final String MESSAGE_APPOINTMENTS_CLASHING_APPOINTMENT_ADDED =
             "Clashing Appointment not allowed. Clash at:\n";
     public static final String MESSAGE_APPOINTMENTS_END_TIME_BEFORE_START_TIME =
-            "End time should be after start time";
+            "End time must be after Start time!";
 }

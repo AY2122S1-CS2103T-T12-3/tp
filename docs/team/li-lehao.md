@@ -9,6 +9,8 @@ PlaceBook (PB) is a desktop app for managing contacts and appointments designed 
 optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PB can get your contact management tasks done faster than traditional GUI apps.
 
+### Summary of Contributions
+
 Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to undo previous commands.
@@ -17,8 +19,9 @@ Given below are my contributions to the project.
   * Justification: This feature improves the user experience significantly because the user 
     can make mistakes in commands, such as deleting a contact accidentally, 
     and the app should provide a convenient way to rectify them. 
-  * Highlights: This enhancement affects almost all existing commands and commands to be added in future. 
-    It required an in-depth analysis of design alternatives. 
+  * Highlights: This enhancement affects almost all existing commands and commands to be added in future, 
+    and it is also related to almost all components of model.
+    Therefore, it required an in-depth analysis of design alternatives. 
     The implementation too was challenging as it required changes to existing commands.
 
 * **New Feature**: Added the `listApp` command.
@@ -49,7 +52,8 @@ Given below are my contributions to the project.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)
 * **Project management**:
-    * Record some important contents of the weekly team meeting.
+    * Recorded some important contents of the weekly team meeting.
+    * Created some issues to represent tasks.
 
 * **Enhancements to existing features**:
     * Updated the `Appointment` and `Schedule` class, allowing them to detact and remove the appointment
@@ -59,12 +63,15 @@ Given below are my contributions to the project.
 * **Documentation**:
     * User Guide:
         * Added screenshots to better display the product interface and better guide the users how to operate. [#136](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/136)
-        * Edited the `addApp` example to better show users how to use this command
+        * Edited the `addApp` example to better show users how to use this command. [#136](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/136)
     * Developer Guide:
         * Added implementation details of the `TimePeriod` feature. [#193](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/193)
-        * Added implementation details of the `undo` feature.
+        * Added implementation details of the `undo` feature. [#221](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/221)
 
 * **Community**:
-    * Reviewed PRs
+    * Reviewed PRs 
+      [#217](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/217)
+      [#140](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/140)
+      [#126](https://github.com/AY2122S1-CS2103T-T12-3/tp/pull/126)
     * Reported bugs and suggestions for other teams in the class 
       (examples: [Reported bugs in group W11-3's team project during mock PE](https://github.com/Li-Lehao/ped/issues?q=is:issue+is:open))

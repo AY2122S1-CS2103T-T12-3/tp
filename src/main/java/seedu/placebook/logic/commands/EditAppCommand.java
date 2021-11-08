@@ -43,8 +43,6 @@ public class EditAppCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_CLASHING_TIMINGS = "This appointment clashes with another appointment!";
-    public static final String MESSAGE_END_BEFORE_START = "End time must be after Start time!";
 
     private final Index index;
     private final EditAppCommand.EditAppDescriptor editAppDescriptor;
@@ -76,7 +74,7 @@ public class EditAppCommand extends Command {
         try {
             TimePeriod testTimePeriod = new TimePeriod(editedAppointment.getStart(), editedAppointment.getEnd());
         } catch (EndTimeBeforeStartTimeException e) {
-            throw new CommandException(MESSAGE_END_BEFORE_START);
+            throw new CommandException(Messages.MESSAGE_APPOINTMENTS_END_TIME_BEFORE_START_TIME);
         }
 
         List<Appointment> clashingAppointmentsList = model.getClashingAppointments(editedAppointment);
@@ -90,7 +88,7 @@ public class EditAppCommand extends Command {
                 clashingAppointmentsString.append(app + "\n");
             }
 
-            throw new CommandException(MESSAGE_CLASHING_TIMINGS
+            throw new CommandException(Messages.MESSAGE_APPOINTMENTS_CLASHING_APPOINTMENT_ADDED
                     + '\n' + clashingAppointmentsString);
 
         }
@@ -119,7 +117,7 @@ public class EditAppCommand extends Command {
         try {
             new TimePeriod(updatedStart, updatedEnd);
         } catch (EndTimeBeforeStartTimeException e) {
-            throw new CommandException(MESSAGE_END_BEFORE_START);
+            throw new CommandException(Messages.MESSAGE_APPOINTMENTS_END_TIME_BEFORE_START_TIME);
         }
 
         TimePeriod updatedTimePeriod = new TimePeriod(updatedStart, updatedEnd);
@@ -150,7 +148,6 @@ public class EditAppCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditAppDescriptor {
-        private UniquePersonList clients;
         private Address location;
         private LocalDateTime start;
         private LocalDateTime end;
@@ -163,7 +160,6 @@ public class EditAppCommand extends Command {
          */
         public EditAppDescriptor(EditAppCommand.EditAppDescriptor toCopy) {
 
-            setClients(toCopy.clients);
             setLocation(toCopy.location);
             setStart(toCopy.start);
             setEnd(toCopy.end);
@@ -177,14 +173,6 @@ public class EditAppCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil
                     .isAnyNonNull(location, start, end, description);
-        }
-
-        public void setClients(UniquePersonList clients) {
-            this.clients = clients;
-        }
-
-        public UniquePersonList getClients() {
-            return clients;
         }
 
         public void setLocation(Address location) {
@@ -235,8 +223,7 @@ public class EditAppCommand extends Command {
             // state check
             EditAppCommand.EditAppDescriptor e = (EditAppCommand.EditAppDescriptor) other;
 
-            return getClients().equals(e.getClients())
-                    && getLocation().equals(e.getLocation())
+            return getLocation().equals(e.getLocation())
                     && getStart().equals(e.getStart())
                     && getEnd().equals(e.getEnd())
                     && getDescription().equals(e.getDescription());
