@@ -316,7 +316,38 @@ Upon finding such `Appointment` objects, PlaceBook will add the missing `Person`
 * **Alternative 2** Delete appointments with missing persons
     * Pros: This will ensure that the persons the user deleted from the JSON will remain deleted.
     * Cons: The user might not have noticed that those appointments have been deleted.
-    
+
+### Command History Navigation feature
+
+The Command History Navigation feature allows the users to navigate through the previous or next input command. This is useful
+for repetitive tasks such as adding or deleting multiple appointments/clients.
+
+#### Implementation
+
+Successful user inputs are saved into the `CommandHistory` class, which keeps a List of `String` and a pointer. 
+When the user presses `UP/DOWN` keys in the command box, the Keyboard event is triggered, which will call the 
+`:commandHistory::getLastInput` and `:commandHistory::getNextInput` respectively. Then it will set the commandBox to the 
+correct user input.
+
+The implementation of `getLastInput` is such that when the user reaches the first input, and press `UP`, it will still show the first input.
+The implementation of `getNextInput` is such that when the user reaches the last input, and press `DOWN`, it will show empty string `""`.
+
+### Theme Change feature
+
+The Theme Change feature allows users to change the theme of the GUI from light to dark. 
+
+#### Implementation
+
+Stores the style information in separate `.css` files, such as `darkTheme.css` and `lightTheme.css`.
+Specifically, The use of global variables in the newly added `lightTheme.css`, improves maintainability and consistency of the style.
+
+The App is loaded with a default theme, in `v1.4`, the lightTheme. Then the `UiManager` keeps a `ThemeManager` object, in which the theme information
+like the path to the stylesheet and the button image is stored. When the theme change button is pressed, the click event will call the `changeTheme` method 
+in the `themeManager`, which will remove the previous stylesheet from the `MainWindow` and add the new stylesheet.
+
+Moreover, other windows such as the `deleteConfirmationWindow`, can also get the current stylesheet by `getCurrentStylesheet` method
+
+
 
 ### \[Proposed\] Data archiving
 
