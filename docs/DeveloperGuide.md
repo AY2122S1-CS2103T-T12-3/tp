@@ -183,7 +183,7 @@ we create a new `State` instance to record the status of PlaceBook after executi
 This `State` instance is like a snapshot of the PlaceBook at a certain moment.
 
 In order to manage the different states, we have a `HistoryStates` class which has a data structure inside to store all the `State`. Stack and linked list are
-ususlly used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
+usually used to store the history states. In PlaceBook, we use a linked list in `HistoryStates`.
 After the execution of a normal command, a new `State` instance is created, and then we add this new `State` to the end of the linked list in `HistoryStates`.
 When an `undo` command is encountered, we simply remove the last node of the linked list, so the current state pointer points to the previous node.
 When there are no more nodes in the linked list except the initial state, the `undo` command cannot be executed and the `HistoryStates` will thrown a `NoHistoryStates` exception.
@@ -374,7 +374,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`   | user		                                | sort appointments by Description | locate an appointment easily                                         |
 | `* *`   | user		                                | find an appointment by name | locate details of an appointment without having to go through the list    |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -642,18 +641,16 @@ Use case ends.
     * PB displays an empty list.
 
       Use case ends.
-		
-*{More to be added}*
+    
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 persons and appointments without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  The system is not required to handle sending emails to contacts.
 5.  Users can see previously written commands in the same session.
 
-*{More to be added}*
 
 ### Glossary
 
