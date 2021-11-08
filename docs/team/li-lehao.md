@@ -50,7 +50,7 @@ Given below are my contributions to the project.
     These tools allow people to quickly create many meaningful appointment instances,
     avoiding the confusion and duplication of creating different instances everywhere.
 
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=Li-Lehao&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17)
 * **Project management**:
     * Recorded some important contents of the weekly team meeting.
     * Created some issues to represent tasks.
