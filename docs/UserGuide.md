@@ -326,6 +326,12 @@ Error messages:
 * No history states.
     * It means there are no more commands to undo, and you are at the initial state.
 
+Before:
+![result for `undo` before change](images/undoBefore.png)
+
+After
+![result for `undo` after change](images/undoAfter.png)
+
 ### **Other Features**
 
 #### Clearing all entries : `clear`
