@@ -218,12 +218,9 @@ appropriate client or clients retrieved from the list of persons according to th
 A new Appointment will then be created and added to the `ModelManager`. It is at this stage the input will
 be checked to ensure that there are no duplicates or clashes with other appointments.
 
-##INSERT UML HERE
 
 Step 4. After execution, the CommandResult is passed upwards to the UI so that it can return a status message
 and update the display to match the updated model
-
-##@Yanyu im not 100% sure how the UI interacts with the overall model, if you see any issues could you help me correct them?
 
 The following sequence diagram shows how the addAppCommand operation works:
 
