@@ -314,6 +314,14 @@ to sort List by, if an invalid condition is input, it will sort by baseline cond
 
 Format: `listApp` Optional: `listApp Time` or `listApp Description`
 
+### **Other Features**
+
+#### Clearing all entries : `clear`
+
+Clears all contacts and appointments from PlaceBook.
+
+Format: `clear`
+
 #### Undo the previous command : `undo`
 
 If you execute a command by mistake, such as accidentally deleting a person or an appointment,
@@ -329,16 +337,8 @@ Error messages:
 Before:
 ![result for `undo` before change](images/undoBefore.png)
 
-After
+After:
 ![result for `undo` after change](images/undoAfter.png)
-
-### **Other Features**
-
-#### Clearing all entries : `clear`
-
-Clears all contacts and appointments from PlaceBook.
-
-Format: `clear`
 
 #### Command history navigation
 
