@@ -73,7 +73,7 @@ Parameter | Data format
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
+* If a parameter is expected only once in the command, but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
@@ -130,7 +130,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
@@ -156,7 +156,7 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -174,7 +174,7 @@ Finds persons whose tags contain any of the given keywords.
 
 Format: `findTags KEYWORD [MORE_KEYWORDS]…​`
 
-* The search is case-insensitive. e.g `fRieNds` will match `friends`
+* The search is case-insensitive. e.g. `fRieNds` will match `friends`
 * Only the tags are searched.
 * Only full words will be matched e.g. `colleague` will not match `colleagues`
 * Persons matching at least one tag keyword will be returned (i.e. `OR` search).
@@ -297,7 +297,7 @@ Finds appointments whose descriptions contain any of the given keywords.
 
 Format: `findApp KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `meeting` will match `Meeting`
+* The search is case-insensitive. e.g. `meeting` will match `Meeting`
 * The order of the keywords does not matter. e.g. `Meeting online` will match `online meeting`
 * Only the description is searched.
 * Only full words will be matched e.g. `meet` will not match `meeting`

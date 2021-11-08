@@ -66,7 +66,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -107,7 +107,7 @@ How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `PlacebookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -143,7 +143,7 @@ The `Model` component,
 
 <div style="page-break-after: always;"></div>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `Contatcs`, which `Person` references. This allows `Contacts` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `Contacts`, which `Person` references. This allows `Contacts` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -221,7 +221,7 @@ generated from the inputs entered by the user using the `AddAppCommand`
 
 Given below is an example usage scenario and how the addApp mechanism behaves at each step.
 
-Step 1. The user launches the application. Placebook will be initialized with a `LogicManager`, a `StorageManage`, a `UiManager`
+Step 1. The user launches the application. PlaceBook will be initialized with a `LogicManager`, a `StorageManage`, a `UiManager`
 and a `ModelManager`. `StorageManager` contains an `ContactsStorage` an a `ScheduleStorage` which manages
 the specific saved data. `StorageManager` will attempt to read data from a saved json file and loads the 
 data into `ModelManager` when the class is initialized
@@ -290,7 +290,7 @@ no longer be able to query information about this person.
     showing information about the person in the related appointment.
     2. remove the person from related appointments and delete the appointment if it has no more related client
 * We chose the second one, and gives a warning message to user when they try to delete. As we think that, it makes 
-little sense in this case to keep the person related to appointments show up event after they deletes the person. Moreover,
+little sense in this case to keep the person related to appointments show up event after they delete the person. Moreover,
   it makes the code harder to maintain, as we will need to consider whether the person is mark as deleted for every other 
   query.
   
@@ -503,7 +503,7 @@ Use case ends.
 
 1. User <ins>requests to list persons(UC02).<ins/>
 2. User requests to delete a specific person in the list.
-3. PB displays a pop up window with asking for user confirmation to delete.
+3. PB displays a pop-up window with asking for user confirmation to delete.
 4. User confirms they want to delete.
 5. PB deletes the person.
 6. PB displays success message and shows updated list of persons.
@@ -560,7 +560,7 @@ Use case ends.
 
 **MSS**
 
-1. User enters add appointment command specifying the index or indexes of persons, address, start and end datetimes and description of the appointment.
+1. User enters add appointment command specifying the index or indexes of persons, address, start and end DateTimes and description of the appointment.
 2. PB adds the appointment.
 3. PB displays success message and shows the updated list of appointments.
 
@@ -639,7 +639,7 @@ Use case ends.
 
 1. User <ins>requests to list appointments (UC08)<ins/>.
 2. User enters delete appointment command indicating the index of the appointment to be deleted.
-3. PB displays a pop up window with asking for user confirmation to delete.
+3. PB displays a pop-up window with asking for user confirmation to delete.
 4. User confirms they want to delete.
 5. PB deletes the appointment and displays a successful message. 
 
@@ -704,7 +704,7 @@ Use case ends.
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 persons and appointments without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  The system is not required to handle sending emails to contacts.
+4.  The system is not required to handle sending contacts emails.
 5.  Users can see previously written commands in the same session.
 
 
